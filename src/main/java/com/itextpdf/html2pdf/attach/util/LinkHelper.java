@@ -32,10 +32,13 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfArray;
 import com.itextpdf.kernel.pdf.PdfDictionary;
+import com.itextpdf.kernel.pdf.PdfVersion;
 import com.itextpdf.kernel.pdf.action.PdfAction;
 import com.itextpdf.kernel.pdf.annot.PdfAnnotation;
 import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
+import com.itextpdf.kernel.pdf.tagging.PdfNamespace;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
+import com.itextpdf.kernel.pdf.tagutils.AccessibilityProperties;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.properties.Property;
@@ -100,11 +103,17 @@ public class LinkHelper {
 
             }
 
-
             linkAnnotation.setBorder(new PdfArray(new float[]{0, 0, 0}));
             container.setProperty(Property.LINK_ANNOTATION, linkAnnotation);
-            if (container instanceof ILeafElement && container instanceof IAccessibleElement) {
-                ((IAccessibleElement) container).getAccessibilityProperties().setRole(StandardRoles.LINK);
+            if (container instanceof IAccessibleElement) {
+                AccessibilityProperties accessibilityProperties =
+                        ((IAccessibleElement) container).getAccessibilityProperties();
+                String role = linkAnnotation.getRoleBasedOnDestination(context.getPdfDocument());
+                if (StandardRoles.REFERENCE.equals(role) && context.getPdfDocument() != null &&
+                        PdfVersion.PDF_2_0.compareTo(context.getPdfDocument().getPdfVersion()) <= 0) {
+                    accessibilityProperties.setNamespace(PdfNamespace.getDefault(context.getPdfDocument()));
+                }
+                accessibilityProperties.setRole(role);
             }
         }
     }

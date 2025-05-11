@@ -25,14 +25,13 @@ package com.itextpdf.html2pdf.attach.impl.tags;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.RunningElement;
 import com.itextpdf.html2pdf.attach.util.LinkHelper;
-import com.itextpdf.kernel.pdf.tagging.StandardRoles;
+import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.properties.FloatPropertyValue;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.Transform;
-import com.itextpdf.html2pdf.html.AttributeConstants;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.resolver.resource.UriResolver;
 
@@ -82,7 +81,6 @@ public class ATagWorker extends SpanTagWorker {
                 }
                 if (getAllElements().get(i) instanceof IBlockElement) {
                     Div simulatedDiv = new Div();
-                    simulatedDiv.getAccessibilityProperties().setRole(StandardRoles.LINK);
                     Transform cssTransform = getAllElements().get(i).<Transform>getProperty(Property.TRANSFORM);
                     if (cssTransform != null) {
                         getAllElements().get(i).deleteOwnProperty(Property.TRANSFORM);
