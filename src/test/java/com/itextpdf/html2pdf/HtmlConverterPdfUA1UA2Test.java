@@ -261,7 +261,7 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
 
     @ParameterizedTest
     @MethodSource("conformanceLevels")
-    // TODO DEVSIX-8883 content is not tagged as real content or tagged as artifact after conversion
+    // TODO DDEVSIX-9036 current VeraPdf version behaves incorrectly.
     public void svgBase64Test(PdfUAConformance conformance) throws IOException, InterruptedException {
         String sourceHtml = SOURCE_FOLDER + "svgBase64.html";
 
@@ -280,7 +280,7 @@ public class HtmlConverterPdfUA1UA2Test extends ExtendedITextTest {
 
     @ParameterizedTest
     @MethodSource("conformanceLevels")
-    // TODO DEVSIX-8883 content is not tagged as real content or tagged as artifact after conversion
+    // TODO DDEVSIX-9036 current VeraPdf version behaves incorrectly.
     public void pngInDivStyleTest(PdfUAConformance conformance) throws IOException, InterruptedException {
         // Investigate why VeraPdf doesn't complain about the missing tag.
         String sourceHtml = SOURCE_FOLDER + "pngInDivStyle.html";
