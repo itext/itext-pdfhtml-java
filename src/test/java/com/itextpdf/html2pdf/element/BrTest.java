@@ -96,7 +96,6 @@ public class BrTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO: DEVSIX-8698 creates an empty tag for the br tag
     public void taggedBrTest() throws IOException, InterruptedException {
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "taggedBr.pdf"));
         pdfDocument.setTagged();
