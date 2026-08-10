@@ -4,36 +4,40 @@
 <meta charset="UTF-8">
 <title>vertical-lr + img + inline-block</title>
 <style>
+@font-face {
+    font-family: 'NotoSans';
+    src: url('../../fonts/NotoSansCJKsc-Light.otf');
+}
 h1 {
-    font-size: 16px;
+font-size: 16px;
 }
 
 body {
-    font-family: sans-serif;
-    padding: 20px;
+font-family: NotoSans;
+padding: 20px;
 }
 
 .vtext {
-    writing-mode: vertical-lr;
-    text-orientation: upright;
-    border: 1px solid #999;
-    padding: 10px;
-    margin: 0;
-    height: 260px;
+writing-mode: vertical-lr;
+text-orientation: upright;
+border: 1px solid #999;
+padding: 10px;
+margin: 0;
+height: 260px;
 }
 
 img.inline-img {
-    width: 24px;
-    height: 24px;
-    vertical-align: middle;
+width: 24px;
+height: 24px;
+vertical-align: middle;
 }
 
 span.inline-box {
-    display: inline-block;
-    width: 20px;
-    height: 40px;
-    background: #999;
-    vertical-align: middle;
+display: inline-block;
+width: 20px;
+height: 40px;
+background: #999;
+vertical-align: middle;
 }
 </style>
 </head>

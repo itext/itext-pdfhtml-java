@@ -24,8 +24,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
-import com.itextpdf.test.LogLevelConstants;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,6 +45,9 @@ public class VerticalTextCjkFontsTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count = 3)
+    })
     public void cjkFontMetricsComparisonTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("cjkFontMetricsComparison", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

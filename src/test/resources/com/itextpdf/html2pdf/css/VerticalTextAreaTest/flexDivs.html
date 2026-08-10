@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    @font-face {
+        font-family: 'NotoSans';
+        src: url('../../fonts/NotoSansCJKsc-Light.otf');
+    }
+.row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+div {
+    border: 1px solid #999;
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #333;
+    padding: 10px;
+    margin: 0;
+    height: 200px;
+    font-size: 20px;
+}
+
+.item {
+    border: 1px solid #393;
+
+}
+  </style>
+</head>
+<body>
+    <div class="row vtext">
+        <div class="item "> test element 1 </div>
+        <div class="item"> test element 2 </div>
+    </div>
+</body>
+</html>

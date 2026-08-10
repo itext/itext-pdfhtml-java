@@ -4,43 +4,63 @@
 <meta charset="UTF-8">
 <title>vertical-lr + mixed fonts + font-sizes</title>
 <style>
-h1 {
-    font-size: 16px;
-}
+    @font-face {
+        font-family: 'NotoSans';
+        src: url('../../fonts/NotoSansCJKsc-Light.otf');
+    }
 
-body {
-    font-family: sans-serif;
-    padding: 20px;
-}
+    @font-face {
+        font-family: 'SpaceMono';
+        src: url('../../fonts/SpaceMono-Regular.ttf');
+    }
 
-.vtext {
-    writing-mode: vertical-lr;
-    text-orientation: upright;
-    border: 1px solid #999;
-    padding: 10px;
-    margin: 0;
-    height: 280px;
-}
+    @font-face {
+        font-family: 'RobotoSerif';
+        src: url('../../fonts/RobotoSerif-Regular.ttf');
+    }
 
-.serif-large {
-    font-family: serif;
-    font-size: 26px;
-}
+    @font-face {
+        font-family: 'StyleScript';
+        src: url('../../fonts/StyleScript-Regular.otf');
+    }
 
-.mono-small {
-    font-family: monospace;
-    font-size: 12px;
-}
+    h1 {
+        font-size: 16px;
+    }
 
-.sans-medium {
-    font-family: sans-serif;
-    font-size: 18px;
-}
+    body {
+        font-family: NotoSans;
+        padding: 20px;
+    }
 
-.cursive-large {
-    font-family: cursive;
-    font-size: 22px;
-}
+    .vtext {
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+        border: 1px solid #999;
+        padding: 10px;
+        margin: 0;
+        height: 290px;
+    }
+
+    .serif-large {
+        font-family: RobotoSerif;
+        font-size: 26px;
+    }
+
+    .mono-small {
+        font-family: SpaceMono;
+        font-size: 12px;
+    }
+
+    .sans-medium {
+        font-family: NotoSans;
+        font-size: 18px;
+    }
+
+    .cursive-large {
+        font-family: StyleScript;
+        font-size: 22px;
+    }
 </style>
 </head>
 <body>

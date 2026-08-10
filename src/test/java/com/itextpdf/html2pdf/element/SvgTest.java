@@ -516,6 +516,11 @@ public class SvgTest extends ExtendedITextTest {
     public void relativeSvgDifferentGrandparentTest() throws IOException, InterruptedException {
         convertAndCompare("relativeSvgDifferentGrandparent");
     }
+    @Test
+    //TODO DEVSIX-10188 Support URL-escaped colours for svg images.
+    public void inlineColorTest() throws IOException, InterruptedException {
+        convertAndCompare("inlineColor");
+    }
 
     private static void convertAndCompare(String name)
             throws IOException, InterruptedException {

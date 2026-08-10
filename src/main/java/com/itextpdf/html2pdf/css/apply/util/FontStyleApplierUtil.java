@@ -37,9 +37,11 @@ import com.itextpdf.layout.properties.LineHeight;
 import com.itextpdf.layout.properties.OverflowWrapPropertyValue;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.VerticalTextOrientation;
 import com.itextpdf.layout.properties.TransparentColor;
 import com.itextpdf.layout.properties.Underline;
 import com.itextpdf.layout.properties.UnitValue;
+import com.itextpdf.layout.properties.WritingMode;
 import com.itextpdf.layout.splitting.DefaultSplitCharacters;
 import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
@@ -224,6 +226,27 @@ public final class FontStyleApplierUtil {
                 } else {
                     // browsers ignore values in percents
                 }
+            }
+        }
+
+        String writingMode = cssProps.get(CssConstants.WRITING_MODE);
+        if (writingMode != null) {
+            switch (writingMode) {
+                case CommonCssConstants.HORIZONTAL_TB:
+                    element.setProperty(Property.WRITING_MODE, WritingMode.HORIZONTAL_TB);
+                    break;
+                case CommonCssConstants.VERTICAL_LR:
+                    element.setProperty(Property.WRITING_MODE, WritingMode.VERTICAL_LR);
+                    break;
+            }
+        }
+
+        String textOrientation = cssProps.get(CssConstants.TEXT_ORIENTATION);
+        if (textOrientation != null) {
+            switch (textOrientation) {
+                case CommonCssConstants.UPRIGHT:
+                    element.setProperty(Property.TEXT_ORIENTATION, VerticalTextOrientation.UPRIGHT);
+                    break;
             }
         }
 

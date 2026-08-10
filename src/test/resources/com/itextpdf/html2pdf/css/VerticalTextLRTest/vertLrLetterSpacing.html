@@ -4,12 +4,17 @@
 <meta charset="UTF-8">
 <title>vertical-lr + letter-spacing</title>
 <style>
+@font-face {
+    font-family: 'NotoSans';
+    src: url('../../fonts/NotoSansCJKsc-Light.otf');
+}
+
 h1 {
     font-size: 16px;
 }
 
 body {
-    font-family: sans-serif;
+    font-family: NotoSans;
     padding: 20px;
 }
 
@@ -47,10 +52,10 @@ body {
 <body>
 <h1>vertical-lr + letter-spacing</h1>
 <div class="row">
-<p class="vtext ls-0">letter-spacing 0px ABCDEFGHIJK</p>
-<p class="vtext ls-5">letter-spacing 5px ABCDEFGHIJK</p>
-<p class="vtext ls-15">letter-spacing 15px ABCDEFGHIJK</p>
-<p class="vtext ls-neg">letter-spacing -7px ABCDEFGHIJK</p>
+<div class="vtext ls-0">letter-spacing 0px ABCDEFGHIJK</div>
+<div class="vtext ls-5">letter-spacing 5px ABCDEFGHIJK</div>
+<div class="vtext ls-15">letter-spacing 15px ABCDEFGHIJK</div>
+<div class="vtext ls-neg">letter-spacing -7px ABCDEFGHIJK</div>
 </div>
 </body>
 </html>
