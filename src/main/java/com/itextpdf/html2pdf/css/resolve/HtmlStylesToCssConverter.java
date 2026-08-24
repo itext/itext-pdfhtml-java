@@ -77,7 +77,7 @@ class HtmlStylesToCssConverter {
      * @param element the element
      * @return the resulting list of {@link CssDeclaration} instances.
      */
-    public static List<CssDeclaration> convert(IElementNode element) {
+    static List<CssDeclaration> convert(IElementNode element) {
         ArrayList<CssDeclaration> convertedHtmlStyles = new ArrayList<>();
         if (element.getAdditionalHtmlStyles() != null) {
             HashMap<String, String> additionalStyles = new HashMap<>();

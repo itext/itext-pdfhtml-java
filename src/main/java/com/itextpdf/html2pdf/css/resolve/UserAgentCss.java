@@ -62,7 +62,7 @@ class UserAgentCss {
      * @param node the node
      * @return a list of {@link CssDeclaration} values
      */
-    public static List<CssDeclaration> getStyles(INode node) {
+    static List<CssDeclaration> getStyles(INode node) {
         return defaultCss.getCssDeclarations(node, MediaDeviceDescription.createDefault());
     }
 }

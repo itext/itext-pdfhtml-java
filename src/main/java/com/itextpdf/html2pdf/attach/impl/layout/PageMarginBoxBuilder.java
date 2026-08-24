@@ -46,11 +46,11 @@ import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.INode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import com.itextpdf.styledxmlparser.node.ITextNode;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.LoggerFactory;
 
 // implementation of algorithm specified in https://drafts.csswg.org/css-page-3/#margin-dimension
 class PageMarginBoxBuilder {
@@ -64,7 +64,7 @@ class PageMarginBoxBuilder {
 
     private static final float EPSILON = 0.00001f;
 
-    public PageMarginBoxBuilder(List<PageMarginBoxContextNode> resolvedPageMarginBoxes, float[] margins, PageSize pageSize) {
+    PageMarginBoxBuilder(List<PageMarginBoxContextNode> resolvedPageMarginBoxes, float[] margins, PageSize pageSize) {
         this.resolvedPageMarginBoxes = resolvedPageMarginBoxes;
         this.margins = margins;
         this.pageSize = pageSize;
@@ -82,7 +82,7 @@ class PageMarginBoxBuilder {
         }
     }
 
-    public void buildForSinglePage(int pageNumber, PdfDocument pdfDocument, DocumentRenderer documentRenderer, ProcessorContext context) {
+    void buildForSinglePage(int pageNumber, PdfDocument pdfDocument, DocumentRenderer documentRenderer, ProcessorContext context) {
         if (resolvedPageMarginBoxes.isEmpty()) {
             return;
         }
@@ -102,11 +102,11 @@ class PageMarginBoxBuilder {
         getPMBRenderers(elements, documentRenderer, pdfDocument);
     }
 
-    public IRenderer[] getRenderers() {
+    IRenderer[] getRenderers() {
         return renderers;
     }
 
-    public PageMarginBoxContextNode[] getNodes() {
+    PageMarginBoxContextNode[] getNodes() {
         return nodes;
     }
 

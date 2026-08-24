@@ -91,7 +91,7 @@ class PageContextProperties {
      * @param pageClasses the page classes
      * @return the {@link PageContextProperties} for a specific node
      */
-    public static PageContextProperties resolve(INode rootNode, ICssResolver cssResolver, CssContext context, String... pageClasses) {
+    static PageContextProperties resolve(INode rootNode, ICssResolver cssResolver, CssContext context, String... pageClasses) {
         PageContextNode pageProps = getResolvedPageClassNode(rootNode, cssResolver, context, pageClasses);
         List<PageMarginBoxContextNode> pagesMarginBoxes = getResolvedMarginBoxes(pageProps, cssResolver, context);
         return new PageContextProperties(pageProps, pagesMarginBoxes);
