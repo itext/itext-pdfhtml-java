@@ -60,7 +60,10 @@ public class TextAreaTagWorker implements ITagWorker, IDisplayAware {
      * @param context the context
      */
     public TextAreaTagWorker(IElementNode element, ProcessorContext context) {
-        String name = element.getAttribute(AttributeConstants.ID);
+        String name = element.getAttribute(AttributeConstants.ID); // used for back-compability
+        if (name == null) {
+            name = context.getFormFieldNameResolver().resolveFormName(element.getAttribute(AttributeConstants.NAME));
+        }
         if (name == null) {
             name = DEFAULT_TEXTAREA_NAME;
         }
