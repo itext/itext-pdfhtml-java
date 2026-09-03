@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>flex items with flex-shrink competing for space narrower than their combined content</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    gap: 10px;
+    width: 220px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    flex-shrink: 1;
+    flex-basis: 150px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>flex items with flex-shrink competing for space narrower than their combined content</h1>
+<div class="flexrow">
+<p class="vtext">first vertical column of content competing for room</p>
+<p class="vtext">second vertical column of content also competing for room</p>
+</div>
+</body>
+</html>

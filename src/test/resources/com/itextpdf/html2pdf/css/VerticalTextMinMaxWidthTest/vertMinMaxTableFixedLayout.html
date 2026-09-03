@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>table-layout fixed forces vertical-lr cell into a set column width</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 300px;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+td.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>table-layout fixed forces vertical-lr cell into a set column width</h1>
+<table>
+<tr>
+<th style="width: 60px;">short</th>
+<th style="width: 140px;">medium header</th>
+<th style="width: 100px;">vertical</th>
+</tr>
+<tr>
+<td>a</td>
+<td>medium length horizontal content</td>
+<td class="vtext">a long stretch </br> of vertical text </br> content squeezed </br> into a fixed column </br> that should take up </br> a lot of </br> space.</td>
+</tr>
+</table>
+</body>
+</html>

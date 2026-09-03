@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>min-width set to an absurdly large value on a vertical-lr flex item</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    width: 200px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 180px;
+    min-width: 999999px;
+    flex: 1 1 auto;
+}
+</style>
+</head>
+<body>
+<h1>min-width 999999px, an absurdly large value, on a vertical-lr flex item inside a 200px container</h1>
+<div class="flexrow">
+<p class="vtext">vertical text content whose declared minimum width is far larger than any realistic layout could accommodate</p>
+</div>
+</body>
+</html>

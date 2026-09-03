@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>flex-grow capped by max-width on a vertical-lr item</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    gap: 10px;
+    width: 500px;
+}
+
+.side {
+    background: #eee;
+    padding: 8px;
+    flex: 0 0 auto;
+    font-size: 13px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    flex-grow: 1;
+    max-width: 120px;
+}
+</style>
+</head>
+<body>
+<h1>flex-grow capped by max-width on a vertical-lr item</h1>
+<div class="flexrow">
+<div class="side">left</div>
+<p class="vtext">short vertical content that could grow to fill the row but is capped</p>
+<div class="side">right</div>
+</div>
+</body>
+</html>

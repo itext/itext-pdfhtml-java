@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>min-block-size and max-block-size, logical properties, applied to a vertical-lr flex item</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    width: 300px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    min-block-size: 100px;
+    max-block-size: 180px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>min-block-size and max-block-size, logical properties that map to physical width in vertical-lr, applied to a flex item</h1>
+<div class="flexrow">
+<p class="vtext">vertical text content constrained by logical block-size bounds rather than physical width, as a flex item</p>
+</div>
+</body>
+</html>

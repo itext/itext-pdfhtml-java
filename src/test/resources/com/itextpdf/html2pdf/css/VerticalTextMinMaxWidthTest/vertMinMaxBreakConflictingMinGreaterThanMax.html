@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>min-width declared larger than max-width, a contradictory constraint</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    min-width: 250px;
+    max-width: 80px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>min-width 250px declared larger than max-width 80px, a contradictory constraint that min-width should win</h1>
+<p class="vtext">vertical text content inside a box with impossible min and max width values</p>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>grid-template-columns using the minmax function with a vertical-lr item</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: minmax(50px, 200px);
+    border: 1px dashed #666;
+    padding: 10px;
+    width: 300px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>grid-template-columns using minmax(50px, 200px) as the track sizing function for a vertical-lr item</h1>
+<div class="grid">
+<p class="vtext">vertical text content constrained by the minmax track sizing function of its grid column</p>
+</div>
+</body>
+</html>

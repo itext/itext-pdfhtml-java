@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>two vertical-lr flex items with different flex-grow ratios sharing leftover space</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    gap: 10px;
+    width: 400px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    flex-basis: 0%;
+}
+
+.grow-1 {
+    flex-grow: 1;
+}
+
+.grow-2 {
+    flex-grow: 2;
+}
+</style>
+</head>
+<body>
+<h1>two vertical-lr flex items with flex-grow 1 and flex-grow 2, sharing leftover space proportionally</h1>
+<div class="flexrow">
+<p class="vtext grow-1">grow ratio one</p>
+<p class="vtext grow-2">grow ratio two</p>
+</div>
+</body>
+</html>

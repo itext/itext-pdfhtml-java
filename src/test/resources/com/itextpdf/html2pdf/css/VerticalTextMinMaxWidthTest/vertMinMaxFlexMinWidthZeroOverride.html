@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>flex item with min-width 0 override, forcing shrink below content size</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    width: 160px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>flex item with min-width 0 override, forcing shrink below content size in a narrow row</h1>
+<div class="flexrow">
+<p class="vtext">a long stretch of vertical text content that the flex container is now allowed to shrink past its natural minimum width</p>
+</div>
+</body>
+</html>

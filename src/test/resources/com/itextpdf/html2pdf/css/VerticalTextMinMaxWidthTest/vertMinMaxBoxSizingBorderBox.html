@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>border-box max-width with heavy padding and border, vertical-lr</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    box-sizing: border-box;
+    max-width: 60px;
+    padding: 20px;
+    border: 8px solid #999;
+    margin: 0;
+    height: 200px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>box-sizing border-box, max-width 60px includes padding and border, leaving very little room for content</h1>
+<p class="vtext">vertical text content inside a border-box where padding and border eat into the same max-width budget</p>
+</body>
+</html>

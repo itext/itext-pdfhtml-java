@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>max-width set to a sub-pixel value on a vertical-lr inline-block</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    display: inline-block;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    height: 180px;
+    max-width: 0.001px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>max-width 0.001px, an effectively zero sub-pixel value, on a vertical-lr inline-block</h1>
+<p><span class="vtext">vertical text content squeezed against a maximum width so small it is barely distinguishable from zero</span></p>
+</body>
+</html>

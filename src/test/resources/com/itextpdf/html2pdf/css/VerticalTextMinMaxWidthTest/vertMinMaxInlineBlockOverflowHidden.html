@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text as a child of an inline-block wrapper inside a flex container, comparing overflow visible against overflow hidden</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.wrap {
+    display: inline-block;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    margin: 0;
+}
+
+.visible {
+    overflow: visible;
+}
+
+.hidden-context {
+    overflow: hidden;
+    max-width: 90px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text as a child of an inline-block wrapper inside a flex container, comparing overflow visible against overflow hidden establishing its own block formatting context</h1>
+<div class="row">
+<div class="wrap visible"><p class="vtext">vertical text child with normal overflow visible behavior for comparison</p></div>
+<div class="wrap hidden-context"><p class="vtext">vertical text child inside a wrapper whose overflow hidden establishes a new block formatting context alongside its max-width</p></div>
+</div>
+</body>
+</html>

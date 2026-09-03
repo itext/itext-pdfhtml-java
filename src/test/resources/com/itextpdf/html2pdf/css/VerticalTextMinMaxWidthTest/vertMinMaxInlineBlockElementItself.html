@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text as a child of an inline-block wrapper, sitting inline with horizontal text</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.host {
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 500px;
+}
+
+.wrap {
+    display: inline-block;
+    min-width: 40px;
+    max-width: 140px;
+    border: 1px solid #999;
+    padding: 6px;
+    height: 120px;
+    vertical-align: middle;
+    margin: 0 6px;
+}
+
+.vtext {
+    display: inline-block;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    width: 100%;
+    height: 100%;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text as a child of an inline-block wrapper, sitting inline with horizontal text</h1>
+<p class="host">This sentence continues in normal horizontal flow <span class="wrap"><span class="vtext">a vertical text child inside an inline-block wrapper with its own min-width and max-width</span></span> and then keeps going after the wrapper ends.</p>
+</body>
+</html>

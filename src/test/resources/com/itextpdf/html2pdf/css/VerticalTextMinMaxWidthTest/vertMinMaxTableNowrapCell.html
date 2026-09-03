@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr table cell with white-space nowrap forcing min-content equal to max-content</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+td.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    white-space: nowrap;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr table cell with white-space nowrap, so min-content and max-content become the same very large value</h1>
+<table>
+<tr>
+<th>short</th>
+<th>nowrap column</th>
+</tr>
+<tr>
+<td>a</td>
+<td class="vtext">a long stretch of vertical text content that is not allowed to wrap into new columns at all</td>
+</tr>
+</table>
+</body>
+</html>

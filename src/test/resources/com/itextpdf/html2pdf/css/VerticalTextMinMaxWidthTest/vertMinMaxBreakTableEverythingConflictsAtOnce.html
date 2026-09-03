@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>a single table cell stacking every conflicting constraint at once</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 60px;
+}
+
+td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+td.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    white-space: nowrap;
+    min-width: 500px;
+    max-width: 20px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>one cell stacking fixed table layout, a tiny explicit table width, nowrap, an unbreakable token, and contradictory min and max width all at once</h1>
+<table>
+<tr>
+<td class="vtext">AnEntirelyUnbreakableTokenInsideACellWithEveryPossibleConflictingConstraintStackedTogether</td>
+</tr>
+</table>
+</body>
+</html>

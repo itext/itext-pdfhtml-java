@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text as a child of two nested inline-block wrappers with compatible constraints</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.outer-wrap {
+    display: inline-block;
+    max-width: 250px;
+    border: 2px dashed #666;
+    padding: 10px;
+}
+
+.inner-wrap {
+    display: inline-block;
+    min-width: 60px;
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    height: 180px;
+    margin: 0;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text as a child of two nested inline-block wrappers with compatible min-width and max-width constraints</h1>
+<div class="outer-wrap">
+<div class="inner-wrap">
+<p class="vtext">vertical text content nested two inline-block levels deep, with no conflict between the outer and inner constraints</p>
+</div>
+</div>
+</body>
+</html>

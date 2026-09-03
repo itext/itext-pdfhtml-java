@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr inline-block with near zero width inside a nowrap ancestor</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.host {
+    white-space: nowrap;
+    border: 1px dashed #666;
+    padding: 6px;
+    width: 200px;
+    overflow: visible;
+}
+
+.vtext {
+    display: inline-block;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    width: 2px;
+    border: 1px solid #999;
+    padding: 8px;
+    height: 180px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr inline-block declared at 2px wide, sitting inside an ancestor with white-space nowrap</h1>
+<div class="host">before <span class="vtext">vertical text content squeezed into a nearly zero width declared box</span> after</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>table cell with width 0 and overflow hidden, vertical-lr content</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 200px;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+th.zero-width {
+    width: 0;
+}
+
+td.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    width: 0;
+    overflow: hidden;
+}
+</style>
+</head>
+<body>
+<h1>table cell with width 0 and overflow hidden, vertical-lr content that should be entirely clipped away</h1>
+<table>
+<tr>
+<th style="width: 200px;">normal</th>
+<th class="zero-width">zero width</th>
+</tr>
+<tr>
+<td>a</td>
+<td class="vtext">this vertical text content should not be visible at all</td>
+</tr>
+</table>
+</body>
+</html>

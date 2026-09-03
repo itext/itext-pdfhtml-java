@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr table cell with explicit min-width and max-width</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+td.vtext-min {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    min-width: 180px;
+}
+
+td.vtext-max {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    max-width: 60px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr table cells with explicit min-width and max-width</h1>
+<table>
+<tr>
+<th>min-width 180px</th>
+<th>max-width 60px</th>
+</tr>
+<tr>
+<td class="vtext-min">short text</td>
+<td class="vtext-max">a longer </br> stretch </br> of vertical </br> text </br> content </br> that </br> exceeds </br> the cap</td>
+</tr>
+</table>
+</body>
+</html>

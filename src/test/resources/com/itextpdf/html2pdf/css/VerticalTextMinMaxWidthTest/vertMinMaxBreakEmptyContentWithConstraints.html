@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>empty vertical-lr element with min-width and max-width set, no text content at all</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    min-width: 60px;
+    max-width: 150px;
+}
+</style>
+</head>
+<body>
+<h1>empty vertical-lr element with min-width and max-width set, no text content at all</h1>
+<div class="row">
+<p class="vtext"></p>
+<p class="vtext">non-empty for comparison</p>
+</div>
+</body>
+</html>

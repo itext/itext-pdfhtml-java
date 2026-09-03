@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>flex-shrink 0 on every item, forcing the row to overflow its container</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    gap: 10px;
+    width: 150px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 160px;
+    flex: 0 0 140px;
+}
+</style>
+</head>
+<body>
+<h1>flex-shrink 0 on every item, so none are allowed to shrink, forcing the row to overflow a 150px container</h1>
+<div class="flexrow">
+<p class="vtext">first item</p>
+<p class="vtext">second item</p>
+<p class="vtext">third item</p>
+</div>
+</body>
+</html>

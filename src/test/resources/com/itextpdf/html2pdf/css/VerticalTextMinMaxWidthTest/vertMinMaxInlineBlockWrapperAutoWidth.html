@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>plain inline-block wrapper with no explicit width, vertical-lr child</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.wrapper {
+    display: inline-block;
+    border: 2px dashed #666;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+}
+</style>
+</head>
+<body>
+<h1>plain inline-block wrapper with no explicit width, vertical-lr child</h1>
+<div class="wrapper">
+<p class="vtext">the wrapper has no declared width, so it must size itself to fit this vertical text child</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr cell spanning two columns with colspan</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+td.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr cell spanning two columns with colspan, width distributed across both</h1>
+<table>
+<tr>
+<th>col one</th>
+<th>col two</th>
+<th>col three</th>
+</tr>
+<tr>
+<td class="vtext" colspan="2">a stretch of vertical text content in a cell that spans two columns at once</td>
+<td>normal cell</td>
+</tr>
+</table>
+</body>
+</html>

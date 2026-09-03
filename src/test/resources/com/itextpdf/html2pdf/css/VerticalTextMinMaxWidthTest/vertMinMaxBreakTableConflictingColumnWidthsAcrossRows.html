@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>same table column given contradictory width hints in different rows</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+td.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+}
+</style>
+</head>
+<body>
+<h1>the same table column is given a 40px width hint in one row and a 300px width hint in another row</h1>
+<table>
+<tr>
+<th>col A</th>
+<th>col B</th>
+</tr>
+<tr>
+<td style="width: 40px;">a</td>
+<td class="vtext">first row content in column B</td>
+</tr>
+<tr>
+<td style="width: 300px;">b</td>
+<td class="vtext">a much longer stretch of second row vertical content in the very same column B</td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text as a child of an inline-block wrapper, itself nested inside a table cell</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+.wrap {
+    display: inline-block;
+    border: 1px dashed #c0392b;
+    padding: 6px;
+    height: 160px;
+    min-width: 60px;
+    max-width: 140px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    margin: 0;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text as a child of an inline-block wrapper with its own min-width and max-width, itself nested inside a table cell</h1>
+<table>
+<tr>
+<th>short</th>
+<th>wrapped vertical column</th>
+</tr>
+<tr>
+<td>a</td>
+<td><div class="wrap"><p class="vtext">vertical text child inside an inline-block wrapper that itself sits inside a table cell</p></div></td>
+</tr>
+</table>
+</body>
+</html>

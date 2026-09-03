@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr inline-block with an invalid negative padding value</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    display: inline-block;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: -20px;
+    min-width: 60px;
+    height: 180px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr inline-block with padding -20px, an invalid negative value that should be ignored entirely</h1>
+<p><span class="vtext">vertical text content whose declared padding is negative and therefore invalid</span></p>
+</body>
+</html>

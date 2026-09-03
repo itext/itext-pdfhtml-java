@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text as a child of an inline-block wrapper with percentage width against a definite parent</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.parent {
+    width: 300px;
+    border: 1px dashed #666;
+    padding: 6px;
+}
+
+.wrap {
+    display: inline-block;
+    width: 50%;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    margin: 0;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text as a child of an inline-block wrapper with width 50 percent, resolved against a parent with a definite 300px width</h1>
+<div class="parent">
+<div class="wrap">
+<p class="vtext">vertical text child in a wrapper whose percentage width has a definite parent to resolve against</p>
+</div>
+</div>
+</body>
+</html>

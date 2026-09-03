@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>flex 1 1 0 percent, the common equal width columns idiom, on vertical-lr items</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    gap: 10px;
+    width: 340px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 180px;
+    flex: 1 1 0%;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>flex 1 1 0 percent, the common equal width columns idiom, applied to vertical-lr items with different content lengths</h1>
+<div class="flexrow">
+<p class="vtext">short</p>
+<p class="vtext">a noticeably longer stretch of vertical text content in the second column</p>
+<p class="vtext">medium length</p>
+</div>
+</body>
+</html>

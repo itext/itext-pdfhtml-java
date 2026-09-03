@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text children of inline-block wrappers, each with a different font size</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.host {
+    border: 1px dashed #666;
+    padding: 6px;
+}
+
+.wrap {
+    display: inline-block;
+    border: 1px solid #999;
+    padding: 6px;
+    height: 140px;
+    margin: 2px;
+    vertical-align: top;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    margin: 0;
+}
+
+.size-small {
+    font-size: 12px;
+}
+
+.size-medium {
+    font-size: 20px;
+}
+
+.size-large {
+    font-size: 30px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text children of inline-block wrappers, each with a different font size, computing its own intrinsic column width</h1>
+<div class="host">
+<div class="wrap"><p class="vtext size-small">small font block</p></div><div class="wrap"><p class="vtext size-medium">medium font block</p></div><div class="wrap"><p class="vtext size-large">large font block</p></div>
+</div>
+</body>
+</html>
