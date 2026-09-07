@@ -46,7 +46,6 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-10183 fixed width ignored
     public void vertLrAbsolutePositioningTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrAbsolutePositioning", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -183,7 +182,6 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-10183 Cells vertically oversized
     public void vertLrTableCellTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrTableCell", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -255,6 +253,7 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA))
     //TODO DEVSIX-10180 Support text rise in html mode for vertical text
     public void inlineBlockAndTextRiseTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("inline_block_and_text_rise", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -273,5 +272,11 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void noWrapTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("noWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA))
+    public void occupiedAreaSmallerThanTextTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("occupiedAreaSmallerThanTextTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 }

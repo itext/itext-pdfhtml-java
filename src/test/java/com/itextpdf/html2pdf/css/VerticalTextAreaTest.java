@@ -79,7 +79,6 @@ public class VerticalTextAreaTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO minor borders should not be closed on bottom and top for line splited spans
     public void spansInDiv2Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("spansInDiv2", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

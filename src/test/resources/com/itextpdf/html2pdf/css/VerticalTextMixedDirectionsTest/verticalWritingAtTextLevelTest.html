@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + position absolute</title>
+<style>
+    body {
+        font-family: Helvetica;
+    }
+    .vertical {
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+    }
+</style>
+</head>
+<body>
+    <p style="background-color: lightgray">
+        <span class="vertical" style="background-color: magenta">first text chunk </span>
+        <span class="vertical" style="background-color: cyan">second text chunk</span>
+        <span class="vertical" style="background-color: orange"> third text chunk</span>
+    </p>
+</body>
+</html>
