@@ -131,29 +131,18 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     //TODO DEVSIX-10168 last paragraph too small in flex container
-    @LogMessages(
-            messages = {@LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count = 4)}
-    )
     public void vertLrLetterSpacingTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrLetterSpacing", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     //TODO DEVSIX-10168 flex borders misaligned
-    @LogMessages(
-            messages = {@LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE),
-                    @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count = 8)}
-    )
     public void vertLrLineHeightTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrLineHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
     //TODO DEVSIX-10186 Lists with vertical writing.
-    @LogMessages(
-            messages = {@LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count = 4),
-                    @LogMessage(messageTemplate = IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED)}
-    )
     public void vertLrListsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrLists", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -184,10 +173,6 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     //TODO DEVSIX-10168 paragraph positioning in flex container
-    @LogMessages(
-            messages = {@LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count = 9),
-                    @LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, count = 3)}
-    )
     public void vertLrOverflowTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrOverflow", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -248,10 +233,10 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(
-            messages = {@LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, logLevel = LogLevelConstants.WARN, count = 9),
-            @LogMessage(messageTemplate = LayoutLogMessageConstant.FLEX_ITEM_LAYOUT_RESULT_IS_NOT_FULL, logLevel = LogLevelConstants.ERROR, count = 1)}
-    )
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.FLEX_ITEM_LAYOUT_RESULT_IS_NOT_FULL,
+                    logLevel = LogLevelConstants.ERROR, count = 1)
+    })
     // Vertical text with extreme values doesn't work normal, but it doesn't throw or results in infinite loop, which is
     // good enough already.
     public void vertLrZeroNegativeDimensionsTest() throws IOException, InterruptedException {
@@ -259,9 +244,6 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(
-            messages = {@LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count = 7)}
-    )
     // TODO DEVSIX-10176 Text-orientation sideways and mixed are not supported.
     public void mixedUprightSidewaysTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("mixedUprightSideways", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -271,9 +253,25 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     public void occupiedAreaTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("occupiedArea", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
+
     @Test
     //TODO DEVSIX-10180 Support text rise in html mode for vertical text
     public void inlineBlockAndTextRiseTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("inline_block_and_text_rise", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void overflowTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("overflow", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void overflowWrapTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("overflowWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void noWrapTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("noWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 }

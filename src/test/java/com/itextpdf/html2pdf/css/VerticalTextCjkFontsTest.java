@@ -45,9 +45,6 @@ public class VerticalTextCjkFontsTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = IoLogMessageConstant.CLIP_ELEMENT, count = 3)
-    })
     public void cjkFontMetricsComparisonTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("cjkFontMetricsComparison", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
