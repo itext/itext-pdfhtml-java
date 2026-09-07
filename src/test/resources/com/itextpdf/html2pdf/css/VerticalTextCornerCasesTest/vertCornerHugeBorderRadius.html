@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text inside a small box with an enormous border-radius</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    background-color: #fdf3d0;
+    border: 3px solid #999;
+    border-radius: 500px;
+    padding: 20px;
+    margin: 0;
+    height: 120px;
+    width: 120px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text inside a 120px by 120px box with border-radius 500px, rounding it into a full circle</h1>
+<p class="vtext">short text</p>
+</body>
+</html>

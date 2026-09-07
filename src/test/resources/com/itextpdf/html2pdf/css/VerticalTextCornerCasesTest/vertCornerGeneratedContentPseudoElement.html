@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text generated through before and after pseudo-elements rather than real text nodes</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 160px;
+}
+
+.vtext::before {
+    content: "before, ";
+    color: #c0392b;
+}
+
+.vtext::after {
+    content: ", after";
+    color: #2980b9;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text generated through before and after pseudo-elements surrounding a real text node</h1>
+<p class="vtext">middle real text</p>
+</body>
+</html>

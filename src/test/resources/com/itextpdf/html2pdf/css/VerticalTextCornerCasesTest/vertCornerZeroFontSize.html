@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text with font-size 0</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-size: 0;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 100px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text with font-size 0, so the glyphs themselves take up no space</h1>
+<p class="vtext">this entire sentence has zero font size</p>
+</body>
+</html>

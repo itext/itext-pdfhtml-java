@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>writing-mode applied to the html and body root elements rather than a contained paragraph</title>
+<style>
+html, body {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    margin: 0;
+    padding: 20px;
+    font-family: times;
+}
+
+h1 {
+    font-size: 16px;
+}
+</style>
+</head>
+<body>
+<h1>writing-mode vertical-lr applied to the html and body elements themselves</h1>
+<p>ordinary paragraph text with no writing-mode of its own, inheriting vertical orientation from the document root</p>
+</body>
+</html>

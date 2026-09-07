@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>a single letter at 100pt font size inside a much smaller box</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-size: 100pt;
+    border: 1px solid #999;
+    padding: 2px;
+    margin: 0;
+    height: 30px;
+    width: 30px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>a single letter at 100pt font size inside a 30px by 30px box</h1>
+<p class="vtext">A</p>
+</body>
+</html>

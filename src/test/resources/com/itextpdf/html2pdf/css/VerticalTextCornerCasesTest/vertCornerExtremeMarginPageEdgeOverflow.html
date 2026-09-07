@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>margin so large the vertical-lr text is pushed almost entirely past the page edge, only a sliver visible</title>
+<style>
+@page {
+    size: A4;
+    margin: 20px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 16px;
+    font-family: times;
+    margin: 0 0 10px 0;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-family: times;
+    background-color: #fdf3d0;
+    border: 2px solid #999;
+    padding: 8px;
+    margin-left: 720px;
+    height: 300px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>margin-left 720px on a standard A4 page, leaving only a narrow sliver of the box visible before the rest runs past the page edge</h1>
+<p class="vtext">a long stretch of vertical text content that needs far more width than the sliver of page left available to it so most of it should be clipped away at the page boundary rather than visible or moved to a new page and this sentence keeps going to make sure enough columns are needed</p>
+</body>
+</html>

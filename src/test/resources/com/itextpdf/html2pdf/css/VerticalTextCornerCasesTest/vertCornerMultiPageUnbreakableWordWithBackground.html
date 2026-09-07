@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>a single unbreakable run of text with a background color, forced to break across pages mid-token</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    background-color: #fdf3d0;
+    border: 2px solid #999;
+    padding: 10px;
+    margin: 0;
+    overflow-wrap: normal;
+}
+</style>
+</head>
+<body>
+<h1>a single unbreakable run of text with a background color, long enough that the page break must land in the middle of it since there is no space to break at</h1>
+<p class="vtext">ThisIsOneUnbreakableChunkOfTextWithAbsolutelyNoSpacesAnywhereInsideItAtAllForcingAPageBreakToLandInsideOfItThisIsOneUnbreakableChunkOfTextWithAbsolutelyNoSpacesAnywhereInsideItAtAllForcingAPageBreakToLandInsideOfItThisIsOneUnbreakableChunkOfTextWithAbsolutelyNoSpacesAnywhereInsideItAtAllForcingAPageBreakToLandInsideOfIt</p>
+</body>
+</html>
