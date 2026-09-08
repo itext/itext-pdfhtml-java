@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Radial gradient color stop list grammar</title>
+</head>
+<body>
+<h1>Radial gradient color stop list grammar</h1>
+<h2>valid stop forms</h2>
+<div style="background-image: radial-gradient(#264653, #f4a261); width: 300pt; height: 70pt;"></div>
+<div style="background-image: radial-gradient(mediumseagreen, tomato); width: 300pt; height: 70pt;"></div>
+<div style="background-image: radial-gradient(royalblue, darkorange); width: 300pt; height: 70pt;"></div>
+<div style="background-image: radial-gradient(orchid 10%, #ff006e 90%); width: 300pt; height: 70pt;"></div>
+<div style="background-image: radial-gradient(steelblue 10px, gold 90px); width: 300pt; height: 70pt;"></div>
+<div style="background-image: radial-gradient(turquoise 10% 20%, crimson); width: 300pt; height: 70pt;"></div>
+<div style="background-image: radial-gradient(indigo, 50%, hotpink); width: 300pt; height: 70pt;"></div>
+<div style="background-image: radial-gradient(slateblue -10px, salmon 110px); width: 300pt; height: 70pt;"></div>
+<div style="background-image: radial-gradient(darkorange 50px, 75px, lightseagreen 100px); width: 300pt; height: 70pt;"></div>
+<div style="background-image: radial-gradient(dodgerblue 100px, khaki 50%); width: 300pt; height: 70pt;"></div>
+<div style="background-image: radial-gradient(deeppink 40%, limegreen 40%, purple 80%); width: 300pt; height: 70pt;"></div>
+<div style="background-image: repeating-radial-gradient(circle, midnightblue 0%, yellowgreen 50%, firebrick 100%); width: 300pt; height: 70pt;"></div>
+<h2>opacity (not supported)</h2>
+<div style="background-image: radial-gradient(rgba(38, 70, 83, 0.25), rgba(244, 162, 97, 0.75)); width: 300pt; height: 70pt;"></div>
+<h2>invalid stop forms</h2>
+<div style="background-image: radial-gradient(peru, 50%); width: 300pt; height: 70pt;"></div>
+<div style="background-image: radial-gradient(aqua, 20%, 30%, firebrick); width: 300pt; height: 70pt;"></div>
+<div style="background-image: radial-gradient(violet 10% 20% 30%, fuchsia); width: 300pt; height: 70pt;"></div>
+<div style="background-image: radial-gradient(cornflowerblue 10, gold); width: 300pt; height: 70pt;"></div>
+</body>
+</html>
+

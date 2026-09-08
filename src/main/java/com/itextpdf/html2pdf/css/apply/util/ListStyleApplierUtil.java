@@ -28,7 +28,7 @@ import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.html.TagConstants;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.kernel.colors.Color;
-import com.itextpdf.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
+import com.itextpdf.kernel.colors.gradients.IGradientBuilder;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.numbering.AlphabetNumbering;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -115,12 +115,12 @@ public final class ListStyleApplierUtil {
 
         PdfXObject imageXObject = null;
         if (listStyleImageStr != null && !CssConstants.NONE.equals(listStyleImageStr)) {
-            if (CssGradientUtil.isCssLinearGradientValue(listStyleImageStr)) {
+            if (CssGradientUtil.isCssGradientValue(listStyleImageStr)) {
                 float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
                 float rem = context.getCssContext().getRootFontSize();
                 try {
-                    StrategyBasedLinearGradientBuilder gradientBuilder =
-                            CssGradientUtil.parseCssLinearGradient(listStyleImageStr, em, rem);
+                    IGradientBuilder gradientBuilder =
+                            CssGradientUtil.parseCssGradient(listStyleImageStr, em, rem);
                     if (gradientBuilder != null) {
                         Rectangle formBBox = new Rectangle(0, 0, em * LIST_ITEM_MARKER_SIZE_COEFFICIENT,
                                 em * LIST_ITEM_MARKER_SIZE_COEFFICIENT);

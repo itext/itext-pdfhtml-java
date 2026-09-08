@@ -26,7 +26,7 @@ import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.kernel.colors.gradients.StrategyBasedLinearGradientBuilder;
+import com.itextpdf.kernel.colors.gradients.IGradientBuilder;
 import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfImageXObject;
 import com.itextpdf.kernel.pdf.xobject.PdfXObject;
@@ -143,8 +143,8 @@ public final class BackgroundApplierUtil {
             final BackgroundBox origin = getBackgroundBoxProperty(backgroundOriginArray, i,
                     BackgroundBox.PADDING_BOX);
 
-            if (CssGradientUtil.isCssLinearGradientValue(backgroundImage)) {
-                imageApplied = applyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem,
+            if (CssGradientUtil.isCssGradientValue(backgroundImage)) {
+                imageApplied = applyGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem,
                         repeat, clip, origin);
             } else {
                 final PdfXObject image = context.getResourceResolver().retrieveImage(
@@ -320,12 +320,12 @@ public final class BackgroundApplierUtil {
         }
     }
 
-    private static boolean applyLinearGradient(String image, List<BackgroundImage> backgroundImagesList,
+    private static boolean applyGradient(String image, List<BackgroundImage> backgroundImagesList,
             BlendMode blendMode, BackgroundPosition position, float em, float rem, final BackgroundRepeat repeat,
             BackgroundBox clip, BackgroundBox origin) {
         try {
-            StrategyBasedLinearGradientBuilder gradientBuilder =
-                    CssGradientUtil.parseCssLinearGradient(image, em, rem);
+            IGradientBuilder gradientBuilder =
+                    CssGradientUtil.parseCssGradient(image, em, rem);
             if (gradientBuilder != null) {
                 backgroundImagesList.add(new BackgroundImage.Builder().setGradientBuilder(gradientBuilder)
                         .setBackgroundBlendMode(blendMode).setBackgroundPosition(position).setBackgroundRepeat(repeat)

@@ -47,6 +47,12 @@ public class PseudoElementsTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("pseudoContentWithWidthAndHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
+    // The radial gradient in html is present in Chrome but not in Firefox
+    @Test
+    public void pseudoContentWithRadialGradientTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("pseudoContentWithRadialGradientTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
     @Test
     public void pseudoContentWithPercentWidthAndHeightTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("pseudoContentWithPercentWidthAndHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER);

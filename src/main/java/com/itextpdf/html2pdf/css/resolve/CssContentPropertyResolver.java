@@ -204,7 +204,7 @@ class CssContentPropertyResolver {
                 attributes.put(AttributeConstants.SRC, CssUtils.extractUrl(token.getValue()));
                 attributes.put(AttributeConstants.STYLE, CssConstants.DISPLAY + ":" + CssConstants.INLINE_BLOCK);
                 result.add(new CssContentElementNode(contentContainer, TagConstants.IMG, attributes));
-            } else if (CssGradientUtil.isCssLinearGradientValue(token.getValue())) {
+            } else if (CssGradientUtil.isCssGradientValue(token.getValue())) {
                 Map<String, String> attributes = new HashMap<>();
                 attributes.put(AttributeConstants.STYLE, CssConstants.BACKGROUND_IMAGE + ":" + token.getValue() + ";"
                         + CssConstants.HEIGHT + ":" + CssConstants.INHERIT + ";"
