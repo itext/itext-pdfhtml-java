@@ -27,14 +27,22 @@ import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
+import com.itextpdf.kernel.pdf.PdfUAConformance;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.kernel.pdf.tagutils.TagTreePointer;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.pdfua.PdfUAConfig;
+import com.itextpdf.pdfua.PdfUADocument;
+import com.itextpdf.test.pdfa.VeraPdfValidator;
 
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -48,18 +56,19 @@ import java.io.IOException;
 @Tag("IntegrationTest")
 public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
-    public static final String sourceFolder = "./src/test/resources/com/itextpdf/html2pdf/attribute/LangAttributeTest/";
-    public static final String destinationFolder = "./target/test/com/itextpdf/html2pdf/attribute/LangAttributeTest/";
+    public static final String SOURCE_FOLDER =
+            "./src/test/resources/com/itextpdf/html2pdf/attribute/LangAttributeTest/";
+    public static final String DESTINATION_FOLDER = "./target/test/com/itextpdf/html2pdf/attribute/LangAttributeTest/";
 
     @BeforeAll
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(DESTINATION_FOLDER);
     }
 
     @Test
     public void langAttrInElementForTaggedPdfTest() throws IOException {
-        String html = sourceFolder + "langAttrInElementForTaggedPdfTest.html";
-        String outFile = destinationFolder + "langAttrInElementForTaggedPdfTest.pdf";
+        String html = SOURCE_FOLDER + "langAttrInElementForTaggedPdfTest.html";
+        String outFile = DESTINATION_FOLDER + "langAttrInElementForTaggedPdfTest.pdf";
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
         pdfDocument.setTagged();
 
@@ -77,8 +86,8 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void langAttrInvalidTagsTest() throws IOException {
-        String html = sourceFolder + "langAttrInvalidTagsTest.html";
-        String outFile = destinationFolder + "langAttrInvalidTagsTest.pdf";
+        String html = SOURCE_FOLDER + "langAttrInvalidTagsTest.html";
+        String outFile = DESTINATION_FOLDER + "langAttrInvalidTagsTest.pdf";
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
         pdfDocument.setTagged();
 
@@ -111,8 +120,8 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void langAttrEmptyTagTest() throws IOException {
-        String html = sourceFolder + "langAttrEmptyTagTest.html";
-        String outFile = destinationFolder + "langAttrEmptyTagTest.pdf";
+        String html = SOURCE_FOLDER + "langAttrEmptyTagTest.html";
+        String outFile = DESTINATION_FOLDER + "langAttrEmptyTagTest.pdf";
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
         pdfDocument.setTagged();
 
@@ -159,8 +168,8 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void langAttrRegionSubtagTest() throws IOException {
-        String html = sourceFolder + "langAttrRegionSubtagTest.html";
-        String outFile = destinationFolder + "langAttrRegionSubtagTest.pdf";
+        String html = SOURCE_FOLDER + "langAttrRegionSubtagTest.html";
+        String outFile = DESTINATION_FOLDER + "langAttrRegionSubtagTest.pdf";
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
         pdfDocument.setTagged();
 
@@ -185,8 +194,8 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void langAttrScriptSubtagTest() throws IOException {
-        String html = sourceFolder + "langAttrScriptSubtagTest.html";
-        String outFile = destinationFolder + "langAttrScriptSubtagTest.pdf";
+        String html = SOURCE_FOLDER + "langAttrScriptSubtagTest.html";
+        String outFile = DESTINATION_FOLDER + "langAttrScriptSubtagTest.pdf";
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
         pdfDocument.setTagged();
 
@@ -210,8 +219,8 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void langAttrScriptRegionSubtagTest() throws IOException {
-        String html = sourceFolder + "langAttrScriptRegionSubtagTest.html";
-        String outFile = destinationFolder + "langAttrScriptRegionSubtagTest.pdf";
+        String html = SOURCE_FOLDER + "langAttrScriptRegionSubtagTest.html";
+        String outFile = DESTINATION_FOLDER + "langAttrScriptRegionSubtagTest.pdf";
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
         pdfDocument.setTagged();
 
@@ -232,13 +241,13 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void langAttrInSvgForTaggedPdfTest() throws IOException {
-        String html = sourceFolder + "langAttrInSvgForTaggedPdfTest.html";
-        String outFile = destinationFolder + "langAttrInSvgForTaggedPdfTest.pdf";
+        String html = SOURCE_FOLDER + "langAttrInSvgForTaggedPdfTest.html";
+        String outFile = DESTINATION_FOLDER + "langAttrInSvgForTaggedPdfTest.pdf";
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
         pdfDocument.setTagged();
 
         HtmlConverter.convertToPdf(new FileInputStream(html), pdfDocument,
-                new ConverterProperties().setBaseUri(sourceFolder));
+                new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         printOutputPdfNameAndDir(outFile);
 
         PdfDocument document = new PdfDocument(new PdfReader(outFile));
@@ -264,8 +273,8 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void langAttrInListsForTaggedPdfTest() throws IOException {
-        String html = sourceFolder + "langAttrInListsForTaggedPdfTest.html";
-        String outFile = destinationFolder + "langAttrInListsForTaggedPdfTest.pdf";
+        String html = SOURCE_FOLDER + "langAttrInListsForTaggedPdfTest.html";
+        String outFile = DESTINATION_FOLDER + "langAttrInListsForTaggedPdfTest.pdf";
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
         pdfDocument.setTagged();
 
@@ -307,8 +316,8 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void langAttrInListWithBeforeStyleForTaggedPdfTest() throws IOException {
-        String html = sourceFolder + "langAttrInListWithBeforeStyleForTaggedPdfTest.html";
-        String outFile = destinationFolder + "langAttrInListWithBeforeStyleForTaggedPdfTest.pdf";
+        String html = SOURCE_FOLDER + "langAttrInListWithBeforeStyleForTaggedPdfTest.html";
+        String outFile = DESTINATION_FOLDER + "langAttrInListWithBeforeStyleForTaggedPdfTest.pdf";
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
         pdfDocument.setTagged();
 
@@ -342,7 +351,7 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void langAttrInDivAndSpanForConvertToElementsMethodTest() throws IOException {
-        String html = sourceFolder + "langAttrInDivAndSpanForTagPdfTest.html";
+        String html = SOURCE_FOLDER + "langAttrInDivAndSpanForTagPdfTest.html";
 
         List<IElement> elemList = HtmlConverter.convertToElements(new FileInputStream(html));
 
@@ -396,21 +405,21 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void langAttrInInputAndTextareaForTaggedPdfWithActoformTest() throws IOException, InterruptedException {
-        String html = sourceFolder + "langAttrInInputAndTextareaForTaggedPdfTest.html";
-        String outFile = destinationFolder + "langAttrInInputAndTextareaForTaggedPdfWithActoformTest.pdf";
-        String cmp = sourceFolder + "cmp_langAttrInInputAndTextareaForTaggedPdfWithActoformTest.pdf";
+        String html = SOURCE_FOLDER + "langAttrInInputAndTextareaForTaggedPdfTest.html";
+        String outFile = DESTINATION_FOLDER + "langAttrInInputAndTextareaForTaggedPdfWithActoformTest.pdf";
+        String cmp = SOURCE_FOLDER + "cmp_langAttrInInputAndTextareaForTaggedPdfWithActoformTest.pdf";
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
         pdfDocument.setTagged();
 
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setCreateAcroForm(true);
-        converterProperties.setBaseUri(sourceFolder);
+        converterProperties.setBaseUri(SOURCE_FOLDER);
         HtmlConverter.convertToPdf(new FileInputStream(html), pdfDocument, converterProperties);
         printOutputPdfNameAndDir(outFile);
 
         PdfDocument document = new PdfDocument(new PdfReader(outFile));
         //compareByContent is used here to check the complete logical structure tree to notice all the differences.
-        Assertions.assertNull(new CompareTool().compareByContent(outFile, cmp, destinationFolder,
+        Assertions.assertNull(new CompareTool().compareByContent(outFile, cmp, DESTINATION_FOLDER,
                 "diff_forms"));
         Assertions.assertEquals("da", document.getCatalog().getLang().toUnicodeString());
 
@@ -419,21 +428,21 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void langAttrInButtonForTaggedPdfWithActoformTest() throws IOException, InterruptedException {
-        String html = sourceFolder + "langAttrInButtonForTaggedPdfTest.html";
-        String outFile = destinationFolder + "langAttrInButtonForTaggedPdfWithActoformTest.pdf";
-        String cmp = sourceFolder + "cmp_langAttrInButtonForTaggedPdfWithActoformTest.pdf";
+        String html = SOURCE_FOLDER + "langAttrInButtonForTaggedPdfTest.html";
+        String outFile = DESTINATION_FOLDER + "langAttrInButtonForTaggedPdfWithActoformTest.pdf";
+        String cmp = SOURCE_FOLDER + "cmp_langAttrInButtonForTaggedPdfWithActoformTest.pdf";
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
         pdfDocument.setTagged();
 
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setCreateAcroForm(true);
-        converterProperties.setBaseUri(sourceFolder);
+        converterProperties.setBaseUri(SOURCE_FOLDER);
         HtmlConverter.convertToPdf(new FileInputStream(html), pdfDocument, converterProperties);
         printOutputPdfNameAndDir(outFile);
 
         PdfDocument document = new PdfDocument(new PdfReader(outFile));
         //compareByContent is used here to check the complete logical structure tree to notice all the differences.
-        Assertions.assertNull(new CompareTool().compareByContent(outFile, cmp, destinationFolder,
+        Assertions.assertNull(new CompareTool().compareByContent(outFile, cmp, DESTINATION_FOLDER,
                 "diff_forms"));
         Assertions.assertEquals("da", document.getCatalog().getLang().toUnicodeString());
 
@@ -505,7 +514,7 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void langAttrInHtmlWithLangBodyWithoutLangForConvertToElementsMethodTest() throws IOException {
-        String html = sourceFolder + "langAttrInHtmlWithLangBodyWithoutLangTest.html";
+        String html = SOURCE_FOLDER + "langAttrInHtmlWithLangBodyWithoutLangTest.html";
 
         List<IElement> elemList = HtmlConverter.convertToElements(new FileInputStream(html));
 
@@ -538,7 +547,7 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
 
     @Test
     public void langAttrInHtmlWithLangBodyWithLangForConvertToElementsMethodTest() throws IOException {
-        String html = sourceFolder + "langAttrInHtmlWithLangBodyWithLangTest.html";
+        String html = SOURCE_FOLDER + "langAttrInHtmlWithLangBodyWithLangTest.html";
 
         List<IElement> elemList = HtmlConverter.convertToElements(new FileInputStream(html));
 
@@ -555,20 +564,81 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
         Assertions.assertEquals("by", p.getAccessibilityProperties().getLanguage());
     }
 
+    @Test
+    public void missingLangInBodyTest() throws IOException {
+        String outFilename = DESTINATION_FOLDER + "missingLangInBody.pdf";
+        String html = "<div>Some div automatically wrapped by a body tag without a language set</div>";
+
+        try (PdfDocument pdfDocument = new PdfUADocument(new PdfWriter(outFilename),
+                new PdfUAConfig(PdfUAConformance.PDF_UA_1, "Some title", "en-US"));
+                Document document = new Document(pdfDocument)) {
+            addElementsToDocument(document, HtmlConverter.convertToElements(html,
+                    new ConverterProperties().setPdfUAConformance(PdfUAConformance.PDF_UA_1)));
+        }
+
+        Assertions.assertNull(new VeraPdfValidator().validate(outFilename));
+    }
+
+    @Test
+    public void explicitlySetWrongLangInBodyTest() throws IOException {
+        String outFilename = DESTINATION_FOLDER + "explicitlySetWrongLangInBody.pdf";
+        String html = "<html><head></head></html><body lang=\"\">"
+                + "<div>Some div wrapped by a body with a wrong language</div></body>";
+
+        try (PdfDocument pdfDocument = new PdfUADocument(new PdfWriter(outFilename),
+                new PdfUAConfig(PdfUAConformance.PDF_UA_1, "Some title", "en-US"));
+                Document document = new Document(pdfDocument)) {
+            addElementsToDocument(document, HtmlConverter.convertToElements(html,
+                    new ConverterProperties().setPdfUAConformance(PdfUAConformance.PDF_UA_1)));
+        }
+
+        Assertions.assertNotNull(new VeraPdfValidator().validate(outFilename));
+    }
+
+    @Test
+    public void wrongLangInDivTest() throws IOException {
+        String outFilename = DESTINATION_FOLDER + "wrongLangInDiv.pdf";
+        String html = "<div lang=\"\">Some div with a wrong language</div>";
+
+        try (PdfDocument pdfDocument = new PdfUADocument(new PdfWriter(outFilename),
+                new PdfUAConfig(PdfUAConformance.PDF_UA_1, "Some title", "en-US"));
+                Document document = new Document(pdfDocument)) {
+            addElementsToDocument(document, HtmlConverter.convertToElements(html,
+                    new ConverterProperties().setPdfUAConformance(PdfUAConformance.PDF_UA_1)));
+        }
+
+        Assertions.assertNotNull(new VeraPdfValidator().validate(outFilename));
+    }
+
+    private static void addElementsToDocument(Document document, List<IElement> elements) {
+        for (IElement elem : elements) {
+            if (elem instanceof IBlockElement) {
+                document.add((IBlockElement) elem);
+            } else if (elem instanceof Image) {
+                document.add((Image) elem);
+            } else if (elem instanceof AreaBreak) {
+                document.add((AreaBreak) elem);
+            } else {
+                Assertions.fail(
+                        "The #convertToElements method gave element which is unsupported as root element, it's unexpected.");
+            }
+        }
+    }
+
     private PdfDocument compareResultWithDocument(String fileName) throws IOException, InterruptedException {
-        String html = sourceFolder + fileName + ".html";
-        String outFile = destinationFolder + fileName + ".pdf";
-        String cmp = sourceFolder + "cmp_" + fileName + ".pdf";
+        String html = SOURCE_FOLDER + fileName + ".html";
+        String outFile = DESTINATION_FOLDER + fileName + ".pdf";
+        String cmp = SOURCE_FOLDER + "cmp_" + fileName + ".pdf";
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
         pdfDocument.setTagged();
 
         HtmlConverter.convertToPdf(new FileInputStream(html), pdfDocument,
-                new ConverterProperties().setBaseUri(sourceFolder));
+                new ConverterProperties().setBaseUri(SOURCE_FOLDER));
         printOutputPdfNameAndDir(outFile);
 
         PdfDocument document = new PdfDocument(new PdfReader(outFile));
         // compareByContent is used here to check the complete logical structure tree to notice all the differences.
-        Assertions.assertNull(new CompareTool().compareByContent(outFile, cmp, destinationFolder,
+        Assertions.assertNull(new CompareTool().compareByContent(outFile, cmp, DESTINATION_FOLDER,
                 "diff_test"));
 
         return document;
