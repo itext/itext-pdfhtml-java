@@ -23,6 +23,10 @@
 package com.itextpdf.html2pdf.css.verticaltext;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -64,6 +68,9 @@ public class VerticalTextMixedDirectionsTest extends ExtendedHtmlConversionIText
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)
+    })
     // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks
     public void paragraphMixedVerticalTextInlineBlockTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("paragraphMixedVerticalTextInlineBlock", SOURCE_FOLDER, DESTINATION_FOLDER);

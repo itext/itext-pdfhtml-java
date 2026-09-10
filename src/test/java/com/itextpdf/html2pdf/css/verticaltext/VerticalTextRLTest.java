@@ -25,6 +25,7 @@ package com.itextpdf.html2pdf.css.verticaltext;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.logs.IoLogMessageConstant;
+import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import org.junit.jupiter.api.BeforeAll;
@@ -84,6 +85,9 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)
+    })
     public void vertRlBlockquoteTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlBlockquote", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -100,6 +104,9 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)
+    })
     public void vertRlComboFlexMixedTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlComboFlexMixed", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -127,16 +134,28 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.UNSUPPORTED_PROPERTY,
+                    count = 2)
+    })
+    // TODO DEVSIX-10168 Improve min-max width calculations for vertical text
     public void vertRlFloatTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlFloat", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)
+    })
     public void vertRlHeadingsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlHeadings", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    count = 2)
+    })
     public void vertRlImageInlineBlockTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlImageInlineBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -152,6 +171,10 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    count = 2)
+    })
     public void vertRlListsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlLists", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -192,6 +215,9 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)
+    })
     public void vertRlTableCellTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlTableCell", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

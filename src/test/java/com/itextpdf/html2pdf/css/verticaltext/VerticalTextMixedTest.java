@@ -23,6 +23,11 @@
 package com.itextpdf.html2pdf.css.verticaltext;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.test.LogLevelConstants;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -46,46 +51,81 @@ public class VerticalTextMixedTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMixedAdjacentNoGapTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMixedAdjacentNoGap", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)
+    })
     public void vertMixedDirectionInParagraphTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMixedDirectionInParagraph", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMixedMultipleLinesTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMixedMultipleLines", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMixedSingleLineForcedSplitTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMixedSingleLineForcedSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMixedSingleLineNoSplitTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMixedSingleLineNoSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMixedWithHorizontalTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMixedWithHorizontal", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMixedWritingModeAndDirectionTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMixedWritingModeAndDirection", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMixedWritingModeLrInRlTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMixedWritingModeLrInRl", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMixedWritingModeRlInLrTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMixedWritingModeRlInLr", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

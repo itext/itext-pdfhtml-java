@@ -29,7 +29,9 @@ import com.itextpdf.test.annotations.LogMessages;
 
 //TODO DEVSIX-8967 investigate min width with no value for align self and align items
 @LogMessages(messages = {
-        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 3)
+        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG,
+                count = 3),
+        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)
 })
 public class AlignContentWrap003Test extends W3CCssTest {
     @Override

@@ -30,6 +30,8 @@ import com.itextpdf.test.annotations.LogMessages;
 // TODO DEVSIX-5087 Support floating for FlexContainerRenderer
 // TODO DEVSIX-7615 Support flex-direction: row / row-reverse in combination with vertical writing-mode
 // TODO DEVSIX-9472 Support percentage values for column/row-gap property
+@LogMessages(messages = @LogMessage(
+        messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
 public class FlexboxColumnRowGap002Test extends W3CCssTest {
     @Override
     protected String getHtmlFileName() {

@@ -23,6 +23,7 @@
 package com.itextpdf.html2pdf.css.verticaltext;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.test.LogLevelConstants;
@@ -61,6 +62,8 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     // Difference with browser due to tag "cite" not being supported
     public void vertLrBlockquoteTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrBlockquote", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -78,6 +81,8 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void vertLrComboFlexMixedTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrComboFlexMixed", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -105,23 +110,35 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = LayoutLogMessageConstant.UNSUPPORTED_PROPERTY,
+                    logLevel = LogLevelConstants.WARN, count = 2)})
     // Floating paragraph positioning and sizing is not supported with vertical writing.
     public void vertLrFloatTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrFloat", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void vertLrHeadingsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrHeadings", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    //TODO DEVSIX-10188 inline svg color is not working
+    // TODO DEVSIX-10188 inline svg color is not working
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN, count = 2)})
     public void vertLrImageInlineBlockTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrImageInlineBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void vertLrLetterSpacingTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrLetterSpacing", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -132,6 +149,10 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN, count = 2)})
     //TODO DEVSIX-10186 Lists with vertical writing.
     public void vertLrListsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrLists", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -169,6 +190,8 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void vertLrTableCellTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrTableCell", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -224,18 +247,23 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     // TODO DEVSIX-10176 Text-orientation sideways and mixed are not supported.
     public void mixedUprightSidewaysTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("mixedUprightSideways", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void occupiedAreaTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("occupiedArea", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    //TODO DEVSIX-10180 Support text rise in html mode for vertical text
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void inlineBlockAndTextRiseTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("inline_block_and_text_rise", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

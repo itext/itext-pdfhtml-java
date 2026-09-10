@@ -31,7 +31,8 @@ import com.itextpdf.test.annotations.LogMessages;
 //TODO DEVSIX-5167 change after align-items:baseline is supported
 @LogMessages(messages = {
         @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, count = 1),
-        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 3)
+        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, count = 3),
+        @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT),
 })
 public class AlignItemsBaselineColumnVertRlFlexboxItemTest extends W3CCssTest {
     @Override

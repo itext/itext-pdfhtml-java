@@ -23,6 +23,7 @@
 package com.itextpdf.html2pdf.css.verticaltext;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
@@ -162,6 +163,9 @@ public class VerticalTextCornerCasesTest extends ExtendedHtmlConversionITextTest
     }
 
     @Test
+    @LogMessages(messages = {@LogMessage(messageTemplate =
+            Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, count = 2)
+    })
     public void vertCornerRootElementVerticalTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertCornerRootElementVertical", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

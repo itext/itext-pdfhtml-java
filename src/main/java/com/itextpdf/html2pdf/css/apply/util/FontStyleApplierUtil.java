@@ -22,14 +22,16 @@
  */
 package com.itextpdf.html2pdf.css.apply.util;
 
-import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.css.CssConstants;
-import com.itextpdf.commons.utils.MessageFormatUtil;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants.LineCapStyle;
 import com.itextpdf.layout.IPropertyContainer;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.BaseDirection;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.Leading;
@@ -37,27 +39,28 @@ import com.itextpdf.layout.properties.LineHeight;
 import com.itextpdf.layout.properties.OverflowWrapPropertyValue;
 import com.itextpdf.layout.properties.Property;
 import com.itextpdf.layout.properties.TextAlignment;
-import com.itextpdf.layout.properties.VerticalTextOrientation;
 import com.itextpdf.layout.properties.TransparentColor;
 import com.itextpdf.layout.properties.Underline;
 import com.itextpdf.layout.properties.UnitValue;
+import com.itextpdf.layout.properties.VerticalTextOrientation;
 import com.itextpdf.layout.properties.WritingMode;
-import com.itextpdf.layout.splitting.DefaultSplitCharacters;
-import com.itextpdf.styledxmlparser.css.CommonCssConstants;
-import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
-import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.layout.splitting.BreakAllSplitCharacters;
+import com.itextpdf.layout.splitting.DefaultSplitCharacters;
 import com.itextpdf.layout.splitting.KeepAllSplitCharacters;
+import com.itextpdf.styledxmlparser.css.CommonCssConstants;
+import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
+import com.itextpdf.styledxmlparser.css.util.CssTypesValidationUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 import com.itextpdf.styledxmlparser.util.FontFamilySplitterUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 /**
  * Utilities class to apply font styles.
@@ -75,6 +78,9 @@ public final class FontStyleApplierUtil {
     private static final float TEXT_DECORATION_LINE_OVER_Y_POS = 9 / 10F;
     private static final float TEXT_DECORATION_LIN_UNDER_Y_POS = -1 / 10F;
 
+    private static final WeakHashMap<ProcessorContext, Collection<Class<?>>> loggedVerticalIssues
+            = new WeakHashMap<>();
+
     /**
      * Creates a {@link FontStyleApplierUtil} instance.
      */
@@ -84,13 +90,13 @@ public final class FontStyleApplierUtil {
     /**
      * Applies font styles to an element.
      *
-     * @param cssProps        the CSS props
-     * @param context         the processor context
+     * @param cssProps the CSS props
+     * @param context the processor context
      * @param stylesContainer the styles container
-     * @param element         the element
+     * @param element the element
      */
     public static void applyFontStyles(Map<String, String> cssProps, ProcessorContext context,
-            IStylesContainer stylesContainer, IPropertyContainer element) {
+                                       IStylesContainer stylesContainer, IPropertyContainer element) {
         final float em = CssDimensionParsingUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
         final float rem = context.getCssContext().getRootFontSize();
         element.setProperty(Property.FONT_SIZE, UnitValue.createPointValue(em));
@@ -231,14 +237,19 @@ public final class FontStyleApplierUtil {
 
         String writingMode = cssProps.get(CssConstants.WRITING_MODE);
         if (writingMode != null) {
+            if (!loggedVerticalIssues.containsKey(context)) {
+                loggedVerticalIssues.put(context, new ArrayList<>());
+            }
             switch (writingMode) {
                 case CommonCssConstants.HORIZONTAL_TB:
                     element.setProperty(Property.WRITING_MODE, WritingMode.HORIZONTAL_TB);
                     break;
                 case CommonCssConstants.VERTICAL_LR:
+                    checkIfVerticalWritingModeSupported(context, element);
                     element.setProperty(Property.WRITING_MODE, WritingMode.VERTICAL_LR);
                     break;
                 case CommonCssConstants.VERTICAL_RL:
+                    checkIfVerticalWritingModeSupported(context, element);
                     element.setProperty(Property.WRITING_MODE, WritingMode.VERTICAL_RL);
                     break;
             }
@@ -258,9 +269,19 @@ public final class FontStyleApplierUtil {
         setLineHeightByLeading(element, lineHeight, em, rem);
     }
 
+    private static void checkIfVerticalWritingModeSupported(ProcessorContext context, IPropertyContainer element) {
+        if (!(element instanceof Paragraph || element instanceof Text)
+                && !loggedVerticalIssues.get(context).contains(element.getClass())) {
+            loggedVerticalIssues.get(context).add(element.getClass());
+            logger.warn(MessageFormatUtil.format(
+                    Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    element.getClass().getSimpleName()));
+        }
+    }
+
     private static void setTextDecoration(IPropertyContainer element, Map<String, String> cssProps) {
 
-        String[] props = new String[] {null};
+        String[] props = new String[]{null};
         final String unparsedProps = cssProps.get(CommonCssConstants.TEXT_DECORATION_COLOR);
         if (unparsedProps != null && !unparsedProps.trim().isEmpty()) {
             props = cssProps.get(CommonCssConstants.TEXT_DECORATION_COLOR).split("\\s+");

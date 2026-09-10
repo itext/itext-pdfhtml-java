@@ -23,11 +23,16 @@
 package com.itextpdf.html2pdf.css.verticaltext;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
-
-import java.io.IOException;
+import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.layout.logs.LayoutLogMessageConstant;
+import com.itextpdf.test.LogLevelConstants;
+import com.itextpdf.test.annotations.LogMessage;
+import com.itextpdf.test.annotations.LogMessages;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 @Tag("IntegrationTest")
 public class VerticalTextAreaTest extends ExtendedHtmlConversionITextTest {
@@ -40,16 +45,28 @@ public class VerticalTextAreaTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void divTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("div", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void divsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("divs", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN, count = 3),
+            @LogMessage(
+                    messageTemplate = LayoutLogMessageConstant.UNSUPPORTED_PROPERTY,
+                    logLevel = LogLevelConstants.WARN)
+    })
     public void divDisplayModesTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("divDisplayModes", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -75,17 +92,23 @@ public class VerticalTextAreaTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void spansInDiv2Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("spansInDiv2", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     // Height of body is ignored in horizontal and vertical modes.
     public void bodyTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("body", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void flexPsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("flexPs", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -96,6 +119,8 @@ public class VerticalTextAreaTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void flexDivs2Test() throws IOException, InterruptedException {
         convertToPdfAndCompare("flexDivs2", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

@@ -27,6 +27,7 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
+import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import org.junit.jupiter.api.BeforeAll;
@@ -47,51 +48,92 @@ public class VerticalTextMinMaxWidthTest extends ExtendedHtmlConversionITextTest
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxTableAutoLayoutTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxTableAutoLayout", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxTableExplicitCellMinMaxTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxTableExplicitCellMinMax", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxTableColgroupWidthsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxTableColgroupWidths", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxTableFixedLayoutTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxTableFixedLayout", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxTableDisplayTableCellTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxTableDisplayTableCell", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxTableColspanVerticalTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxTableColspanVertical", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxTableRowspanVerticalTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxTableRowspanVertical", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxTableMultipleVerticalCellsSameRowTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxTableMultipleVerticalCellsSameRow", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxTableAllVerticalCellsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxTableAllVerticalCells", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxTableNowrapCellTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxTableNowrapCell", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -102,6 +144,10 @@ public class VerticalTextMinMaxWidthTest extends ExtendedHtmlConversionITextTest
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxTableNestedInTableCellTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxTableNestedInTableCell", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -164,6 +210,10 @@ public class VerticalTextMinMaxWidthTest extends ExtendedHtmlConversionITextTest
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxTableNestedInFlexItemTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxTableNestedInFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -179,6 +229,10 @@ public class VerticalTextMinMaxWidthTest extends ExtendedHtmlConversionITextTest
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxInlineBlockElementItselfTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxInlineBlockElementItself", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -214,21 +268,34 @@ public class VerticalTextMinMaxWidthTest extends ExtendedHtmlConversionITextTest
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.UNSUPPORTED_PROPERTY)
+    })
     public void vertMinMaxGridAutoTracksTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxGridAutoTracks", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.UNSUPPORTED_PROPERTY)
+    })
     public void vertMinMaxGridMinmaxFunctionTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxGridMinmaxFunction", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.UNSUPPORTED_PROPERTY)
+    })
     public void vertMinMaxGridMinWidthZeroTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxGridMinWidthZero", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.UNSUPPORTED_PROPERTY,
+                    count = 2)
+    })
     public void vertMinMaxGridNestedInGridItemTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxGridNestedInGridItem", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -244,28 +311,48 @@ public class VerticalTextMinMaxWidthTest extends ExtendedHtmlConversionITextTest
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxBreakLogicalSizeInTableTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxBreakLogicalSizeInTable", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxBreakTableConflictingColumnWidthsAcrossRowsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxBreakTableConflictingColumnWidthsAcrossRows", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)})
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)
+    })
     public void vertMinMaxBreakTableFixedTinyWidthUnbreakableTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxBreakTableFixedTinyWidthUnbreakable", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)})
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)
+    })
     public void vertMinMaxBreakTableZeroWidthCellOverflowHiddenTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxBreakTableZeroWidthCellOverflowHidden", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxBreakTableEverythingConflictsAtOnceTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxBreakTableEverythingConflictsAtOnce", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -313,36 +400,63 @@ public class VerticalTextMinMaxWidthTest extends ExtendedHtmlConversionITextTest
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxBreakInlineBlockZeroWidthNowrapAncestorTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxBreakInlineBlockZeroWidthNowrapAncestor", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxBreakInlineBlockDoubleNowrapTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxBreakInlineBlockDoubleNowrap", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxBreakInlineBlockNegativePaddingTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxBreakInlineBlockNegativePadding", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxBreakInlineBlockFloatOverridesDisplayTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxBreakInlineBlockFloatOverridesDisplay", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.UNSUPPORTED_PROPERTY,
+                    count = 2)
+    })
     public void vertMinMaxBreakGridMinmaxZeroToFrTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxBreakGridMinmaxZeroToFr", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.UNSUPPORTED_PROPERTY,
+                    count = 5)
+    })
     public void vertMinMaxBreakGridAutoFillMinmaxTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxBreakGridAutoFillMinmax", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = LayoutLogMessageConstant.UNSUPPORTED_PROPERTY)
+    })
     public void vertMinMaxBreakGridMinmaxInvertedTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxBreakGridMinmaxInverted", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -368,6 +482,10 @@ public class VerticalTextMinMaxWidthTest extends ExtendedHtmlConversionITextTest
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(
+                    messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT,
+                    logLevel = LogLevelConstants.WARN)})
     public void vertMinMaxBreakExtremeTinyMaxWidthTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertMinMaxBreakExtremeTinyMaxWidth", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

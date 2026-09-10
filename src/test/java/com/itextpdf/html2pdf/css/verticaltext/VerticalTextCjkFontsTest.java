@@ -24,7 +24,7 @@ package com.itextpdf.html2pdf.css.verticaltext;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
-import com.itextpdf.io.logs.IoLogMessageConstant;
+import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import org.junit.jupiter.api.BeforeAll;
@@ -85,6 +85,8 @@ public class VerticalTextCjkFontsTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void cjkMixedAllScriptsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("cjkMixedAllScripts", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -100,6 +102,8 @@ public class VerticalTextCjkFontsTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void cjkMixedMongolianChineseLatinTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("cjkMixedMongolianChineseLatin", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -110,6 +114,8 @@ public class VerticalTextCjkFontsTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void cjkMongolianEmbeddedLatinSidewaysTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("cjkMongolianEmbeddedLatinSideways", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
