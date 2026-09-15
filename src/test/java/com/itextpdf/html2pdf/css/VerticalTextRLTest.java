@@ -24,6 +24,7 @@ package com.itextpdf.html2pdf.css;
 
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
+import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import org.junit.jupiter.api.BeforeAll;
@@ -44,7 +45,35 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    @LogMessages(messages = {@LogMessage(messageTemplate = Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED)})
+    // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks
+    public void vertRlBasicTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("vertRlBasic", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void vertRlPageSplitTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("vertRlPageSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void directionRtlTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("directionRtl", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void innerTextVerticalRlTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("innerTextVerticalRl", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void severalInnerTextVerticalRlTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("severalInnerTextVerticalRl", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED)
+    })
     public void vertRlAbsolutePositioningTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlAbsolutePositioning", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -52,11 +81,6 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void vertRlBackgroundDecorationTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlBackgroundDecoration", SOURCE_FOLDER, DESTINATION_FOLDER);
-    }
-
-    @Test
-    public void vertRlBasicTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("vertRlBasic", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
@@ -70,6 +94,7 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-10180 Support line-through for vertical text
     public void vertRlComboComplexTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlComboComplex", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -80,11 +105,13 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-10180 Support line-through for vertical text
     public void vertRlComboSpacingDecorationOverflowTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlComboSpacingDecorationOverflow", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    // TODO DEVSIX-10180 Support line-through for vertical text
     public void vertRlComboWideDecoratedTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlComboWideDecorated", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -100,6 +127,7 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-10168 Improve min-max width calculations for vertical text
     public void vertRlFloatTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlFloat", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -135,6 +163,11 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void vertRlLongContainerWithWidthTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("vertRlLongContainerWithWidth", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
     public void vertRlLongTextTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlLongText", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -165,6 +198,7 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // Start and end text-align is not supported, justify is a bit different.
     public void vertRlTextAlignTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlTextAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -175,6 +209,7 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    // TODO DEVSIX-10180 Support line-through for vertical text
     public void vertRlTextDecorationTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlTextDecoration", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -200,7 +235,16 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA),
+            @LogMessage(messageTemplate = IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)
+    })
     public void vertRlZeroNegativeDimensionsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlZeroNegativeDimensions", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void verticalLrPlusRTLDirectionTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("verticalLrPlusRTLDirection", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 }

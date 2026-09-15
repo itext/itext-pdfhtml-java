@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vertical-rl + direction: rtl</title>
+    <style>
+        h1 {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        .vtext {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            overflow-x: visible;
+            direction: rtl;
+            text-align: right;
+            height: 300px;
+            font-size: 16px;
+            border: 1px solid black;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<h1>vertical-rl + direction: rtl</h1>
+<p class="vtext">
+    The quick brown fox jumps over the lazy dog. 1234567890 ABCDEFG abcdefg.
+</p>
+</body>
+</html>

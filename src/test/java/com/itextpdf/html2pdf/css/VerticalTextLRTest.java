@@ -74,8 +74,7 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-10168 paragraph positioning in flex container
-    //TODO DEVSIX-10180 Support text rise in html mode for vertical text
+    // TODO DEVSIX-10180 Support line-through for vertical text
     public void vertLrComboComplexTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrComboComplex", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -208,7 +207,6 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-10168 paragraph border in flex container too narrow
     public void vertLrUnderlinePositionTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrUnderlinePosition", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

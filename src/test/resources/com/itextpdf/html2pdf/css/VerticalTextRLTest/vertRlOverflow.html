@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>vertical-rl + overflow-x + overflow-y</title>
+<title>vertical-rl + overflow-x + overflow-y + inline-block paragraphs</title>
 <style>
 h1 {
     font-size: 16px;
@@ -14,9 +14,7 @@ body {
 }
 
 .row {
-    display: flex;
     gap: 20px;
-    flex-wrap: wrap;
 }
 
 .vtext {
@@ -27,6 +25,7 @@ body {
     border: 1px solid #999;
     padding: 10px;
     margin: 0;
+    display: inline-block;
 }
 
 .box-small {
@@ -47,7 +46,7 @@ body {
 </style>
 </head>
 <body>
-<h1>vertical-rl + overflow-x + overflow-y</h1>
+<h1>vertical-rl + overflow-x + overflow-y + inline-block paragraphs</h1>
 <div class="row">
 <p class="vtext box-small">overflow-x visible, overflow-y visible, small box. Lorem ipsum dolor sit amet consectetur.</p>
 <p class="vtext box-medium">overflow-x visible, overflow-y visible, medium box. Lorem ipsum dolor sit amet consectetur.</p>

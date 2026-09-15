@@ -45,6 +45,31 @@ public class VerticalTextMixedDirectionsTest extends ExtendedHtmlConversionIText
     }
 
     @Test
+    // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks,
+    //  after that vertical RTL text chunks in vertical LTR paragraphs and vice versa will be fixed.
+    public void paragraphMixedVerticalTextTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("paragraphMixedVerticalText", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks
+    public void paragraphMixedVerticalTextRtlTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("paragraphMixedVerticalTextRtl", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks
+    public void paragraphMixedVerticalTextHorizontalTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("paragraphMixedVerticalTextHorizontal", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks
+    public void paragraphMixedVerticalTextInlineBlockTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("paragraphMixedVerticalTextInlineBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
     public void paragraphMixedTextWithLineBreaksTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("paragraphMixedTextWithLineBreaksTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

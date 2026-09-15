@@ -56,8 +56,8 @@ public class VerticalTextMixedTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    public void vertMixedMultipleLanesTest() throws IOException, InterruptedException {
-        convertToPdfAndCompare("vertMixedMultipleLanes", SOURCE_FOLDER, DESTINATION_FOLDER);
+    public void vertMixedMultipleLinesTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("vertMixedMultipleLines", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test

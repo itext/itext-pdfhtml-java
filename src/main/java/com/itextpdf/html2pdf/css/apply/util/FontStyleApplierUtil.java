@@ -238,6 +238,9 @@ public final class FontStyleApplierUtil {
                 case CommonCssConstants.VERTICAL_LR:
                     element.setProperty(Property.WRITING_MODE, WritingMode.VERTICAL_LR);
                     break;
+                case CommonCssConstants.VERTICAL_RL:
+                    element.setProperty(Property.WRITING_MODE, WritingMode.VERTICAL_RL);
+                    break;
             }
         }
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>vertical-rl + word-spacing + letter-spacing + overflow + font-stretch</title>
+<title>vertical-rl + word-spacing + letter-spacing + overflow + font-stretch + inline-block paragraphs</title>
 <style>
 h1 {
     font-size: 16px;
@@ -14,9 +14,7 @@ body {
 }
 
 .row {
-    display: flex;
     gap: 20px;
-    flex-wrap: wrap;
 }
 
 .vtext {
@@ -26,6 +24,7 @@ body {
     padding: 10px;
     margin: 0;
     height: 240px;
+    display: inline-block;
 }
 
 .deco-a {
@@ -38,7 +37,7 @@ body {
 </style>
 </head>
 <body>
-<h1>vertical-rl + word-spacing + letter-spacing + overflow + font-stretch</h1>
+<h1>vertical-rl + word-spacing + letter-spacing + overflow + font-stretch + inline-block paragraphs</h1>
 <div class="row">
 <p class="vtext deco-a" style="word-spacing: 6px; letter-spacing: 2px; overflow-x: visible; overflow-y: visible;">underline plus word spacing plus letter spacing plus visible overflow sample text here for testing</p>
 <p class="vtext deco-b" style="word-spacing: -3px; letter-spacing: 4px; overflow-x: visible; overflow-y: visible;">strike through plus negative word spacing plus letter spacing plus visible overflow sample text</p>

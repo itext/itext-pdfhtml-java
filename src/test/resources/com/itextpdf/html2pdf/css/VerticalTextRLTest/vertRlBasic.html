@@ -16,7 +16,7 @@ body {
 .vtext {
     writing-mode: vertical-rl;
     text-orientation: upright;
-    height: 300px;
+    height: 250px;
     border: 1px solid #999;
     padding: 10px;
     margin: 0;
@@ -26,5 +26,16 @@ body {
 <body>
 <h1>vertical-rl</h1>
 <p class="vtext">The quick brown fox jumps over the lazy dog. 1234567890 ABCDEFG abcdefg.</p>
+<p class="vtext" style="width: 500px">The quick brown fox jumps over the lazy dog. 1234567890 ABCDEFG abcdefg.</p>
+<p class="vtext" style="width: 70px">The quick brown fox jumps over the lazy dog. 1234567890 ABCDEFG abcdefg.</p>
+
+<p class="vtext" style="page-break-before: always">
+    <span style="writing-mode: vertical-lr; text-orientation: upright;">
+        The quick brown fox jumps over the lazy dog. 1234567890 ABCDEFG abcdefg.
+    </span>
+</p>
+<p>
+    <span class="vtext">The quick brown fox jumps over the lazy dog. 1234567890 ABCDEFG abcdefg.</span>
+</p>
 </body>
 </html>
