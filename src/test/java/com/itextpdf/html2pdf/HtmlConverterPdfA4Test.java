@@ -23,13 +23,13 @@
 package com.itextpdf.html2pdf;
 
 import com.itextpdf.commons.utils.MessageFormatUtil;
-import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.kernel.pdf.PdfAConformance;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfVersion;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.WriterProperties;
+import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.pdfa.PdfADocument;
 import com.itextpdf.pdfa.checker.PdfA4Checker;
 import com.itextpdf.pdfa.exceptions.PdfAConformanceException;
@@ -187,7 +187,7 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
             });
 
             Assertions.assertEquals(MessageFormatUtil.format(
-                            PdfaExceptionMessageConstant.EMBEDDED_FONTS_SHALL_DEFINE_ALL_REFERENCED_GLYPHS),
+                            PdfaExceptionMessageConstant.EMBEDDED_FONTS_SHALL_DEFINE_ALL_REFERENCED_GLYPHS, 'أ'),
                     e.getMessage());
         }
     }
@@ -216,7 +216,7 @@ public class HtmlConverterPdfA4Test extends ExtendedITextTest {
                 HtmlConverter.convertToPdf(html, fOutput, converterProperties);
             });
             Assertions.assertEquals(MessageFormatUtil.format(
-                            PdfaExceptionMessageConstant.EMBEDDED_FONTS_SHALL_DEFINE_ALL_REFERENCED_GLYPHS),
+                            PdfaExceptionMessageConstant.EMBEDDED_FONTS_SHALL_DEFINE_ALL_REFERENCED_GLYPHS, "\uD83D\uDE09"),
                     e.getMessage());
         }
     }
