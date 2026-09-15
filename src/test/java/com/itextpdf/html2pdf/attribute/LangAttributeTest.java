@@ -592,7 +592,7 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
                     new ConverterProperties().setPdfUAConformance(PdfUAConformance.PDF_UA_1)));
         }
 
-        Assertions.assertNotNull(new VeraPdfValidator().validate(outFilename));
+        new VeraPdfValidator().validateFailure(outFilename);
     }
 
     @Test
@@ -607,7 +607,7 @@ public class LangAttributeTest extends ExtendedHtmlConversionITextTest {
                     new ConverterProperties().setPdfUAConformance(PdfUAConformance.PDF_UA_1)));
         }
 
-        Assertions.assertNotNull(new VeraPdfValidator().validate(outFilename));
+        new VeraPdfValidator().validateFailure(outFilename);
     }
 
     private static void addElementsToDocument(Document document, List<IElement> elements) {
