@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vertical-align values with vertical writing</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 24pt;
+        }
+
+        body {
+            margin: 0;
+            font-family: Helvetica, sans-serif;
+            font-size: 10pt;
+        }
+
+        h1 {
+            font-size: 16pt;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .sample {
+            width: 80pt;
+            margin: 0 8pt 16pt 0;
+        }
+
+        h2 {
+            margin: 0 0 6pt;
+            font-size: 10pt;
+            font-weight: normal;
+        }
+
+        .vertical {
+            writing-mode: vertical-lr;
+            text-orientation: upright;
+            font-size: 32pt;
+            line-height: 48pt;
+            width: 60pt;
+            height: 180pt;
+            margin: 0;
+            padding: 6pt;
+            border: 1pt solid #999;
+        }
+
+        .vertical span {
+            font-size: 16pt;
+            line-height: 20pt;
+            background-color: #cceeff;
+        }
+    </style>
+</head>
+<body>
+<h1>Vertical-align values with vertical-lr writing</h1>
+<div class="row">
+    <div class="sample">
+        <h2>baseline</h2>
+        <p class="vertical">A<span style="vertical-align: baseline">V</span>A</p>
+    </div>
+    <div class="sample">
+        <h2>sub</h2>
+        <p class="vertical">A<span style="vertical-align: sub">V</span>A</p>
+    </div>
+    <div class="sample">
+        <h2>super</h2>
+        <p class="vertical">A<span style="vertical-align: super">V</span>A</p>
+    </div>
+    <div class="sample">
+        <h2>text-top</h2>
+        <p class="vertical">A<span style="vertical-align: text-top">V</span>A</p>
+    </div>
+    <div class="sample">
+        <h2>text-bottom</h2>
+        <p class="vertical">A<span style="vertical-align: text-bottom">V</span>A</p>
+    </div>
+    <div class="sample">
+        <h2>middle</h2>
+        <p class="vertical">A<span style="vertical-align: middle">V</span>A</p>
+    </div>
+</div>
+<div class="row">
+    <div class="sample">
+        <h2>top</h2>
+        <p class="vertical">A<span style="vertical-align: top">V</span>A</p>
+    </div>
+    <div class="sample">
+        <h2>bottom</h2>
+        <p class="vertical">A<span style="vertical-align: bottom">V</span>A</p>
+    </div>
+    <div class="sample">
+        <h2>12pt</h2>
+        <p class="vertical">A<span style="vertical-align: 12pt">V</span>A</p>
+    </div>
+    <div class="sample">
+        <h2>-12pt</h2>
+        <p class="vertical">A<span style="vertical-align: -12pt">V</span>A</p>
+    </div>
+    <div class="sample">
+        <h2>50%</h2>
+        <p class="vertical">A<span style="vertical-align: 50%">V</span>A</p>
+    </div>
+    <div class="sample">
+        <h2>-50%</h2>
+        <p class="vertical">A<span style="vertical-align: -50%">V</span>A</p>
+    </div>
+</div>
+</body>
+</html>

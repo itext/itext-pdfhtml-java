@@ -75,7 +75,6 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-10180 Support line-through for vertical text
     public void vertLrComboComplexTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrComboComplex", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -88,13 +87,11 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-10180 Support text rise in html mode for vertical text
     public void vertLrComboSpacingDecorationOverflowTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrComboSpacingDecorationOverflow", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    //TODO DEVSIX-10180 Strike-through positioning is off.
     public void vertLrComboWideDecoratedTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrComboWideDecorated", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -197,7 +194,6 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-10180 Support text rise in html mode for vertical text
     public void vertLrTextAlignTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrTextAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -209,7 +205,6 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-10180 Support text rise in html mode for vertical text
     public void vertLrTextDecorationTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrTextDecoration", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -220,9 +215,23 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-10180 Support text rise in html mode for vertical text
     public void vertLrVerticalAlignTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrVerticalAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void vertLrVerticalAlignShiftsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("vertLrVerticalAlignShifts", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void textRiseWithInlineVerticalAlignmentTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("textRiseWithInlineVerticalAlignment", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void nestedSpansVerticalAlignmentTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("nestedSpansVerticalAlignment", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test

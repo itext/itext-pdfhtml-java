@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nested span alignment - vertical-rl</title>
+    <style>
+        @page { size: A4; margin: 36pt; }
+        body { margin: 0; font-family: Helvetica, sans-serif; font-size: 10pt; }
+        h1 { font-size: 16pt; margin: 0 0 8pt; }
+        h2 { font-size: 10pt; margin: 0 0 6pt; }
+        h3 { font-size: 9pt; font-weight: normal; margin: 0 0 4pt; }
+        .description { margin: 0 0 14pt; }
+        .row { display: flex; margin-bottom: 18pt; }
+        .case { width: 160pt; margin-right: 8pt; }
+        .pair { display: flex; }
+        .sample { width: 74pt; }
+        .vertical {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            font-size: 40pt;
+            line-height: 40pt;
+            width: 54pt;
+            height: 210pt;
+            margin: 0;
+            padding: 4pt;
+            border: 0.5pt solid #888;
+        }
+        .vertical span { line-height: 1em; }
+        .outer { font-size: 20pt; background-color: #bbddff; }
+        .inner { font-size: 10pt; background-color: #fff0a6; }
+        .deep { font-size: 8pt; background-color: #f5c3c3; }
+        .top { vertical-align: text-top; }
+        .bottom { vertical-align: text-bottom; }
+        .note { font-size: 8pt; margin: 6pt 0 0; }
+    </style>
+</head>
+<body>
+<h1>Nested spans: vertical-rl</h1>
+<p class="description">Each Nested / Points pair must have the same shape. A and F mark the baseline.<br>
+    Blue: outer span; yellow: inner span; pink: third level. B/C/D shifts are listed in points.</p>
+<!-- Point references are calculated per span, then added: text-top = (parent font size - line-height) / 2;
+     text-bottom is the opposite; percentages use the span's own line-height. No unitless line-height is used. -->
+<div class="row">
+    <div class="case">
+        <h2>1. Three text-top shifts</h2>
+        <div class="pair">
+            <div class="sample"><h3>Nested</h3>
+                <p class="vertical">A<span class="outer top">B<span class="inner top">C<span class="deep top">D</span></span>E</span>F</p>
+            </div>
+            <div class="sample"><h3>Points</h3>
+                <p class="vertical">A<span class="outer" style="vertical-align:10pt">B</span><span class="inner" style="vertical-align:15pt">C</span><span class="deep" style="vertical-align:16pt">D</span><span class="outer" style="vertical-align:10pt">E</span>F</p>
+            </div>
+        </div>
+        <p class="note">B/C/D: +10 / +15 / +16 pt</p>
+    </div>
+    <div class="case">
+        <h2>2. Top + bottom</h2>
+        <div class="pair">
+            <div class="sample"><h3>Nested</h3>
+                <p class="vertical">A<span class="outer top">B<span class="inner bottom">C<span class="deep bottom">D</span></span>E</span>F</p>
+            </div>
+            <div class="sample"><h3>Points</h3>
+                <p class="vertical">A<span class="outer" style="vertical-align:10pt">B</span><span class="inner" style="vertical-align:5pt">C</span><span class="deep" style="vertical-align:4pt">D</span><span class="outer" style="vertical-align:10pt">E</span>F</p>
+            </div>
+        </div>
+        <p class="note">B/C/D: +10 / +5 / +4 pt</p>
+    </div>
+    <div class="case">
+        <h2>3. Three text-bottom shifts</h2>
+        <div class="pair">
+            <div class="sample"><h3>Nested</h3>
+                <p class="vertical">A<span class="outer bottom">B<span class="inner bottom">C<span class="deep bottom">D</span></span>E</span>F</p>
+            </div>
+            <div class="sample"><h3>Points</h3>
+                <p class="vertical">A<span class="outer" style="vertical-align:-10pt">B</span><span class="inner" style="vertical-align:-15pt">C</span><span class="deep" style="vertical-align:-16pt">D</span><span class="outer" style="vertical-align:-10pt">E</span>F</p>
+            </div>
+        </div>
+        <p class="note">B/C/D: -10 / -15 / -16 pt</p>
+    </div>
+</div>
+<div class="row">
+    <div class="case">
+        <h2>4. Percent + negative pixels</h2>
+        <div class="pair">
+            <div class="sample"><h3>Nested</h3>
+                <p class="vertical">A<span class="outer" style="vertical-align:50%">B<span class="inner" style="vertical-align:-4px">C<span class="deep" style="vertical-align:25%">D</span></span>E</span>F</p>
+            </div>
+            <div class="sample"><h3>Points</h3>
+                <p class="vertical">A<span class="outer" style="vertical-align:10pt">B</span><span class="inner" style="vertical-align:7pt">C</span><span class="deep" style="vertical-align:9pt">D</span><span class="outer" style="vertical-align:10pt">E</span>F</p>
+            </div>
+        </div>
+        <p class="note">B/C/D: +10 / +7 / +9 pt</p>
+    </div>
+    <div class="case">
+        <h2>5. Baseline / middle retain shift</h2>
+        <div class="pair">
+            <div class="sample"><h3>Nested</h3>
+                <p class="vertical">A<span class="outer top">B<span class="inner" style="vertical-align:baseline">C<span class="deep" style="vertical-align:middle">D</span></span>E</span>F</p>
+            </div>
+            <div class="sample"><h3>Points</h3>
+                <p class="vertical">A<span class="outer" style="vertical-align:10pt">B</span><span class="inner" style="vertical-align:10pt">C</span><span class="deep" style="vertical-align:10pt">D</span><span class="outer" style="vertical-align:10pt">E</span>F</p>
+            </div>
+        </div>
+        <p class="note">B/C/D: +10 / +10 / +10 pt</p>
+    </div>
+    <div class="case">
+        <h2>6. Length + top + bottom</h2>
+        <div class="pair">
+            <div class="sample"><h3>Nested</h3>
+                <p class="vertical">A<span class="outer" style="vertical-align:12pt">B<span class="inner top">C<span class="deep bottom">D</span></span>E</span>F</p>
+            </div>
+            <div class="sample"><h3>Points</h3>
+                <p class="vertical">A<span class="outer" style="vertical-align:12pt">B</span><span class="inner" style="vertical-align:17pt">C</span><span class="deep" style="vertical-align:16pt">D</span><span class="outer" style="vertical-align:12pt">E</span>F</p>
+            </div>
+        </div>
+        <p class="note">B/C/D: +12 / +17 / +16 pt</p>
+    </div>
+</div>
+</body>
+</html>
+

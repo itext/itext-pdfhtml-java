@@ -98,7 +98,6 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-10180 Support line-through for vertical text
     public void vertRlComboComplexTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlComboComplex", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -112,13 +111,11 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-10180 Support line-through for vertical text
     public void vertRlComboSpacingDecorationOverflowTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlComboSpacingDecorationOverflow", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    // TODO DEVSIX-10180 Support line-through for vertical text
     public void vertRlComboWideDecoratedTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlComboWideDecorated", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -234,7 +231,6 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-10180 Support line-through for vertical text
     public void vertRlTextDecorationTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlTextDecoration", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -247,6 +243,11 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void vertRlVerticalAlignTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlVerticalAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void nestedSpansVerticalAlignmentTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("nestedSpansVerticalAlignment", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test

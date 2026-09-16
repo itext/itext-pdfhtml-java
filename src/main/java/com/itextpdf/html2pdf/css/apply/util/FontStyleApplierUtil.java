@@ -336,7 +336,7 @@ public final class FontStyleApplierUtil {
             } else if (CommonCssConstants.LINE_THROUGH.equals(line)) {
                 underlineList.add(new Underline(color, opacity, TEXT_DECORATION_LINE_DEFAULT_THICKNESS, 0, 0,
                         TEXT_DECORATION_LINE_THROUGH_Y_POS,
-                        LineCapStyle.BUTT));
+                        LineCapStyle.BUTT).setXPosition(0, 0.5f));
             } else if (CommonCssConstants.OVERLINE.equals(line)) {
                 underlineList.add(new Underline(color, opacity, TEXT_DECORATION_LINE_DEFAULT_THICKNESS, 0, 0,
                         TEXT_DECORATION_LINE_OVER_Y_POS,

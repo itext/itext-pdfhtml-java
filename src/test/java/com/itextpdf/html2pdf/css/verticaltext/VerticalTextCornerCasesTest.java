@@ -136,7 +136,6 @@ public class VerticalTextCornerCasesTest extends ExtendedHtmlConversionITextTest
     }
 
     @Test
-    //TODO DEVSIX-10180 Support text rise in html mode for vertical text
     @LogMessages(messages = {@LogMessage(messageTemplate = IoLogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED)})
     public void vertCornerMultiPageOrphansWidowsTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertCornerMultiPageOrphansWidows", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -186,7 +185,7 @@ public class VerticalTextCornerCasesTest extends ExtendedHtmlConversionITextTest
     }
 
     @Test
-    //TODO DEVSIX-10180 Support text rise in html mode for vertical text
+    // Doesn't look like browser due to layout restraining minimal line height
     public void vertCornerTinyLineHeightTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertCornerTinyLineHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

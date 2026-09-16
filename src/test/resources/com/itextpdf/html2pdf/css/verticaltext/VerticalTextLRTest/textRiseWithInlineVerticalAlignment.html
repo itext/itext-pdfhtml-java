@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text rise with inline vertical alignment</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 36pt;
+        }
+
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            font-size: 12pt;
+        }
+
+        .row {
+            display: flex;
+            gap: 12pt;
+        }
+
+        .case {
+            width: 84pt;
+        }
+
+        .vtext {
+            writing-mode: vertical-lr;
+            text-orientation: upright;
+            font-size: 24pt;
+            line-height: 2;
+            height: 320pt;
+            margin: 24pt 0 0;
+            padding: 12pt;
+            border: 0.5pt solid gray;
+        }
+
+        .base {
+            background-color: orange;
+        }
+
+        .sample {
+            font-size: 12pt;
+            background-color: yellow;
+            border: 0.5pt solid black;
+            text-decoration: underline line-through;
+        }
+
+        .positive {
+            vertical-align: 12pt;
+        }
+
+        .negative {
+            vertical-align: -12pt;
+        }
+
+        .top { vertical-align: top; }
+        .bottom { vertical-align: bottom; }
+        .middle { vertical-align: middle; }
+        .text-top { vertical-align: text-top; }
+        .text-bottom { vertical-align: text-bottom; }
+    </style>
+</head>
+<body>
+<p>Each column: baseline, alignment only, inner rise +12pt / -12pt,
+    outer rise +12pt / -12pt, baseline.</p>
+<!-- Top/bottom set INLINE_VERTICAL_ALIGNMENT; parent-relative keywords and lengths accumulate TEXT_RISE.
+     Each keyword uses its own span's font size and line-height, so the nesting orders can differ. -->
+<div class="row">
+    <div class="case">top
+        <p class="vtext">
+            <span class="base">B</span>
+            <span class="sample top">X</span>
+            <span class="top"><span class="sample positive">X</span></span>
+            <span class="top"><span class="sample negative">X</span></span>
+            <span class="positive"><span class="sample top">X</span></span>
+            <span class="negative"><span class="sample top">X</span></span>
+            <span class="base">B</span>
+        </p>
+    </div>
+    <div class="case">bottom
+        <p class="vtext">
+            <span class="base">B</span>
+            <span class="sample bottom">X</span>
+            <span class="bottom"><span class="sample positive">X</span></span>
+            <span class="bottom"><span class="sample negative">X</span></span>
+            <span class="positive"><span class="sample bottom">X</span></span>
+            <span class="negative"><span class="sample bottom">X</span></span>
+            <span class="base">B</span>
+        </p>
+    </div>
+    <div class="case">middle
+        <p class="vtext">
+            <span class="base">B</span>
+            <span class="sample middle">X</span>
+            <span class="middle"><span class="sample positive">X</span></span>
+            <span class="middle"><span class="sample negative">X</span></span>
+            <span class="positive"><span class="sample middle">X</span></span>
+            <span class="negative"><span class="sample middle">X</span></span>
+            <span class="base">B</span>
+        </p>
+    </div>
+    <div class="case">text-top
+        <p class="vtext">
+            <span class="base">B</span>
+            <span class="sample text-top">X</span>
+            <span class="text-top"><span class="sample positive">X</span></span>
+            <span class="text-top"><span class="sample negative">X</span></span>
+            <span class="positive"><span class="sample text-top">X</span></span>
+            <span class="negative"><span class="sample text-top">X</span></span>
+            <span class="base">B</span>
+        </p>
+    </div>
+    <div class="case">text-bottom
+        <p class="vtext">
+            <span class="base">B</span>
+            <span class="sample text-bottom">X</span>
+            <span class="text-bottom"><span class="sample positive">X</span></span>
+            <span class="text-bottom"><span class="sample negative">X</span></span>
+            <span class="positive"><span class="sample text-bottom">X</span></span>
+            <span class="negative"><span class="sample text-bottom">X</span></span>
+            <span class="base">B</span>
+        </p>
+    </div>
+</div>
+</body>
+</html>
+
