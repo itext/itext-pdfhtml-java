@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<title>text-emphasis marks with Noto Sans SC</title>
+<style>
+@font-face {
+    font-family: "Noto Sans SC";
+    src: url("../../../fonts/NotoSansCJKsc-Regular.otf");
+}
+
+h1 {
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-family: "Noto Sans SC";
+    font-size: 22px;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 260px;
+}
+
+.emphasis-dot {
+    text-emphasis-style: dot;
+    text-emphasis-color: #c0392b;
+    text-emphasis-position: left;
+}
+
+.emphasis-circle {
+    text-emphasis-style: circle;
+    text-emphasis-color: #2980b9;
+    text-emphasis-position: right;
+}
+</style>
+</head>
+<body>
+<h1>text-emphasis marks with Noto Sans SC, used to highlight key characters in vertical CJK text</h1>
+<div class="row">
+<p class="vtext emphasis-dot">重要的中文文字</p>
+<p class="vtext emphasis-circle">重要的中文文字</p>
+</div>
+</body>
+</html>

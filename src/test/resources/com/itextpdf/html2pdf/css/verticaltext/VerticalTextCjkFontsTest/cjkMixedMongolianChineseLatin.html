@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<title>Mongolian, Chinese, and Latin fonts mixed in same paragraph</title>
+<style>
+@font-face {
+    font-family: "Noto Sans Mongolian";
+    src: url("../../../fonts/NotoSansMongolian-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Noto Sans SC";
+    src: url("../../../fonts/NotoSansCJKsc-Regular.otf");
+}
+
+h1 {
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    font-size: 22px;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 300px;
+}
+
+.seg-mongolian {
+    font-family: "Noto Sans Mongolian";
+}
+
+.seg-chinese {
+    font-family: "Noto Sans SC";
+    text-orientation: upright;
+}
+
+.seg-latin {
+    display: inline-block;
+    font-family: sans-serif;
+    text-orientation: sideways;
+    vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<h1>Mongolian, Chinese, and Latin fonts mixed in the same paragraph</h1>
+<p class="vtext"><span class="seg-mongolian">ᠮᠣᠩᠭᠣᠯ</span> <span class="seg-chinese">呼和浩特</span> <span class="seg-latin">2026</span></p>
+</body>
+</html>

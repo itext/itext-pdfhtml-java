@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<title>word-break for CJK text with Noto Sans SC, no spaces between words</title>
+<style>
+@font-face {
+    font-family: "Noto Sans SC";
+    src: url("../../../fonts/NotoSansCJKsc-Regular.otf");
+}
+
+h1 {
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-family: "Noto Sans SC";
+    font-size: 22px;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 160px;
+}
+
+.break-normal {
+    word-break: normal;
+}
+
+.break-all {
+    word-break: break-all;
+}
+</style>
+</head>
+<body>
+<h1>word-break normal vs break-all for continuous Chinese text with Noto Sans SC</h1>
+<div class="row">
+<p class="vtext break-normal">春眠不觉晓处处闻啼鸟夜来风雨声花落知多少</p>
+<p class="vtext break-all">春眠不觉晓处处闻啼鸟夜来风雨声花落知多少</p>
+</div>
+</body>
+</html>

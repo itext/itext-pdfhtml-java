@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>four alternating writing-mode and direction lines in same paragraph</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.vtext {
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 260px;
+}
+
+.line-1 {
+    display: inline-block;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    direction: ltr;
+    border: 1px dashed #c0392b;
+    padding: 3px;
+    vertical-align: middle;
+}
+
+.line-2 {
+    display: inline-block;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    direction: ltr;
+    border: 1px dashed #2980b9;
+    padding: 3px;
+    vertical-align: middle;
+}
+
+.line-3 {
+    display: inline-block;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    direction: rtl;
+    border: 1px dashed #27ae60;
+    padding: 3px;
+    vertical-align: middle;
+}
+
+.line-4 {
+    display: inline-block;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    direction: rtl;
+    border: 1px dashed #8e44ad;
+    padding: 3px;
+    vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<h1>four alternating writing-mode and direction lanes in same paragraph</h1>
+<p class="vtext"><span class="line-1">line one rl ltr</span> <span class="line-2">line two lr ltr</span> <span class="line-3">line three rl rtl</span> <span class="line-4">line four lr rtl</span></p>
+</body>
+</html>
