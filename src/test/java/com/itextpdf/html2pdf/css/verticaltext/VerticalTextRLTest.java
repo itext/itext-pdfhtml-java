@@ -135,7 +135,6 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
             @LogMessage(messageTemplate = LayoutLogMessageConstant.UNSUPPORTED_PROPERTY,
                     count = 2)
     })
-    // TODO DEVSIX-10168 Improve min-max width calculations for vertical text
     public void vertRlFloatTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlFloat", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

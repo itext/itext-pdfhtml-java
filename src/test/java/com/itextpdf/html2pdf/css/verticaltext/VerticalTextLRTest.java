@@ -199,7 +199,6 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    //TODO DEVSIX-10167 text-combine-upright all not supported
     public void vertLrTextCombineUprightTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrTextCombineUpright", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

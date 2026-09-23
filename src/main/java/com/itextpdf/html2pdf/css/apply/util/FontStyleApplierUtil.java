@@ -197,6 +197,7 @@ public final class FontStyleApplierUtil {
             }
         }
         setTextDecoration(element, cssProps);
+        TextCombineUprightApplierUtil.applyTextCombineUpright(cssProps, element);
 
         String textIndent = cssProps.get(CommonCssConstants.TEXT_INDENT);
         if (textIndent != null) {
