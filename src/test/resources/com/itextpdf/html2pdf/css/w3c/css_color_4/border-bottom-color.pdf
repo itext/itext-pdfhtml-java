@@ -1,18 +1,18 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 213>>stream
-xœmË‚0E÷ów©›Jy¶&º7é@(>"(-,ü{K‚@+»¹ÉäÌ™ÛÑQÒáÌÁCÈš¢"‹˜ˆ!+ÚIez¼c”Á½FSZánP ×EkŞ…VmÓv€´~m¥*”»R>…ò¥+¥Ù^>è$éBÀ¡¯åL$iÌâqÎWùisÂÆ˜±Ğ¦Ñë7æÎ^íR]ÌŒMópM³Œ‰¿#¾Â6zB5“ÈL¶Š.vI®B½ÕƒGÖ/¼Ó1ØêÀGæ^#~Cÿ-|kyl
+<</Filter/FlateDecode/Length 227>>stream
+xœmËnƒ0D÷÷+fÙnÌÃ†m¥6ëJş&M•à‹ü}D	6Ùy¤«3Ç3Ğ‡¡Ã—„La:Êt™	Ã´ôf,¸×Ì–qî0şXgqfÔ]İó½v¶ÁÃäàÉ¹ÛÔ·¶Eóğ'Íe²hn®µN¼›_ú4ôM%H áN”UBĞ*y+I)7ùâs!æXŠÔ§ÙëÿYw]H1+VUé«ÊRè]I¬ğ½ ®‹ÈJöŠ!ö™B…îÕuuØ~üYU/D‘(¥4f²ç,qâİ"qAíïµßäWÔ|Á
 endstream
 endobj
 4 0 obj
-<</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
+<</Contents 5 0 R/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<</ExtGState<</Gs1 7 0 R>>/Font<</F1 6 0 R>>>>/TrimBox[0 0 595 842]/Type/Page>>
 endobj
 1 0 obj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20200311161058+03'00')/ModDate(D:20200311161058+03'00')/Producer(iText® 7.1.11-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Border-bottom-color set to hex with three digits with the maximum plus one value of #1000)/assert(The 'border-bottom-color' set to #1000 is a transparent dark red square.)>>
+<</CreationDate(D:20260924153633+03'00')/ModDate(D:20260924153633+03'00')/Producer(iText® pdfHTML 6.3.4-SNAPSHOT \(AGPL version\) ©2000-2026 Apryse Group NV)/Title(CSS Test: Border-bottom-color set to hex with three digits with the maximum plus one value of #1000)/assert(The 'border-bottom-color' set to #1000 is a transparent dark red square.)>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -20,18 +20,22 @@ endobj
 2 0 obj
 <</Count 1/Kids[4 0 R]/Type/Pages>>
 endobj
+7 0 obj
+<</ca 0>>
+endobj
 xref
-0 7
+0 8
 0000000000 65535 f 
-0000000428 00000 n 
-0000000918 00000 n 
-0000000473 00000 n 
-0000000295 00000 n 
+0000000466 00000 n 
+0000000964 00000 n 
+0000000511 00000 n 
+0000000309 00000 n 
 0000000015 00000 n 
-0000000828 00000 n 
+0000000874 00000 n 
+0000001015 00000 n 
 trailer
-<</ID [<345f9667aee0ea770af39fff94de73a6><345f9667aee0ea770af39fff94de73a6>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.11-SNAPSHOT
+<</ID [<d05dc47e155e0514a49da2311b28d99895a93d3be497d8736a38b2492cf9b7899c0f4aee6b311ba05c850ce0944b207b58bf2eb88658f5c9d61c8fcb4052fd52><d05dc47e155e0514a49da2311b28d99895a93d3be497d8736a38b2492cf9b7899c0f4aee6b311ba05c850ce0944b207b58bf2eb88658f5c9d61c8fcb4052fd52>]/Info 3 0 R/Root 1 0 R/Size 8>>
+%iText-pdfHTML-6.3.4-SNAPSHOT
 startxref
-969
+1040
 %%EOF

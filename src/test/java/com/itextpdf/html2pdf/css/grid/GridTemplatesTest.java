@@ -643,11 +643,6 @@ public class GridTemplatesTest extends ExtendedHtmlConversionITextTest {
         runTest("maxHeightFlexRowsTest2");
     }
 
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION,
-                    logLevel = LogLevelConstants.WARN),
-            @LogMessage(messageTemplate = IoLogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB,
-                    logLevel = LogLevelConstants.ERROR, count = 11)})
     @Test
     public void divNestingTest() throws IOException, InterruptedException {
         runTest("divNestingTest");
