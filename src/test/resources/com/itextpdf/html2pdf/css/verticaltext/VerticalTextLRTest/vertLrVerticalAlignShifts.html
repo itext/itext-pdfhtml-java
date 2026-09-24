@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + vertical-align with different line-height</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    margin: 0;
+    height: 400px;
+    overflow-wrap: break-word;
+}
+
+.big {
+    font-size: 28px;
+}
+
+.va-numeric {
+    vertical-align: 20pt;
+}
+
+.va-numeric2 {
+    vertical-align: -20pt;
+}
+
+.va-numeric3 {
+    vertical-align: 3pt;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + vertical-align + different line-height</h1>
+<div class="row">
+<p class="vtext">numeric 20<span class="big va-numeric">X</span>abc</p>
+<p class="vtext">numeric -20<span class="big va-numeric2">X</span>abc</p>
+<p class="vtext">numeric 3<span class="big va-numeric3">X</span>abc</p>
+<p class="vtext" style="width: 100pt">width 100 <span
+        class="big va-numeric3" style="background-color: #00FFFF">X</span>abc</p>
+<p class="vtext" style="width: 100pt; line-height: 100pt">line-height 100 <span
+        class="big va-numeric3" style="background-color: #00FFFF">X</span>abc</p>
+<p class="vtext" style="width: 100pt; line-height: 50pt">line-height 50 <span
+        class="big va-numeric3" style="background-color: #00FFFF">X</span>abc</p>
+<p class="vtext">numeric<span class="big va-numeric">X</span><span class="big va-numeric2">X</span>abc</p>
+<p class="vtext"><span class="big">BIG</span><span style="vertical-align: -5pt;">-5</span>normal</p>
+<p class="vtext" style="height: 200pt;"><span class="big">LINE-BREAK</span>
+    <span style="vertical-align: 50pt;">big<br>text<br>rise</span>normal</p>
+</div>
+<p class="vtext big" style="height: 100pt; page-break-before: always"><span style="vertical-align: 50pt;">+50</span>W</p>
+<p class="vtext big" style="height: 100pt;"><span style="vertical-align: 50pt;">+50</span></p>
+<p class="vtext big" style="height: 100pt; line-height: 150pt;"><span style="vertical-align: 50pt;">+50</span>W</p>
+<p class="vtext big" style="height: 100pt; line-height: 150pt;"><span style="vertical-align: 50pt;">+50</span></p>
+
+<p class="vtext" style="height: 100pt;">numeric<span class="big va-numeric">X</span><span
+        class="big va-numeric2">X</span>abc<br>def</p>
+</body>
+</html>

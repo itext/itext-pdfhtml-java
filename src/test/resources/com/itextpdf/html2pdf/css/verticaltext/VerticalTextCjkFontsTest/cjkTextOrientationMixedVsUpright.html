@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>text-orientation mixed vs upright with Noto Sans JP and embedded Latin</title>
+<style>
+@font-face {
+    font-family: "Noto Sans JP";
+    src: url("../../../fonts/NotoSansCJKjp-Regular.otf");
+}
+
+h1 {
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    font-family: "Noto Sans JP";
+    font-size: 22px;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 280px;
+}
+
+.orientation-mixed {
+    text-orientation: mixed;
+}
+
+.orientation-upright {
+    text-orientation: upright;
+}
+</style>
+</head>
+<body>
+<h1>text-orientation mixed vs upright, Noto Sans JP with embedded Latin and digits</h1>
+<div class="row">
+<p class="vtext orientation-mixed">東京都渋谷区Shibuya123番地</p>
+<p class="vtext orientation-upright">東京都渋谷区Shibuya123番地</p>
+</div>
+</body>
+</html>

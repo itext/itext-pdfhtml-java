@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl + CJK text</title>
+<style>
+@font-face {
+    font-family: "Noto Serif CJK JP";
+    src: url("../../../fonts/NotoSerifCJKjp-Regular.otf") format("OpenType");
+}
+
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Noto Sans CJK JP';
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 260px;
+    font-size: 20px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl + CJK text</h1>
+<div class="row">
+<p class="vtext">眠気干す朝露降りたころ</p>
+<p class="vtext">
+    地平も濡れて陽に染まる
+    新芽柔らかく
+    花を得見せよ
+    ふきのとう</p>
+</div>
+</body>
+</html>

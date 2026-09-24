@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>flex item, flex-basis auto, default min-width auto resolves to min-content</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    gap: 10px;
+    width: 400px;
+}
+
+.side {
+    background: #eee;
+    padding: 8px;
+    flex: 0 0 auto;
+    font-size: 13px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    flex-basis: auto;
+}
+</style>
+</head>
+<body>
+<h1>flex item, flex-basis auto, default min-width auto resolves to min-content</h1>
+<div class="flexrow">
+<div class="side">left</div>
+<p class="vtext">a stretch of vertical text content whose min-content width the flex algorithm must compute correctly</p>
+<div class="side">right</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + vertical-align</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    margin: 0;
+    height: 500px;
+}
+
+.big {
+    font-size: 28px;
+}
+
+.va-top {
+    vertical-align: top;
+}
+
+.va-middle {
+    vertical-align: middle;
+}
+
+.va-bottom {
+    vertical-align: bottom;
+}
+
+.va-text-top {
+    vertical-align: text-top;
+}
+
+.va-text-bottom {
+    vertical-align: text-bottom;
+}
+
+.va-sub {
+    vertical-align: sub;
+}
+
+.va-super {
+    vertical-align: super;
+}
+
+.va-numeric {
+    vertical-align: 20pt;
+}
+
+.va-percentage {
+    vertical-align: -50%;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + vertical-align</h1>
+<div class="row">
+<p class="vtext">top<span class="big va-top">X</span>abc</p>
+<p class="vtext">middle<span class="big va-middle">X</span>abc</p>
+<p class="vtext">bottom<span class="big va-bottom">X</span>abc</p>
+<p class="vtext">text-top<span class="big va-text-top">X</span>abc</p>
+<p class="vtext">text-bottom<span class="big va-text-bottom">X</span>abc</p>
+<p class="vtext">sub<span class="big va-sub">X</span>abc</p>
+<p class="vtext">super<span class="big va-super">X</span>abc</p>
+<p class="vtext">numeric<span class="big va-numeric">X</span>abc</p>
+<p class="vtext">percentage<span class="big va-percentage">X</span>abc</p>
+</div>
+</body>
+</html>

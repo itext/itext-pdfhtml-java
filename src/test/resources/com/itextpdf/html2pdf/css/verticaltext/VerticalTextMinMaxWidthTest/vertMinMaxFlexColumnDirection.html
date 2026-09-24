@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>flex-direction column, main axis vertical, cross axis horizontal for a vertical-lr item</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexcol {
+    display: flex;
+    flex-direction: column;
+    border: 1px dashed #666;
+    padding: 10px;
+    gap: 10px;
+    height: 400px;
+    width: 260px;
+}
+
+.top {
+    background: #eee;
+    padding: 8px;
+    flex: 0 0 auto;
+    font-size: 13px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    flex-basis: auto;
+}
+</style>
+</head>
+<body>
+<h1>flex-direction column, so the flex algorithm's main axis is vertical and cross axis is horizontal for this vertical-lr item</h1>
+<div class="flexcol">
+<div class="top">top</div>
+<p class="vtext">vertical text content whose flex-basis now refers to the vertical dimension instead of the horizontal one</p>
+</div>
+</body>
+</html>

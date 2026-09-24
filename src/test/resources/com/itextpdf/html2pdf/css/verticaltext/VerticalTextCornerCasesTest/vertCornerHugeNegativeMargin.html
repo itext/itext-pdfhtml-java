@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text pulled far out of its normal position by a huge negative margin</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.filler {
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 400px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin-top: -80px;
+    height: 100px;
+    background: #fff;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text pulled 80px upward by a negative top margin, overlapping the content above it</h1>
+<p class="filler">Some horizontal filler text sits above the vertical box, and the negative margin should pull the vertical box up so it overlaps this filler text rather than sitting cleanly below it.</p>
+<p class="vtext">vertical text content overlapping the filler paragraph above it because of a negative margin</p>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>colgroup column widths applied to a vertical-lr cell</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+td.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>colgroup column widths applied to a vertical-lr cell</h1>
+<table>
+<colgroup>
+<col style="width: 80px;">
+<col style="width: 200px;">
+</colgroup>
+<tr>
+<th>narrow col</th>
+<th>wide col</th>
+</tr>
+<tr>
+<td>a</td>
+<td class="vtext">vertical text content inside the wide column defined by colgroup</td>
+</tr>
+</table>
+</body>
+</html>

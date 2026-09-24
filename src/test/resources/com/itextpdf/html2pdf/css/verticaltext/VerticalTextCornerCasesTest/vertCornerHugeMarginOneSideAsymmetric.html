@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text with an enormous margin on only the top side</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin-top: 600px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    height: 100px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text with a 600px margin on only the top side, all other sides at zero</h1>
+<p class="vtext">vertical text content pushed far down the page by a single lopsided margin</p>
+</body>
+</html>

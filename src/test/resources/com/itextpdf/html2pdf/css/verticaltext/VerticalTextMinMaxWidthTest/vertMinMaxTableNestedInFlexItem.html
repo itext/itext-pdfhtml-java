@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>a full table nested inside a flex item, vertical-lr content inside the table</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    gap: 10px;
+    border: 1px dashed #666;
+    padding: 10px;
+    width: 400px;
+}
+
+.side {
+    background: #eee;
+    padding: 8px;
+    flex: 0 0 auto;
+    font-size: 13px;
+}
+
+table {
+    border-collapse: collapse;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+td.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+}
+</style>
+</head>
+<body>
+<h1>a full table nested inside a flex item, so the flex algorithm's sizing must read the table's own computed width</h1>
+<div class="flexrow">
+<div class="side">left</div>
+<table>
+<tr>
+<th>short</th>
+<th>vertical column</th>
+</tr>
+<tr>
+<td>a</td>
+<td class="vtext">vertical text content inside a table that is itself a shrinkable flex item</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

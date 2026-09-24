@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>two vertical-lr cells with different content lengths competing in the same row</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+td.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+}
+</style>
+</head>
+<body>
+<h1>two vertical-lr cells with very different content lengths, each in their own column of the same row</h1>
+<table>
+<tr>
+<th>short column</th>
+<th>long column</th>
+</tr>
+<tr>
+<td class="vtext">short</td>
+<td class="vtext">a much longer stretch of vertical text content that needs considerably more columns than its neighbor</td>
+</tr>
+</table>
+</body>
+</html>

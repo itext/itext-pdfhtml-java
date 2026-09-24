@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl + img + inline-block</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 260px;
+}
+
+img.inline-img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+span.inline-box {
+    display: inline-block;
+    width: 20px;
+    height: 40px;
+    background: #999;
+    vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl + img + inline-block</h1>
+<p class="vtext">before image <img class="inline-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><rect width='24' height='24' fill='%23c0392b'/></svg>" alt="square"> after image before box <span class="inline-box"></span> after box end</p>
+</body>
+</html>

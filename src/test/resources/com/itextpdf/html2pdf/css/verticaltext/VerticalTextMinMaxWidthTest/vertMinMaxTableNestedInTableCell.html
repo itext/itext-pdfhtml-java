@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>a full table nested inside a table cell, vertical-lr content in the inner table</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th {
+	writing-mode: vertical-lr;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+.inner-table td.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+}
+</style>
+</head>
+<body>
+<h1>a full table nested inside a table cell, so the outer cell's width depends on the inner table's own computed width</h1>
+<table>
+<tr>
+<th>outer short</th>
+<th>outer cell containing a nested table</th>
+</tr>
+<tr>
+<td>a</td>
+<td>
+<table class="inner-table">
+<tr>
+<th>inner short</th>
+<th>inner vertical column</th>
+</tr>
+<tr>
+<td>b</td>
+<td class="vtext">vertical text content inside the innermost nested table cell</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>

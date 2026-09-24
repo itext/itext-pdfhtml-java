@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<title>Noto Sans SC and Noto Serif SC mixed in same paragraph</title>
+<style>
+@font-face {
+    font-family: "Noto Sans SC";
+    src: url("../../../fonts/NotoSansCJKsc-Regular.otf");
+}
+
+@font-face {
+    font-family: "Noto Serif SC";
+    src: url("../../../fonts/NotoSerifCJKsc-Regular.otf");
+}
+
+h1 {
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 22px;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 280px;
+}
+
+.seg-sans {
+    font-family: "Noto Sans SC";
+}
+
+.seg-serif {
+    font-family: "Noto Serif SC";
+    font-style: italic;
+}
+</style>
+</head>
+<body>
+<h1>Noto Sans SC and Noto Serif SC mixed in the same paragraph</h1>
+<p class="vtext"><span class="seg-sans">正文使用黑体</span><span class="seg-serif">引用使用宋体</span></p>
+</body>
+</html>

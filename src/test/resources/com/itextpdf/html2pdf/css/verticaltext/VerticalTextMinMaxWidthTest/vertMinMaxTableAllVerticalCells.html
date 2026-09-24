@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>every cell in the table is vertical-lr, no horizontal cell to anchor against</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+}
+</style>
+</head>
+<body>
+<h1>every cell in the table is vertical-lr, so the width algorithm has no horizontal cell to anchor against</h1>
+<table>
+<tr>
+<th>short header</th>
+<th>a somewhat longer header label</th>
+</tr>
+<tr>
+<td>row one short</td>
+<td>a longer stretch of vertical content in the second column</td>
+</tr>
+</table>
+</body>
+</html>

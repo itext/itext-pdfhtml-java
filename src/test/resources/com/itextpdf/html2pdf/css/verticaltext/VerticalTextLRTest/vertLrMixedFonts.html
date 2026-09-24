@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + mixed fonts + font-sizes</title>
+<style>
+    @font-face {
+        font-family: 'NotoSans';
+        src: url('../../../fonts/NotoSansCJKsc-Light.otf');
+    }
+
+    @font-face {
+        font-family: 'SpaceMono';
+        src: url('../../../fonts/SpaceMono-Regular.ttf');
+    }
+
+    @font-face {
+        font-family: 'RobotoSerif';
+        src: url('../../../fonts/RobotoSerif-Regular.ttf');
+    }
+
+    @font-face {
+        font-family: 'StyleScript';
+        src: url('../../../fonts/StyleScript-Regular.otf');
+    }
+
+    h1 {
+        font-size: 16px;
+    }
+
+    body {
+        font-family: NotoSans;
+        padding: 20px;
+    }
+
+    .vtext {
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+        border: 1px solid #999;
+        padding: 10px;
+        margin: 0;
+        height: 290px;
+    }
+
+    .serif-large {
+        font-family: RobotoSerif;
+        font-size: 26px;
+    }
+
+    .mono-small {
+        font-family: SpaceMono;
+        font-size: 12px;
+    }
+
+    .sans-medium {
+        font-family: NotoSans;
+        font-size: 18px;
+    }
+
+    .cursive-large {
+        font-family: StyleScript;
+        font-size: 22px;
+    }
+</style>
+</head>
+<body>
+<h1>vertical-lr + mixed fonts + font-sizes</h1>
+<p class="vtext"><span class="serif-large">Serif</span> <span class="mono-small">Mono</span> <span class="sans-medium">Sans</span> <span class="cursive-large">Script</span></p>
+</body>
+</html>

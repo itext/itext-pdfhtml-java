@@ -120,7 +120,7 @@ public final class Html2PdfLogMessageConstant {
 
     /** The Constant PAGE_SIZE_VALUE_IS_INVALID. */
     public static final String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
-    
+
     /** The Constant TEXT_DECORATION_BLINK_NOT_SUPPORTED. */
     public static final String TEXT_DECORATION_BLINK_NOT_SUPPORTED = "text-decoration: blink not supported";
 
@@ -171,6 +171,8 @@ public final class Html2PdfLogMessageConstant {
     public static final String GRID_TEMPLATE_WAS_NOT_RECOGNISED = "Grid template {0} value was not recognised";
     public static final String PDF_A_AND_PDF_UA_CONFORMANCE_CANNOT_BE_USED_TOGETHER =
             "Targeting multiple conformance levels (PDF/A,PDF/UA, WTPDF) is currently not supported.";
+    public static final String VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT =
+            "Vertical writing mode is not supported for element {0}.";
 
 
     private Html2PdfLogMessageConstant() {

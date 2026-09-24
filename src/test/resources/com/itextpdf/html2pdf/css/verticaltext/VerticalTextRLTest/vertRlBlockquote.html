@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl + blockquote + cite</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+blockquote.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border-left: 4px solid #999;
+    border-top: none;
+    padding: 10px;
+    margin: 0;
+    height: 240px;
+    font-style: italic;
+    color: #2c5f8a;
+}
+
+cite {
+    display: block;
+    font-style: normal;
+    font-size: 12px;
+    margin-top: 8px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl + blockquote + cite</h1>
+<blockquote class="vtext">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor.<cite>lorem ipsum source</cite></blockquote>
+</body>
+</html>

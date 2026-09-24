@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl + word-spacing</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    gap: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    height: 260px;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    display: inline-block;
+}
+
+.ws-0 {
+    word-spacing: 0px;
+}
+
+.ws-10 {
+    word-spacing: 10px;
+}
+
+.ws-30 {
+    word-spacing: 30px;
+}
+
+.ws-neg {
+    word-spacing: -25px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl + word-spacing</h1>
+<div class="row">
+<p class="vtext ws-0">word-spacing 0px lorem ipsum dolor sit amet</p>
+<p class="vtext ws-10">word-spacing 10px lorem ipsum dolor sit amet</p>
+<p class="vtext ws-30">word-spacing 30px lorem ipsum dolor sit amet</p>
+<p class="vtext ws-neg">word-spacing -25px lorem ipsum dolor sit amet</p>
+</div>
+</body>
+</html>

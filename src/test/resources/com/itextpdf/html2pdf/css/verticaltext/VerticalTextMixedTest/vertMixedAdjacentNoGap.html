@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>writing-mode segments directly adjacent with no space between them</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.vtext {
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 240px;
+}
+
+.seg-rl {
+    display: inline-block;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    vertical-align: middle;
+}
+
+.seg-lr {
+    display: inline-block;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px dashed #c0392b;
+    padding: 4px;
+    vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<h1>writing-mode segments directly adjacent with no space between them</h1>
+<p class="vtext"><span class="seg-rl">beforeswitch</span><span class="seg-lr">middlesegment</span><span class="seg-rl">afterswitch</span></p>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>percentage min-width and max-width against an ancestor with no definite width</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.indefinite {
+    display: inline-block;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    min-width: 40%;
+    max-width: 80%;
+}
+</style>
+</head>
+<body>
+<h1>percentage min-width and max-width on a vertical-lr box whose ancestor chain has no definite width</h1>
+<div class="indefinite">
+<p class="vtext">vertical text content with percentage based min-width and max-width that have nothing definite to resolve against</p>
+</div>
+</body>
+</html>

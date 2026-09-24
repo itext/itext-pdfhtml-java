@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>display inline-block combined with float, which computes the box to block regardless</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.host {
+    border: 1px dashed #666;
+    padding: 6px;
+    overflow: auto;
+}
+
+.vtext {
+    display: inline-block;
+    float: left;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    height: 180px;
+    min-width: 60px;
+    max-width: 140px;
+}
+</style>
+</head>
+<body>
+<h1>display inline-block combined with float left, where the computed display becomes block regardless of the declared inline-block value</h1>
+<div class="host">
+<span class="vtext">vertical text content declared as inline-block but also floated, so its computed display value is actually block</span>
+</div>
+</body>
+</html>

@@ -23,6 +23,7 @@
 package com.itextpdf.html2pdf.element;
 
 
+import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
 import com.itextpdf.html2pdf.HtmlConverter;
@@ -32,8 +33,10 @@ import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -588,20 +591,32 @@ public class ImageTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-10012 Extra misleading log messages are produced when WebP module is missing
     @LogMessages(messages = {
             @LogMessage(messageTemplate = WebPLogMessageConstant.WEBP_NOT_FOUND),
-            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI),
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNABLE_TO_PROCESS_IMAGE_WITH_GIVEN_BASE_URI),
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
     })
-    public void webPImageWithoutWebPModuleTest() throws IOException {
+    public void webPImageWithoutWebPModuleTest() {
         String html = "<!DOCTYPE html><html><body>"
                 + "<img src=\"opaqueWebPImage.webp\">"
                 + "</body></html>";
 
-        try (FileOutputStream outputStream = new FileOutputStream(
-                DESTINATION_FOLDER + "webPImageWithoutWebPModule.pdf")) {
-            HtmlConverter.convertToPdf(html, outputStream, new ConverterProperties().setBaseUri(SOURCE_FOLDER));
-        }
+        Assertions.assertDoesNotThrow(() ->
+                HtmlConverter.convertToPdf(html, new ByteArrayOutputStream(),
+                        new ConverterProperties().setBaseUri(SOURCE_FOLDER)));
+    }
+
+    @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = WebPLogMessageConstant.WEBP_NOT_FOUND),
+            @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER),
+    })
+    public void webPImageWithoutWebPModuleBase64Test() {
+        String html = SOURCE_FOLDER + "imageBase64WebP.html";
+
+        Assertions.assertDoesNotThrow(() ->
+                HtmlConverter.convertToPdf(FileUtil.getInputStreamForFile(html), new ByteArrayOutputStream(),
+                                new ConverterProperties().setBaseUri(SOURCE_FOLDER)));
     }
 }

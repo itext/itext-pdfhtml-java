@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vertical-lr + vertical-rl</title>
+    <style>
+        body {
+            font-family: Helvetica;
+        }
+        .rtl {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+        }
+        .ltr {
+            writing-mode: vertical-lr;
+            text-orientation: upright;
+        }
+    </style>
+</head>
+<body>
+<p style="background-color: lightgray; text-orientation: upright; writing-mode: vertical-rl">
+    <span class="ltr" style="background-color: magenta">first vertical text<br>chunk left-to-right</span>
+    <span class="rtl" style="background-color: cyan">second vertical<br>text chunk<br>right-to-left</span>
+    <span class="ltr" style="background-color: orange">third vertical text<br>chunk left-to-right</span>
+    <span class="rtl" style="background-color: cyan">fourth vertical<br>text chunk<br>right-to-left</span>
+</p>
+</body>
+</html>

@@ -36,6 +36,7 @@ public class PdfHtmlTestProductEvent  extends AbstractProductProcessITextEvent {
         this.eventType = eventType;
     }
 
+    @Override
     public String getEventType() {
         return eventType;
     }

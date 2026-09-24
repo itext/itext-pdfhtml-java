@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Text combine upright: wrapping and spaces</title>
+    <link rel="stylesheet" href="browser.css">
+    <style>
+        .vertical { height: 60px; word-break: break-all; }
+        .large { height: 90px; font-size: 30px; }
+    </style>
+</head>
+<body>
+<h1>Text combine upright: wrapping and spaces</h1>
+<p>At most three 20px upright cells fit in 60px. A highlighted group must not split, even at spaces or hyphens.</p>
+<div class="panel">
+    <h2>vertical-rl / group at line end</h2>
+    <p class="sample vertical rl upright">前前<span class="combine mark">12 34-56</span>後後</p>
+</div>
+<div class="panel">
+    <h2>vertical-lr / group at line end</h2>
+    <p class="sample vertical lr upright">前前<span class="combine mark">12 34-56</span>後後</p>
+</div>
+<div class="panel">
+    <h2>vertical-rl / group on next line</h2>
+    <p class="sample vertical rl upright">前前前<span class="combine mark">12/34</span>後後</p>
+</div>
+<div class="panel">
+    <h2>vertical-lr / group on next line</h2>
+    <p class="sample vertical lr upright">前前前<span class="combine mark">12/34</span>後後</p>
+</div>
+<div class="panel">
+    <h2>vertical-rl / 30px / preserved spaces</h2>
+    <p class="sample vertical large rl upright">前前<span class="combine mark"
+        style="white-space:pre-wrap">12  34</span>後後</p>
+</div>
+<div class="panel">
+    <h2>vertical-lr / 30px / preserved spaces</h2>
+    <p class="sample vertical large lr upright">前前<span class="combine mark"
+        style="white-space:pre-wrap">12  34</span>後後</p>
+</div>
+</body>
+</html>

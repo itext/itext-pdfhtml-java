@@ -63,9 +63,9 @@ public class TransformationApplierUtil {
         else
             return;
         String[] components = transformationFunction.split("\\)");
-        Transform multipleFunction = new Transform(components.length);
+        Transform multipleFunction = new Transform();
         for (String component : components) {
-            multipleFunction.addSingleTransform(parseSingleFunction(component));
+            multipleFunction.addTransform(parseSingleFunction(component));
         }
         element.setProperty(Property.TRANSFORM, multipleFunction);
     }

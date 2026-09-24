@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + font-stretch</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    height: 260px;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+}
+
+.fs-75 {
+    font-stretch: 75%;
+}
+
+.fs-125 {
+    font-stretch: 125%;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + font-stretch</h1>
+<div class="row">
+<p class="vtext fs-75">font-stretch 75% MNOPQRSTUV</p>
+<p class="vtext fs-125">font-stretch 125% MNOPQRSTUV</p>
+</div>
+</body>
+</html>

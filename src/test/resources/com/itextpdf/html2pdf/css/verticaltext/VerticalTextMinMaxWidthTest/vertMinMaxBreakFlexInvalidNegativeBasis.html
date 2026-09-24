@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>flex-basis given an invalid negative length, which should be ignored</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.flexrow {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    width: 260px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 180px;
+    flex-basis: -10px;
+}
+</style>
+</head>
+<body>
+<h1>flex-basis given an invalid negative length of -10px, which is not a valid value and should be ignored, falling back to auto</h1>
+<div class="flexrow">
+<p class="vtext">vertical text content whose declared flex-basis is negative and therefore invalid</p>
+</div>
+</body>
+</html>

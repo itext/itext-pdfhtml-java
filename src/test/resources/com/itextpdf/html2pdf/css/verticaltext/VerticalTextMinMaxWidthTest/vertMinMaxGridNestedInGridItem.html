@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>a grid nested inside a grid item, vertical-lr content in the inner grid</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.outer-grid {
+    display: grid;
+    grid-template-columns: 100px auto;
+    border: 1px dashed #666;
+    padding: 10px;
+    gap: 10px;
+    width: 400px;
+}
+
+.side {
+    background: #eee;
+    padding: 8px;
+    font-size: 13px;
+}
+
+.inner-grid {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 8px;
+    border: 1px dashed #999;
+    padding: 6px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 160px;
+}
+</style>
+</head>
+<body>
+<h1>a grid nested inside a grid item, so the outer track's width depends on the inner grid's own computed width</h1>
+<div class="outer-grid">
+<div class="side">outer left</div>
+<div class="inner-grid">
+<p class="vtext">first inner grid cell</p>
+<p class="vtext">second inner grid cell with more content inside it</p>
+</div>
+</div>
+</body>
+</html>

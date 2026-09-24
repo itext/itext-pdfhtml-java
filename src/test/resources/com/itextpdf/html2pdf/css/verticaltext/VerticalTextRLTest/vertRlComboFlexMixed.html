@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl + flex + min-width + max-width + text-align + mixed fonts + img</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    gap: 16px;
+    border: 1px dashed #666;
+    padding: 10px;
+}
+
+.sidebox {
+    background: #eee;
+    padding: 10px;
+    flex: 0 0 auto;
+    font-size: 13px;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 240px;
+    flex: 1 1 auto;
+    min-width: 80px;
+    max-width: 320px;
+    text-align: center;
+}
+
+img.inline-img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.serif-large {
+    font-family: serif;
+    font-size: 22px;
+    vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl + flex + min-width + max-width + text-align + mixed fonts + img</h1>
+<div class="flexrow">
+<div class="sidebox">left sidebar</div>
+<p class="vtext">before <span class="serif-large">Flex</span> image <img class="inline-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><circle cx='10' cy='10' r='10' fill='%232980b9'/></svg>" alt="dot"> after</p>
+<div class="sidebox">right sidebar</div>
+</div>
+</body>
+</html>

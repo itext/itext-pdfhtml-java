@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr leaf item inside a flex container nested within another flex container</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.outer {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    gap: 10px;
+    width: 420px;
+}
+
+.side {
+    background: #eee;
+    padding: 8px;
+    flex: 0 0 auto;
+    font-size: 13px;
+}
+
+.inner {
+    display: flex;
+    border: 1px dashed #999;
+    padding: 6px;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr leaf item inside a flex container nested within another flex container</h1>
+<div class="outer">
+<div class="side">outer left</div>
+<div class="inner">
+<p class="vtext">vertical text content nested two flex levels deep, both allowing shrink below content size</p>
+</div>
+</div>
+</body>
+</html>

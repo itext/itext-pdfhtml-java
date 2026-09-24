@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + zero/negative height + width + padding</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+}
+
+.zero-height {
+    height: 0;
+}
+
+.zero-width {
+    width: 0;
+}
+
+.negative-height {
+    height: -50px;
+}
+
+.negative-padding {
+    padding: -10px;
+}
+
+.normal {
+    height: 160px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + zero/negative height + width + padding</h1>
+<div class="row">
+<p class="vtext zero-height">zero height box content</p>
+<p class="vtext zero-width">zero width box content</p>
+<p class="vtext negative-height">negative height should be ignored</p>
+<p class="vtext negative-padding">negative padding should be ignored</p>
+<p class="vtext normal">normal box for comparison</p>
+</div>
+</body>
+</html>

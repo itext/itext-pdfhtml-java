@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>grid-template-columns repeat auto-fill minmax, a responsive pattern with vertical-lr items</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    border: 1px dashed #666;
+    padding: 10px;
+    gap: 8px;
+    width: 320px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 6px;
+    margin: 0;
+    height: 140px;
+}
+</style>
+</head>
+<body>
+<h1>grid-template-columns repeat(auto-fill, minmax(50px, 1fr)), a common responsive pattern, with several vertical-lr items</h1>
+<div class="grid">
+<p class="vtext">block one</p>
+<p class="vtext">block two</p>
+<p class="vtext">block three</p>
+<p class="vtext">block four</p>
+<p class="vtext">block five</p>
+</div>
+</body>
+</html>

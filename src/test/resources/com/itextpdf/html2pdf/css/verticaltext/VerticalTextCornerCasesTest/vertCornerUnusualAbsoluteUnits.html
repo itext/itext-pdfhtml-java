@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>font-size expressed in unusual absolute length units</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 16px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 6px;
+    margin: 0;
+    height: 100px;
+}
+
+.unit-pt {
+    font-size: 20pt;
+}
+
+.unit-pc {
+    font-size: 2pc;
+}
+
+.unit-mm {
+    font-size: 8mm;
+}
+
+.unit-cm {
+    font-size: 0.8cm;
+}
+
+.unit-in {
+    font-size: 0.3in;
+}
+
+.unit-q {
+    font-size: 30q;
+}
+</style>
+</head>
+<body>
+<h1>font-size expressed in unusual absolute length units, all intended to render at roughly the same size</h1>
+<div class="row">
+<p class="vtext unit-pt">pt</p>
+<p class="vtext unit-pc">pc</p>
+<p class="vtext unit-mm">mm</p>
+<p class="vtext unit-cm">cm</p>
+<p class="vtext unit-in">in</p>
+<p class="vtext unit-q">q</p>
+</div>
+</body>
+</html>

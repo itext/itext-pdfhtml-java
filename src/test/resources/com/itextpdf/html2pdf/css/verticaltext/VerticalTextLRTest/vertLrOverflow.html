@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + overflow-x + overflow-y</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    overflow-x: visible;
+    overflow-y: visible;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+}
+
+.box-small {
+    height: 90px;
+}
+
+.box-medium {
+    height: 140px;
+}
+
+.box-large {
+    height: 200px;
+}
+
+.box-tallest {
+    height: 260px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + overflow-x + overflow-y</h1>
+<div class="row">
+<p class="vtext box-small">overflow-x visible, overflow-y visible, small box. Lorem ipsum dolor sit amet consectetur.</p>
+<p class="vtext box-medium">overflow-x visible, overflow-y visible, medium box. Lorem ipsum dolor sit amet consectetur.</p>
+<p class="vtext box-large">overflow-x visible, overflow-y visible, large box. Lorem ipsum dolor sit amet consectetur.</p>
+<p class="vtext box-tallest">overflow-x visible, overflow-y visible, tall narrow box. Lorem ipsum dolor sit amet consectetur.</p>
+</div>
+</body>
+</html>

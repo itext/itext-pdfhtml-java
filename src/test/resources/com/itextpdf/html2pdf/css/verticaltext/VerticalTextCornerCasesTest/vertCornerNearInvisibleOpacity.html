@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text and its background at a near invisible opacity</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    background-color: #c0392b;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 160px;
+    opacity: 0.02;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text and its background at opacity 0.02, technically present but nearly invisible</h1>
+<p class="vtext">text and background both barely visible at this opacity level</p>
+</body>
+</html>

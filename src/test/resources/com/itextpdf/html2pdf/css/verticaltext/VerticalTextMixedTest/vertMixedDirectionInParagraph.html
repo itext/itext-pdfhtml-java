@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl text objects with mixed direction ltr and rtl in same paragraph</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.vtext {
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 240px;
+}
+
+.seg-ltr {
+    display: inline-block;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    direction: ltr;
+    vertical-align: middle;
+}
+
+.seg-rtl {
+    display: inline-block;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    direction: rtl;
+    border: 1px dashed #c0392b;
+    padding: 4px;
+    vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl text objects with mixed direction ltr and rtl in same paragraph</h1>
+<p class="vtext"><span class="seg-ltr">ltr segment before</span> <span class="seg-rtl">rtl reversed segment</span> <span class="seg-ltr">ltr segment after</span></p>
+</body>
+</html>

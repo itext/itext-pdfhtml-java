@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>table-layout fixed, an explicit 5px column, and an unbreakable vertical-lr token</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 120px;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+td.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    white-space: nowrap;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>table-layout fixed, an explicit 5px column width, and an unbreakable single token in the vertical-lr cell</h1>
+<table>
+<tr>
+<th style="width: 5px;">tiny</th>
+<th>rest</th>
+</tr>
+<tr>
+<td class="vtext">ThisIsOneEnormousUnbreakableTokenForcedIntoAFivePixelFixedColumn</td>
+<td>other content</td>
+</tr>
+</table>
+</body>
+</html>

@@ -116,6 +116,11 @@ public class VerticalAlignmentTest extends ExtendedHtmlConversionITextTest {
     public void verticalAlignmentTest15() throws IOException, InterruptedException {
         convertToPdfAndCompare("verticalAlignmentTest15", sourceFolder, destinationFolder);
     }
+
+    @Test
+    public void verticalAlignValuesVerticalWritingTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("verticalAlignValuesVerticalWritingTest", sourceFolder, destinationFolder);
+    }
     
     @Test
     public void verticalAlignmentCellTest01() throws IOException, InterruptedException {

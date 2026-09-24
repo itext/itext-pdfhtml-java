@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl + text-combine-upright</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    gap: 24px;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 200px;
+    font-size: 20px;
+    display: inline-block;
+}
+
+.combine {
+    text-combine-upright: all;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl + text-combine-upright</h1>
+<div class="row">
+<p class="vtext">Chapter <span class="combine">12</span> begins here</p>
+<p class="vtext">Chapter 12 without combine applied</p>
+</div>
+</body>
+</html>

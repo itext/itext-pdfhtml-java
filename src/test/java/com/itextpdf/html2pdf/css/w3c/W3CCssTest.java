@@ -74,16 +74,16 @@ public abstract class W3CCssTest extends ExtendedITextTest {
 
     private String getDestinationFolder() {
         String localPackage = getLocalPackage();
-        return baseDestinationFolder + localPackage + File.separatorChar + getTestClassName() + File.separatorChar;
+        return (baseDestinationFolder + localPackage + File.separatorChar + getTestClassName() + File.separatorChar).toLowerCase();
     }
 
     private String getSourceFolder() {
         String localPackage = getLocalPackage();
-        return baseSourceFolder + localPackage + File.separatorChar;
+        return (baseSourceFolder + localPackage + File.separatorChar).toLowerCase();
     }
 
     private String getTestClassName() {
-        return getClass().getSimpleName();
+        return getClass().getSimpleName().toLowerCase();
     }
 
     private String getLocalPackage() {

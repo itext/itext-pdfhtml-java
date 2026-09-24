@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS display table-cell on plain divs, vertical-lr content</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.table {
+    display: table;
+    border-collapse: collapse;
+}
+
+.row {
+    display: table-row;
+}
+
+.cell {
+    display: table-cell;
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+.cell.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+}
+</style>
+</head>
+<body>
+<h1>CSS display table-cell on plain divs, vertical-lr content</h1>
+<div class="table">
+<div class="row">
+<div class="cell">short</div>
+<div class="cell vtext">vertical text content inside a div styled as a table-cell rather than real table markup</div>
+</div>
+</div>
+</body>
+</html>

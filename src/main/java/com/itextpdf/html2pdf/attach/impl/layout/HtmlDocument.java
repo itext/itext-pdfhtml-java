@@ -51,7 +51,6 @@ public class HtmlDocument extends Document {
     @Override
     public void relayout() {
         if (rootRenderer instanceof HtmlDocumentRenderer) {
-            ((HtmlDocumentRenderer) rootRenderer).removeEventHandlers();
             super.relayout();
             ((HtmlDocumentRenderer) rootRenderer).processWaitingElement();
         }

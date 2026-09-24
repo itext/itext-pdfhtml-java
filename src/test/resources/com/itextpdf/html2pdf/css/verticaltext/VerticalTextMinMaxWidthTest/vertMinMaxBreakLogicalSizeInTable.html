@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>min-inline-size and max-inline-size, logical properties, applied to a vertical-lr table cell</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+td.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    min-inline-size: 150px;
+    max-inline-size: 250px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>min-inline-size and max-inline-size, logical properties that map to physical height in vertical-lr, applied inside a table cell</h1>
+<table>
+<tr>
+<th>vertical column</th>
+</tr>
+<tr>
+<td class="vtext">vertical text content constrained by logical inline-size bounds rather than physical width, inside a table layout context</td>
+</tr>
+</table>
+</body>
+</html>

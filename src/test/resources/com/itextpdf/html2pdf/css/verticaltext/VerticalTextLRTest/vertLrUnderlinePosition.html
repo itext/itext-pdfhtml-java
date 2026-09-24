@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + text-underline-position</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    gap: 24px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    text-decoration: underline;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 200px;
+    display: inline-block;
+}
+
+.pos-left {
+    text-underline-position: left;
+}
+
+.pos-right {
+    text-underline-position: right;
+}
+
+.pos-under {
+    text-underline-position: under;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + text-underline-position</h1>
+<div class="row">
+<p class="vtext pos-left">underline left side of column</p>
+<p class="vtext pos-right">underline right side of column</p>
+<p class="vtext pos-under">underline under the glyphs</p>
+</div>
+</body>
+</html>

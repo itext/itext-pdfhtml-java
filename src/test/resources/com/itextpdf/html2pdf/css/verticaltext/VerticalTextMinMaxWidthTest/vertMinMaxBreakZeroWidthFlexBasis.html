@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>flex 0 0 0 forcing maximum squeeze on a vertical-lr item with substantial content</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    width: 300px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    flex: 0 0 0;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>flex 0 0 0, zero basis with no grow or shrink allowed, on a vertical-lr item with substantial content</h1>
+<div class="flexrow">
+<p class="vtext">a substantial stretch of vertical text content assigned a flex basis of exactly zero with growing and shrinking both disabled</p>
+</div>
+</body>
+</html>

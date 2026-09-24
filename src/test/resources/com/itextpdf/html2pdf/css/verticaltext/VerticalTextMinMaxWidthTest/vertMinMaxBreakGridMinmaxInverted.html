@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>grid-template-columns minmax with the minimum larger than the maximum, an inverted degenerate range</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: minmax(300px, 50px);
+    border: 1px dashed #666;
+    padding: 10px;
+    width: 400px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+}
+</style>
+</head>
+<body>
+<h1>grid-template-columns minmax(300px, 50px), an inverted degenerate range where the minimum exceeds the maximum, so the maximum should be clamped up to equal the minimum</h1>
+<div class="grid">
+<p class="vtext">vertical text content inside a track whose declared minmax range is inverted and therefore invalid on its own terms</p>
+</div>
+</body>
+</html>

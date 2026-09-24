@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl + h2 + h3 + h4 + h5 + h6</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl + h2 + h3 + h4 + h5 + h6</h1>
+<div class="row">
+<h2 class="vtext">Heading two</h2>
+<h3 class="vtext">Heading three</h3>
+<h4 class="vtext">Heading four</h4>
+<h5 class="vtext">Heading five</h5>
+<h6 class="vtext">Heading six</h6>
+</div>
+</body>
+</html>

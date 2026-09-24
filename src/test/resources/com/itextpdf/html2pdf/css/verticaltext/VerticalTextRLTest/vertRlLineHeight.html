@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl + line-height</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 160px;
+    width: 200px;
+}
+
+.lh-1 {
+    line-height: 1;
+}
+
+.lh-15 {
+    line-height: 1.5;
+}
+
+.lh-2 {
+    line-height: 2;
+}
+
+.lh-3 {
+    line-height: 3;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl + line-height</h1>
+<div class="row">
+<p class="vtext lh-1">line-height 1 lorem ipsum dolor sit amet consectetur</p>
+<p class="vtext lh-15">line-height 1.5 lorem ipsum dolor sit amet consectetur</p>
+<p class="vtext lh-2">line-height 2 lorem ipsum dolor sit amet consectetur</p>
+<p class="vtext lh-3">line-height 3 lorem ipsum dolor sit amet consectetur</p>
+</div>
+</body>
+</html>

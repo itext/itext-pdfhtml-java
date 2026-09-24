@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl + mixed fonts + font-sizes</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 280px;
+}
+
+.serif-large {
+    font-family: serif;
+    font-size: 26px;
+}
+
+.mono-small {
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.sans-medium {
+    font-family: sans-serif;
+    font-size: 18px;
+}
+
+.cursive-large {
+    font-family: cursive;
+    font-size: 22px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl + mixed fonts + font-sizes</h1>
+<p class="vtext"><span class="serif-large">Serif</span> <span class="mono-small">Mono</span> <span class="sans-medium">Sans</span> <span class="cursive-large">Script</span></p>
+</body>
+</html>

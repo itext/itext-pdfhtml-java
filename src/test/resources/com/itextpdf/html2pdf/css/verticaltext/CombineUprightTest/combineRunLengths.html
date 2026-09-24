@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Text combine upright: run lengths</title>
+    <link rel="stylesheet" href="browser.css">
+</head>
+<body>
+<h1>Text combine upright: run lengths</h1>
+<p>Each highlighted span is one combined group. Compare centering and compression for 1, 2, 3, 4 and 8 digits.</p>
+<div class="panel">
+    <h2>vertical-rl / upright</h2>
+    <p class="sample vertical rl upright">前<span class="combine mark">1</span>後<br>
+        前<span class="combine mark">12</span>後<br>
+        前<span class="combine mark">123</span>後<br>
+        前<span class="combine mark">1234</span>後<br>
+        前<span class="combine mark">12345678</span>後</p>
+</div>
+<div class="panel">
+    <h2>vertical-lr / upright</h2>
+    <p class="sample vertical lr upright">前<span class="combine mark">1</span>後<br>
+        前<span class="combine mark">12</span>後<br>
+        前<span class="combine mark">123</span>後<br>
+        前<span class="combine mark">1234</span>後<br>
+        前<span class="combine mark">12345678</span>後</p>
+</div>
+<div class="panel">
+    <h2>Date / all</h2>
+    <p class="sample vertical rl upright">令和<span class="combine mark">06</span>年<span
+        class="combine mark">12</span>月<span class="combine mark">25</span>日</p>
+</div>
+<div class="panel">
+    <h2>Date / none control</h2>
+    <p class="sample vertical rl upright no-combine">令和06年12月25日</p>
+</div>
+</body>
+</html>

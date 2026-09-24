@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + table cell</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + table cell</h1>
+<table>
+<tr>
+<th class="vtext">Category label one</th>
+<th class="vtext">Category label two</th>
+<th>Normal header</th>
+</tr>
+<tr>
+<td>Row value A</td>
+<td>Row value B</td>
+<td>Row value C</td>
+</tr>
+</table>
+</body>
+</html>

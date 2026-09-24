@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + text-decoration</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    height: 260px;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+}
+
+.td-underline {
+    text-decoration: underline;
+}
+
+.td-strike {
+    text-decoration: line-through;
+}
+
+.td-both {
+    text-decoration: underline line-through;
+}
+
+.td-none {
+    text-decoration: none;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + text-decoration</h1>
+<div class="row">
+<p class="vtext td-underline">underline text sample here</p>
+<p class="vtext td-strike">line-through text sample here</p>
+<p class="vtext td-both">underline and line-through combined</p>
+<p class="vtext td-none">no decoration baseline sample</p>
+</div>
+</body>
+</html>

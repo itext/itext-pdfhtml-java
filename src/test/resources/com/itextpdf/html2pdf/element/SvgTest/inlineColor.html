@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + img + inline-block</title>
+<style>
+@font-face {
+    font-family: 'NotoSans';
+    src: url('../../fonts/NotoSansCJKsc-Light.otf');
+}
+h1 {
+font-size: 16px;
+}
+
+body {
+font-family: NotoSans;
+padding: 20px;
+}
+
+img.inline-img {
+width: 24px;
+height: 24px;
+}
+
+span.inline-box {
+display: inline-block;
+width: 20px;
+height: 40px;
+background: #999;
+vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<h1>inline svg </h1>
+<div>
+    <img class="inline-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><rect width='24' height='24' fill='%23c0392b'/></svg>" alt="square">
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl + flex + min-width + max-width</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    gap: 16px;
+    border: 1px dashed #666;
+    padding: 10px;
+}
+
+.sidebox {
+    background: #eee;
+    padding: 10px;
+    flex: 0 0 auto;
+    font-size: 13px;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 220px;
+    flex: 1 1 auto;
+    min-width: 60px;
+    max-width: 300px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl + flex + min-width + max-width</h1>
+<div class="flexrow">
+<div class="sidebox">left sidebar</div>
+<p class="vtext">Flexible vertical text column that the flex layout algorithm must size between its min-width and max-width lorem ipsum dolor sit amet.</p>
+<div class="sidebox">right sidebar</div>
+</div>
+</body>
+</html>

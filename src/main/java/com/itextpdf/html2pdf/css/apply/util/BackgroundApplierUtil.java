@@ -327,7 +327,7 @@ public final class BackgroundApplierUtil {
             StrategyBasedLinearGradientBuilder gradientBuilder =
                     CssGradientUtil.parseCssLinearGradient(image, em, rem);
             if (gradientBuilder != null) {
-                backgroundImagesList.add(new BackgroundImage.Builder().setLinearGradientBuilder(gradientBuilder)
+                backgroundImagesList.add(new BackgroundImage.Builder().setGradientBuilder(gradientBuilder)
                         .setBackgroundBlendMode(blendMode).setBackgroundPosition(position).setBackgroundRepeat(repeat)
                         .setBackgroundClip(clip).setBackgroundOrigin(origin).build());
                 return true;

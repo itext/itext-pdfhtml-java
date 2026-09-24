@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + background-color + gradient + box-shadow + border-radius</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    padding: 12px;
+    margin: 0;
+    height: 220px;
+}
+
+.solid-bg {
+    background-color: #fdf3d0;
+    border: 1px solid #cbb35a;
+}
+
+.gradient-bg {
+    background: linear-gradient(#fdf3d0, #f7e8b0);
+    border-radius: 12px;
+}
+
+.shadow-box {
+    background: #fff;
+    border: 1px solid #999;
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+}
+
+.highlight-span {
+    background-color: #ffe066;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + background-color + gradient + box-shadow + border-radius</h1>
+<div class="row">
+<p class="vtext solid-bg">solid background color box</p>
+<p class="vtext gradient-bg">gradient background with rounded corners</p>
+<p class="vtext shadow-box">box shadow around the border</p>
+<p class="vtext solid-bg">normal text <span class="highlight-span">highlighted span</span> normal text</p>
+</div>
+</body>
+</html>

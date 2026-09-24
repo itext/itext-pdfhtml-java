@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<title>Chinese, Japanese, and Korean fonts mixed in same paragraph</title>
+<style>
+@font-face {
+    font-family: "Noto Sans SC";
+    src: url("../../../fonts/NotoSansCJKsc-Regular.otf");
+}
+
+@font-face {
+    font-family: "Noto Sans JP";
+    src: url("../../../fonts/NotoSansCJKjp-Regular.otf");
+}
+
+@font-face {
+    font-family: "Noto Sans KR";
+    src: url("../../../fonts/NotoSansCJKkr-Regular.otf");
+}
+
+h1 {
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 22px;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 300px;
+}
+
+.seg-sc {
+    font-family: "Noto Sans SC";
+}
+
+.seg-jp {
+    font-family: "Noto Sans JP";
+}
+
+.seg-kr {
+    font-family: "Noto Sans KR";
+}
+</style>
+</head>
+<body>
+<h1>Chinese, Japanese, and Korean fonts mixed in the same paragraph</h1>
+<p class="vtext"><span class="seg-sc">中文汉字</span><span class="seg-jp">日本語漢字</span><span class="seg-kr">한국어 문자</span></p>
+</body>
+</html>

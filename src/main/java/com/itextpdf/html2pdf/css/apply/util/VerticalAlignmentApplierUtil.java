@@ -89,7 +89,7 @@ public class VerticalAlignmentApplierUtil {
      * @param isInlineTag whether the origin is a tag that defaults to inline
      */
     public static void applyVerticalAlignmentForBlocks(Map<String, String> cssProps, IPropertyContainer element,
-            boolean isInlineTag ) {
+                                                       boolean isInlineTag) {
         String display = cssProps.get(CssConstants.DISPLAY);
         if (isInlineTag || CssConstants.INLINE_BLOCK.equals(display)) {
             String vAlignVal = cssProps.get(CssConstants.VERTICAL_ALIGN);
@@ -97,33 +97,33 @@ public class VerticalAlignmentApplierUtil {
                 element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT,
                         new InlineVerticalAlignment(InlineVerticalAlignmentType.MIDDLE));
             } else if (CssConstants.BOTTOM.equals(vAlignVal)) {
-                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT,
                         new InlineVerticalAlignment(InlineVerticalAlignmentType.BOTTOM));
             } else if (CssConstants.TOP.equals(vAlignVal)) {
-                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT,
                         new InlineVerticalAlignment(InlineVerticalAlignmentType.TOP));
             } else if (CssConstants.TEXT_BOTTOM.equals(vAlignVal)) {
-                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT,
                         new InlineVerticalAlignment(InlineVerticalAlignmentType.TEXT_BOTTOM));
             } else if (CssConstants.TEXT_TOP.equals(vAlignVal)) {
-                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT,
                         new InlineVerticalAlignment(InlineVerticalAlignmentType.TEXT_TOP));
-            } else if ( CssConstants.SUPER.equals((vAlignVal))) {
-                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+            } else if (CssConstants.SUPER.equals((vAlignVal))) {
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT,
                         new InlineVerticalAlignment(InlineVerticalAlignmentType.SUPER));
-            } else if ( CssConstants.SUB.equals((vAlignVal))) {
-                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+            } else if (CssConstants.SUB.equals((vAlignVal))) {
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT,
                         new InlineVerticalAlignment(InlineVerticalAlignmentType.SUB));
-            } else if ( CssTypesValidationUtils.isPercentageValue(vAlignVal) ) {
-                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+            } else if (CssTypesValidationUtils.isPercentageValue(vAlignVal)) {
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT,
                         new InlineVerticalAlignment(InlineVerticalAlignmentType.FRACTION,
-                        CssDimensionParsingUtils.parseRelativeValue(vAlignVal,1)));
-            } else if ( CssTypesValidationUtils.isValidNumericValue(vAlignVal) ) {
-                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                                CssDimensionParsingUtils.parseRelativeValue(vAlignVal, 1)));
+            } else if (CssTypesValidationUtils.isValidNumericValue(vAlignVal)) {
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT,
                         new InlineVerticalAlignment(InlineVerticalAlignmentType.FIXED,
-                        CssDimensionParsingUtils.parseAbsoluteLength(vAlignVal)));
+                                CssDimensionParsingUtils.parseAbsoluteLength(vAlignVal)));
             } else {
-                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT, 
+                element.setProperty(Property.INLINE_VERTICAL_ALIGNMENT,
                         new InlineVerticalAlignment(InlineVerticalAlignmentType.BASELINE));
             }
         }
@@ -137,9 +137,22 @@ public class VerticalAlignmentApplierUtil {
      * @param stylesContainer the styles container
      * @param childElements the child elements
      */
-    public static void applyVerticalAlignmentForInlines(Map<String, String> cssProps, ProcessorContext context, IStylesContainer stylesContainer, List<IPropertyContainer> childElements) {
+    public static void applyVerticalAlignmentForInlines(Map<String, String> cssProps, ProcessorContext context,
+                                                        IStylesContainer stylesContainer,
+                                                        List<IPropertyContainer> childElements) {
         String vAlignVal = cssProps.get(CssConstants.VERTICAL_ALIGN);
         if (vAlignVal != null) {
+            boolean isVerticalWriting = isVerticalWriting(cssProps);
+            // Only line-relative alignments need to be deferred to layout. Parent-relative alignments
+            // must be resolved to points here, before nested spans are flattened into text elements.
+            if (isVerticalWriting && (CssConstants.TOP.equals(vAlignVal) || CssConstants.BOTTOM.equals(vAlignVal))) {
+                for (IPropertyContainer element : childElements) {
+                    if (element instanceof Text) {
+                        applyVerticalAlignmentForBlocks(cssProps, element, true);
+                    }
+                }
+                return;
+            }
 
             // TODO DEVSIX-1961 for inline images and tables (inline-blocks) v-align is not supported
 
@@ -153,21 +166,19 @@ public class VerticalAlignmentApplierUtil {
 
             if (CssConstants.SUB.equals(vAlignVal) || CssConstants.SUPER.equals(vAlignVal)) {
                 textRise = calcTextRiseForSupSub(stylesContainer, vAlignVal);
-
             } else if (CssConstants.MIDDLE.equals(vAlignVal)) {
-                textRise = calcTextRiseForMiddle(stylesContainer);
-
+                textRise = calcTextRiseForMiddle(stylesContainer, isVerticalWriting);
             } else if (CssConstants.TEXT_TOP.equals(vAlignVal)) {
-                textRise = calcTextRiseForTextTop(stylesContainer, context.getCssContext().getRootFontSize());
-
+                textRise = calcTextRiseForTextTop(stylesContainer, context.getCssContext().getRootFontSize(),
+                        isVerticalWriting);
             } else if (CssConstants.TEXT_BOTTOM.equals(vAlignVal)) {
-                textRise = calcTextRiseForTextBottom(stylesContainer, context.getCssContext().getRootFontSize());
-
+                textRise = calcTextRiseForTextBottom(stylesContainer, context.getCssContext().getRootFontSize(),
+                        isVerticalWriting);
             } else if (CssTypesValidationUtils.isMetricValue(vAlignVal)) {
                 textRise = CssDimensionParsingUtils.parseAbsoluteLength(vAlignVal);
-
             } else if (vAlignVal.endsWith(CssConstants.PERCENTAGE)) {
-                textRise = calcTextRiseForPercentageValue(stylesContainer, context.getCssContext().getRootFontSize(), vAlignVal);
+                textRise = calcTextRiseForPercentageValue(stylesContainer, context.getCssContext().getRootFontSize(),
+                        vAlignVal);
             }
             if (textRise != 0) {
                 for (IPropertyContainer element : childElements) {
@@ -192,6 +203,7 @@ public class VerticalAlignmentApplierUtil {
      *
      * @param stylesContainer the styles container
      * @param vAlignVal the vertical alignment value
+     *
      * @return the calculated text rise
      */
     private static float calcTextRiseForSupSub(IStylesContainer stylesContainer, String vAlignVal) {
@@ -206,15 +218,22 @@ public class VerticalAlignmentApplierUtil {
      * Calculates the text rise for middle alignment.
      *
      * @param stylesContainer the styles container
+     *
      * @return the calculated text rise
      */
-    private static float calcTextRiseForMiddle(IStylesContainer stylesContainer) {
+    private static float calcTextRiseForMiddle(IStylesContainer stylesContainer, boolean isVerticalWriting) {
+        if (isVerticalWriting) {
+            // In vertical writing, the middle and central baseline are the same.
+            return 0;
+        }
+
         String ownFontSizeStr = stylesContainer.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssDimensionParsingUtils.parseAbsoluteLength(ownFontSizeStr);
         float parentFontSize = getParentFontSize(stylesContainer);
 
         double fontMiddleCoefficient = 0.3;
-        float elementMidPoint = (float) (fontSize * fontMiddleCoefficient); // shift to element mid point from the baseline
+        // Shift to element mid-point from the baseline.
+        float elementMidPoint = (float) (fontSize * fontMiddleCoefficient);
         float xHeight = parentFontSize / 4;
 
         return xHeight - elementMidPoint;
@@ -225,15 +244,21 @@ public class VerticalAlignmentApplierUtil {
      *
      * @param stylesContainer the styles container
      * @param rootFontSize the root font size
+     *
      * @return the calculated text rise
      */
-    private static float calcTextRiseForTextTop(IStylesContainer stylesContainer, float rootFontSize) {
+    private static float calcTextRiseForTextTop(IStylesContainer stylesContainer, float rootFontSize,
+                                                boolean isVerticalWriting) {
         String ownFontSizeStr = stylesContainer.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssDimensionParsingUtils.parseAbsoluteLength(ownFontSizeStr);
         String lineHeightStr = stylesContainer.getStyles().get(CssConstants.LINE_HEIGHT);
         float lineHeightActualValue = getLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
         float parentFontSize = getParentFontSize(stylesContainer);
 
+        if (isVerticalWriting) {
+            // The over edge is half the inline box width away from the central baseline.
+            return (parentFontSize - lineHeightActualValue) / 2;
+        }
         float elementTopEdge = (float) (fontSize * ASCENDER_COEFFICIENT + (lineHeightActualValue - fontSize) / 2);
         float parentTextTop = (float) (parentFontSize * ASCENDER_COEFFICIENT);
 
@@ -245,14 +270,21 @@ public class VerticalAlignmentApplierUtil {
      *
      * @param stylesContainer the styles container
      * @param rootFontSize the root font size
+     * @param isVerticalWriting whether the text writing mode is vertical
+     *
      * @return the calculated text rise
      */
-    private static float calcTextRiseForTextBottom(IStylesContainer stylesContainer, float rootFontSize) {
+    private static float calcTextRiseForTextBottom(IStylesContainer stylesContainer, float rootFontSize,
+                                                   boolean isVerticalWriting) {
         String ownFontSizeStr = stylesContainer.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssDimensionParsingUtils.parseAbsoluteLength(ownFontSizeStr);
         String lineHeightStr = stylesContainer.getStyles().get(CssConstants.LINE_HEIGHT);
         float lineHeightActualValue = getLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
         float parentFontSize = getParentFontSize(stylesContainer);
+
+        if (isVerticalWriting) {
+            return (lineHeightActualValue - parentFontSize) / 2;
+        }
 
         float elementBottomEdge = (float) (fontSize * DESCENDER_COEFFICIENT + (lineHeightActualValue - fontSize) / 2);
         float parentTextBottom = (float) (parentFontSize * DESCENDER_COEFFICIENT);
@@ -266,9 +298,11 @@ public class VerticalAlignmentApplierUtil {
      * @param stylesContainer the styles container
      * @param rootFontSize the root font size
      * @param vAlignVal the vertical alignment value
+     *
      * @return the calculated text rise
      */
-    private static float calcTextRiseForPercentageValue(IStylesContainer stylesContainer, float rootFontSize, String vAlignVal) {
+    private static float calcTextRiseForPercentageValue(IStylesContainer stylesContainer, float rootFontSize,
+                                                        String vAlignVal) {
         String ownFontSizeStr = stylesContainer.getStyles().get(CssConstants.FONT_SIZE);
         float fontSize = CssDimensionParsingUtils.parseAbsoluteLength(ownFontSizeStr);
         String lineHeightStr = stylesContainer.getStyles().get(CssConstants.LINE_HEIGHT);
@@ -277,6 +311,17 @@ public class VerticalAlignmentApplierUtil {
         return CssDimensionParsingUtils.parseRelativeValue(vAlignVal, lineHeightActualValue);
     }
 
+    /**
+     * Checks if the text writing mode is vertical.
+     *
+     * @param cssProps the CSS properties to check
+     *
+     * @return {@code true} if the text writing mode is vertical-lr or vertical-rl, {@code false} otherwise
+     */
+    private static boolean isVerticalWriting(Map<String, String> cssProps) {
+        String writingMode = cssProps.get(CssConstants.WRITING_MODE);
+        return CssConstants.VERTICAL_LR.equals(writingMode) || CssConstants.VERTICAL_RL.equals(writingMode);
+    }
 
     /**
      * Gets the actual value of the line height.
@@ -284,6 +329,7 @@ public class VerticalAlignmentApplierUtil {
      * @param fontSize the font size
      * @param rootFontSize the root font size
      * @param lineHeightStr the line height as a {@link String}
+     *
      * @return the actual line height as a {@code float}
      */
     private static float getLineHeightActualValue(float fontSize, float rootFontSize, String lineHeightStr) {
@@ -312,11 +358,13 @@ public class VerticalAlignmentApplierUtil {
      * Gets the parent font size.
      *
      * @param stylesContainer the styles container
+     *
      * @return the parent font size
      */
     private static float getParentFontSize(IStylesContainer stylesContainer) {
         float parentFontSize;
-        if (stylesContainer instanceof INode && ((IElementNode)stylesContainer).parentNode() instanceof IStylesContainer) {
+        if (stylesContainer instanceof INode
+                && ((IElementNode) stylesContainer).parentNode() instanceof IStylesContainer) {
             INode parent = ((IElementNode) stylesContainer).parentNode();
             String parentFontSizeStr = ((IStylesContainer) parent).getStyles().get(CssConstants.FONT_SIZE);
             parentFontSize = CssDimensionParsingUtils.parseAbsoluteLength(parentFontSizeStr);

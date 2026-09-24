@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + word-spacing + letter-spacing + text-decoration + overflow</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.combo {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    word-spacing: 8px;
+    letter-spacing: 3px;
+    text-decoration: line-through;
+    height: 220px;
+    overflow-x: visible;
+    overflow-y: visible;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + word-spacing + letter-spacing + text-decoration + overflow</h1>
+<p class="combo">Combined word spacing letter spacing strike through and visible overflow sample text.</p>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Text combine upright: inline styles</title>
+    <link rel="stylesheet" href="browser.css">
+</head>
+<body>
+<h1>Text combine upright: inline styles</h1>
+<p>Rows exercise empty/nested spans, colored children, separate adjacent groups, decoration and font size.</p>
+<p>Inspect group boundaries carefully in the browser: style boundaries can expose renderer limitations.</p>
+<div class="panel">
+    <h2>vertical-rl / upright</h2>
+    <p class="sample vertical rl upright">前<span class="combine">1<span></span><span>2</span>34</span>後<br>
+        前<span class="combine">1<span class="mark">23</span>4</span>後<br>
+        前<span class="combine mark">12</span><span class="combine">34</span>後<br>
+        前<span class="combine mark" style="text-decoration:underline">12</span>後<br>
+        前<span class="combine mark" style="font-size:30px">1234</span>後</p>
+</div>
+<div class="panel">
+    <h2>vertical-lr / upright</h2>
+    <p class="sample vertical lr upright">前<span class="combine">1<span></span><span>2</span>34</span>後<br>
+        前<span class="combine">1<span class="mark">23</span>4</span>後<br>
+        前<span class="combine mark">12</span><span class="combine">34</span>後<br>
+        前<span class="combine mark" style="text-decoration:underline">12</span>後<br>
+        前<span class="combine mark" style="font-size:30px">1234</span>後</p>
+</div>
+</body>
+</html>

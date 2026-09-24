@@ -27,7 +27,7 @@ import com.itextpdf.styledxmlparser.logs.StyledXmlParserLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
-// TODO DEVSIX-4396 background: radial-gradient is not supported
+// TODO DEVSIX-10038 background: radial-gradient is not supported
 @LogMessages(messages = {
         @LogMessage(messageTemplate = StyledXmlParserLogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES)
 })public class GradientRepeatSpacedWithBordersTest extends W3CCssTest {

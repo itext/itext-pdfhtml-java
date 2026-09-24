@@ -5,20 +5,21 @@
   <parent>
     <groupId>com.itextpdf</groupId>
     <artifactId>root</artifactId>
-    <version>9.7.0</version>
+    <version>9.8.0</version>
     <relativePath />
   </parent>
 
   <artifactId>html2pdf</artifactId>
-  <version>6.3.3</version>
+  <version>6.3.4</version>
 
   <name>pdfHTML</name>
   <description>pdfHTML is an iText add-on that lets you to parse (X)HTML snippets and the associated CSS and converts
     them to PDF.</description>
+  <url>https://itextpdf.com/products/convert-html-css-to-pdf-pdfhtml</url>
 
   <scm>
-    <connection>git@github.com:itext/i7j-pdfhtml.git</connection>
-    <url>https://github.com/itext/i7j-pdfhtml</url>
+    <connection>scm:git:git@github.com:itext/itext-pdfhtml-java.git</connection>
+    <url>https://github.com/itext/itext-pdfhtml-java</url>
   </scm>
 
   <properties>
@@ -148,7 +149,7 @@
         <dependency>
           <groupId>org.bouncycastle</groupId>
           <artifactId>bcprov-jdk18on</artifactId>
-          <version>${bouncycastle.version}</version>
+          <version>${bouncycastle.provider.version}</version>
         </dependency>
       </dependencies>
       <build>
@@ -198,7 +199,7 @@
                   --initialize-at-build-time=org.junit.jupiter.engine.extension.RepeatedTestExtension
                   --initialize-at-build-time=org.junit.platform.commons.util.LruCache
                   --initialize-at-build-time=org.junit.jupiter.api.extension.ExtensionContext$Namespace
-                  
+
                   --enable-url-protocols=http,https,ftp
 
                   -H:+AddAllCharsets

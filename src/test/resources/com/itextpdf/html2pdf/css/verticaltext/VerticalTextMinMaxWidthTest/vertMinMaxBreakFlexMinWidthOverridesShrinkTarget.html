@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>min-width larger than flex-basis, shrink still enabled, min-width should win as the floor</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    width: 120px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 180px;
+    flex-basis: 40px;
+    flex-shrink: 1;
+    min-width: 200px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>flex-basis 40px with flex-shrink enabled inside a 120px container, but min-width 200px should still win as the floor</h1>
+<div class="flexrow">
+<p class="vtext">vertical text content whose flex-basis is small but whose min-width floor is much larger than the container itself</p>
+</div>
+</body>
+</html>

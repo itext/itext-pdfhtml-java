@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>grid-template-columns minmax 0 to 1fr, the common shrinkable track idiom, vertical-lr content</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    border: 1px dashed #666;
+    padding: 10px;
+    gap: 10px;
+    width: 180px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 160px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>grid-template-columns minmax(0, 1fr), the common shrinkable track idiom, forcing vertical-lr content below its natural min-content width</h1>
+<div class="grid">
+<p class="vtext">a longer stretch of vertical text content in the first shrinkable track</p>
+<p class="vtext">a second stretch of vertical text content in the other shrinkable track</p>
+</div>
+</body>
+</html>

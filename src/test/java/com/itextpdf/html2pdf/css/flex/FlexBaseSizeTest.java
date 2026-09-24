@@ -210,7 +210,10 @@ public class FlexBaseSizeTest extends ExtendedHtmlConversionITextTest {
     // D from https://www.w3.org/TR/css-flexbox-1/#algo-main-item (Determine the flex base size algorithm)
 
     @Test
-    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET))
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET),
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)
+    })
     // TODO DEVSIX-5182 Support writing-mode property
     // E.g. infinite height + vertical main axe for flex container (column) + vertical-writing-mode flex item
     public void flexBasisContentOrthogonalFlowTest() throws IOException, InterruptedException {

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl + position absolute</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.stage {
+    position: relative;
+    height: 300px;
+    border: 1px dashed #666;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 140px;
+}
+
+.pos-top-left {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.pos-top-right {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.pos-bottom-center {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl + position absolute</h1>
+<div class="stage">
+<p class="vtext pos-top-left">top left corner box</p>
+<p class="vtext pos-top-right">top right corner box</p>
+<p class="vtext pos-bottom-center">bottom center box</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>nowrap on both the surrounding line and each inline-block, so nothing anywhere can break</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.host {
+    white-space: nowrap;
+    border: 1px dashed #666;
+    padding: 6px;
+    width: 200px;
+    overflow: visible;
+}
+
+.vtext {
+    display: inline-block;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    white-space: nowrap;
+    border: 1px solid #999;
+    padding: 6px;
+    height: 140px;
+    margin: 2px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>white-space nowrap on the surrounding line and on each individual vertical-lr inline-block, so nothing anywhere is allowed to break</h1>
+<div class="host"><span class="vtext">first unbreakable block</span><span class="vtext">second unbreakable block</span><span class="vtext">third unbreakable block</span></div>
+</body>
+</html>

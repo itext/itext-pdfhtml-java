@@ -23,13 +23,21 @@
 package com.itextpdf.html2pdf.attach.impl.layout;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor;
+import com.itextpdf.kernel.pdf.event.AbstractPdfDocumentEvent;
+import com.itextpdf.kernel.pdf.event.AbstractPdfDocumentEventHandler;
+import com.itextpdf.kernel.pdf.event.PdfDocumentEvent;
 import com.itextpdf.layout.Document;
 import com.itextpdf.test.ExtendedITextTest;
 
+import java.io.ByteArrayInputStream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
@@ -91,5 +99,140 @@ public class HtmlDocumentRendererTest extends ExtendedITextTest {
 
         HtmlDocumentRenderer nextRenderer = (HtmlDocumentRenderer) documentRenderer.getNextRenderer();
         Assertions.assertEquals(1, nextRenderer.getEstimatedNumberOfPages());
+    }
+
+    @Test
+    public void trimLastPageWithTrailingBlankPageTest() {
+        ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
+        try (Document document = HtmlConverter.convertToDocument(
+                "<html><body><div style='page-break-after: always'>text</div></body></html>",
+                new PdfWriter(new ByteArrayOutputStream()), converterProperties)) {
+            HtmlDocumentRenderer documentRenderer = (HtmlDocumentRenderer) document.getRenderer();
+            document.getPdfDocument().addNewPage();
+
+            Assertions.assertEquals(2, document.getPdfDocument().getNumberOfPages());
+            Assertions.assertEquals(1, documentRenderer.simulateTrimLastPage());
+        }
+    }
+
+    @Test
+    public void relayoutProcessesWaitingElementTest() throws Exception {
+        ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try (Document document = HtmlConverter.convertToDocument(
+                "<html><body><span>first</span><span>second</span></body></html>",
+                new PdfWriter(outputStream), converterProperties)) {
+            document.relayout();
+        }
+
+        try (PdfDocument resultDocument = new PdfDocument(new PdfReader(new ByteArrayInputStream(outputStream.toByteArray())))) {
+            Assertions.assertEquals(1, resultDocument.getNumberOfPages());
+            String pageText = PdfTextExtractor.getTextFromPage(resultDocument.getPage(1));
+            Assertions.assertTrue(pageText.contains("first"));
+            Assertions.assertTrue(pageText.contains("second"));
+        }
+    }
+
+    @Test
+    public void relayoutDoesNotLeaveWrongEventHandlersHtmlDocumentRendererTest() {
+        ConverterProperties converterProperties = new ConverterProperties().setImmediateFlush(false);
+        ThrowOnTooManyGetPagePdfDocument pdfDocument =
+                new ThrowOnTooManyGetPagePdfDocument(new PdfWriter(new ByteArrayOutputStream()));
+        pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, new GetPageProbeOnEndPageEventHandler());
+        Document document = HtmlConverter.convertToDocument("<html><head><style>@page { @bottom-center { content: counter(page); } }"
+                        + "</style></head><body><span>first</span><span>second</span></body></html>",
+                pdfDocument, converterProperties);
+        try {
+
+            document.relayout();
+            
+            pdfDocument.resetGetPageCalls();
+            pdfDocument.setMaxGetPageCalls(7);
+            Assertions.assertDoesNotThrow(() -> document.close());
+            Assertions.assertEquals(7, pdfDocument.getPageCalls());
+        } finally {
+            if (!pdfDocument.isClosed()) {
+                document.close();
+            }
+        }
+    }
+
+    @Test
+    public void removeEventHandlersBeforeRelayoutTest() {
+        CountRemoveEventHandlerPdfDocument pdfDocument =
+                new CountRemoveEventHandlerPdfDocument(new PdfWriter(new ByteArrayOutputStream()));
+        try (Document document = new Document(pdfDocument)) {
+            HtmlDocumentRenderer documentRenderer = new HtmlDocumentRenderer(document, false);
+            document.setRenderer(documentRenderer);
+            pdfDocument.resetRemoveEventHandlerCalls();
+
+            documentRenderer.removeEventHandlersForRelayout();
+
+            Assertions.assertEquals(2, pdfDocument.getRemoveEventHandlerCalls());
+        }
+    }
+
+    private static final class ThrowOnTooManyGetPagePdfDocument extends PdfDocument {
+        private int pageCalls = 0;
+        private int maxGetPageCalls = Integer.MAX_VALUE;
+
+        public ThrowOnTooManyGetPagePdfDocument(PdfWriter writer) {
+            super(writer);
+        }
+
+        @Override
+        public PdfPage getPage(int pageNum) {
+            ++pageCalls;
+            if (pageCalls > maxGetPageCalls) {
+                throw new IllegalStateException("getPage(int) called too many times: " + pageCalls
+                        + " (max " + maxGetPageCalls + ")");
+            }
+            return super.getPage(pageNum);
+        }
+
+        public void resetGetPageCalls() {
+            pageCalls = 0;
+        }
+
+        public void setMaxGetPageCalls(int maxGetPageCalls) {
+            this.maxGetPageCalls = maxGetPageCalls;
+        }
+
+        public int getPageCalls() {
+            return pageCalls;
+        }
+    }
+
+    private static final class CountRemoveEventHandlerPdfDocument extends PdfDocument {
+        private int removeEventHandlerCalls = 0;
+
+        public CountRemoveEventHandlerPdfDocument(PdfWriter writer) {
+            super(writer);
+        }
+
+        @Override
+        public void removeEventHandler(AbstractPdfDocumentEventHandler handler) {
+            ++removeEventHandlerCalls;
+            super.removeEventHandler(handler);
+        }
+
+        public void resetRemoveEventHandlerCalls() {
+            removeEventHandlerCalls = 0;
+        }
+
+        public int getRemoveEventHandlerCalls() {
+            return removeEventHandlerCalls;
+        }
+    }
+
+    private static final class GetPageProbeOnEndPageEventHandler extends AbstractPdfDocumentEventHandler {
+        @Override
+        public void onAcceptedEvent(AbstractPdfDocumentEvent event) {
+            if (event instanceof PdfDocumentEvent) {
+                PdfDocumentEvent pageEvent = (PdfDocumentEvent) event;
+                int pageNumber = event.getDocument().getPageNumber(pageEvent.getPage());
+                event.getDocument().getPage(pageNumber);
+            }
+        }
     }
 }

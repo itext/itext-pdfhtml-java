@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl + vertical-lr + direction ltr + rtl</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    gap: 24px;
+}
+
+.vtext {
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 220px;
+    display: inline-block;
+}
+
+.rl-ltr {
+    writing-mode: vertical-rl;
+    direction: ltr;
+}
+
+.rl-rtl {
+    writing-mode: vertical-rl;
+    direction: rtl;
+}
+
+.lr-ltr {
+    writing-mode: vertical-lr;
+    direction: ltr;
+}
+
+.lr-rtl {
+    writing-mode: vertical-lr;
+    direction: rtl;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl + vertical-lr + direction ltr + rtl</h1>
+<div class="row">
+<p class="vtext rl-ltr">vertical-rl with direction ltr sample text</p>
+<p class="vtext rl-rtl">vertical-rl with direction rtl sample text</p>
+<p class="vtext lr-ltr">vertical-lr with direction ltr sample text</p>
+<p class="vtext lr-rtl">vertical-lr with direction rtl sample text</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl + letter-spacing</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    gap: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    height: 260px;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    display: inline-block;
+}
+
+.ls-0 {
+    letter-spacing: 0px;
+}
+
+.ls-5 {
+    letter-spacing: 5px;
+}
+
+.ls-15 {
+    letter-spacing: 15px;
+}
+
+.ls-neg {
+    letter-spacing: -7px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl + letter-spacing</h1>
+<div class="row">
+<p class="vtext ls-0">letter-spacing 0px ABCDEFGHIJK</p>
+<p class="vtext ls-5">letter-spacing 5px ABCDEFGHIJK</p>
+<p class="vtext ls-15">letter-spacing 15px ABCDEFGHIJK</p>
+<p class="vtext ls-neg">letter-spacing -7px ABCDEFGHIJK</p>
+</div>
+</body>
+</html>

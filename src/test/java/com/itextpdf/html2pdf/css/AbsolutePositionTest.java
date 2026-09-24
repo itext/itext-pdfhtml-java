@@ -27,13 +27,12 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.io.logs.IoLogMessageConstant;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
-
-import java.io.IOException;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 @Tag("IntegrationTest")
 public class AbsolutePositionTest extends ExtendedHtmlConversionITextTest {
@@ -252,6 +251,9 @@ public class AbsolutePositionTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)
+    })
     public void absPosWritingModeVerticalTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("absPosWritingModeVertical", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -309,6 +311,9 @@ public class AbsolutePositionTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = {
+            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT),
+    })
     public void absPosComboRtlWritingModeNestedTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("absPosComboRtlWritingModeNested", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

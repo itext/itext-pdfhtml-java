@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Japanese punctuation orientation with Noto Sans JP</title>
+<style>
+@font-face {
+    font-family: "Noto Sans JP";
+    src: url("../../../fonts/NotoSansCJKjp-Regular.otf");
+}
+
+h1 {
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-family: "Noto Sans JP";
+    font-size: 22px;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 280px;
+}
+</style>
+</head>
+<body>
+<h1>Japanese bracket and punctuation glyph orientation in vertical text with Noto Sans JP</h1>
+<div class="row">
+<p class="vtext">「これは日本語です。」と彼は言った。</p>
+</div>
+</body>
+</html>

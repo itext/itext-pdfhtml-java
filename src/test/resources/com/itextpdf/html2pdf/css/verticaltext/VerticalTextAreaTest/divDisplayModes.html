@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    body {
+        padding: 20px;
+    }
+
+    div {
+       border: 1px solid #999;
+       padding: 10px;
+       margin: 20px;
+    }
+
+    .break {
+          page-break-before: always;
+    }
+
+    .vertical {
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+        height: 150px;
+    }
+
+    .horizontal {
+        width: 150px;
+    }
+
+    .block {
+        display: block;
+    }
+
+    .inline {
+        display: inline;
+    }
+
+    .grid {
+        display: grid;
+    }
+
+    .table {
+        display: table;
+    }
+
+
+  </style>
+</head>
+<body>
+  <h1>Horizontal text area with display mode block mode</h1>
+  <div class="horizontal block">Some horizontal text that wil wrap around to the next horizontal line</div>
+  <h1>Vertical text area with display mode block mode</h1>
+  <div class="vertical block">Some vertical text that wil wrap around to the next vertical lines</div>
+  <h1 class="break">Horizontal text area with display mode inline mode</h1>
+  <div class="horizontal inline">Some horizontal text that wil wrap around to the next horizontal line</div>
+  <h1>Vertical text area with display mode inline mode</h1>
+  <div class="vertical inline">Some vertical text that wil wrap around to the next vertical lines</div>
+  <h1 class="break">Horizontal text area with display mode grid mode</h1>
+  <div class="horizontal grid">Some horizontal text that wil wrap around to the next horizontal line</div>
+  <h1>Vertical text area with display mode grid mode</h1>
+  <div class="vertical grid">Some vertical text that wil wrap around to the next vertical lines</div>
+  <h1 class="break">Horizontal text area with display mode table mode</h1>
+  <div class="horizontal table">Some horizontal text that wil wrap around to the next horizontal line</div>
+  <h1>Vertical text area with display mode table mode</h1>
+  <div class="vertical table">Some vertical text that wil wrap around to the next vertical lines</div>
+</body>
+</html>

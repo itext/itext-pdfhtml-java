@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>flex-wrap wrap with several vertical-lr items that do not all fit one row</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px dashed #666;
+    padding: 10px;
+    gap: 10px;
+    width: 260px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 140px;
+    flex: 0 0 100px;
+}
+</style>
+</head>
+<body>
+<h1>flex-wrap wrap with several vertical-lr items that collectively do not fit one row</h1>
+<div class="flexrow">
+<p class="vtext">first item</p>
+<p class="vtext">second item</p>
+<p class="vtext">third item</p>
+<p class="vtext">fourth item</p>
+</div>
+</body>
+</html>

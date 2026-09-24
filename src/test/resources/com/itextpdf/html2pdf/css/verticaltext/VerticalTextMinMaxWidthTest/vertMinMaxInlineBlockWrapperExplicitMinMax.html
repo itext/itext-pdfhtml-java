@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>inline-block wrapper inside flex container with explicit min-width and max-width, vertical-lr child</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.wrapper-min {
+    display: inline-block;
+    min-width: 180px;
+    border: 2px dashed #c0392b;
+}
+
+.wrapper-max {
+    display: inline-block;
+    max-width: 70px;
+    border: 2px dashed #2980b9;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>inline-block wrapper inside flex container with explicit min-width and max-width, vertical-lr child</h1>
+<div class="row">
+<div class="wrapper-min">
+<p class="vtext">short text</p>
+</div>
+<div class="wrapper-max">
+<p class="vtext">a longer stretch of vertical text content that exceeds the wrapper cap</p>
+</div>
+</div>
+</body>
+</html>

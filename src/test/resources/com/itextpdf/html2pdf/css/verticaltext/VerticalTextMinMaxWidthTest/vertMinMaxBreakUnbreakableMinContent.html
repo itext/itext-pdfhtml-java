@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>a single unbreakable token forces an enormous min-content width in a narrow flex container</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    width: 150px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 160px;
+    flex: 1 1 auto;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>a single unbreakable token with no spaces forces an enormous min-content width inside a 150px flex container</h1>
+<div class="flexrow">
+<p class="vtext">ThisIsOneEnormousUnbreakableTokenWithNoSpacesAnywhereInItAtAllForcingMinContentToBeVeryLarge</p>
+</div>
+</body>
+</html>

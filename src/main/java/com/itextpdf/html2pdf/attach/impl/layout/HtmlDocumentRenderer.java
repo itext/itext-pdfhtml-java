@@ -178,7 +178,7 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         processWaitingElement();
         super.close();
         trimLastPageIfNecessary();
-        removeEventHandlers();
+        removeEventHandlersForRelayout();
         for (int i = 1; i <= document.getPdfDocument().getNumberOfPages(); ++i) {
             PdfPage page = document.getPdfDocument().getPage(i);
             if (!page.isFlushed()) {
@@ -191,9 +191,12 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
     /**
      * Removes event handlers that were added to pdf document when this {@link HtmlDocumentRenderer} was created.
      */
-    void removeEventHandlers() {
-        // This handler is added in processPageRules method.
-        document.getPdfDocument().removeEventHandler(marginBoxesHandler);
+    @Override
+    public void removeEventHandlersForRelayout() {
+        super.removeEventHandlersForRelayout();
+        if (marginBoxesHandler != null) {
+            document.getPdfDocument().removeEventHandler(marginBoxesHandler);
+        }
         document.getPdfDocument().removeEventHandler(htmlBodyHandler);
     }
 
@@ -212,7 +215,11 @@ public class HtmlDocumentRenderer extends DocumentRenderer {
         relayoutRenderer.rightPageProc = rightPageProc.reset(defaultPageSize, defaultPageMargins);
         relayoutRenderer.estimatedNumberOfPages = currentArea == null ? estimatedNumberOfPages :
                 currentArea.getPageNumber() - simulateTrimLastPage();
-        relayoutRenderer.marginBoxesHandler = marginBoxesHandler.setHtmlDocumentRenderer(relayoutRenderer);
+        if (marginBoxesHandler != null) {
+            relayoutRenderer.marginBoxesHandler = new HtmlDocumentRenderer.PageMarginBoxesDrawingHandler()
+                    .setHtmlDocumentRenderer(relayoutRenderer);
+            document.getPdfDocument().addEventHandler(PdfDocumentEvent.END_PAGE, relayoutRenderer.marginBoxesHandler);
+        }
         relayoutRenderer.targetCounterHandler = new TargetCounterHandler(targetCounterHandler);
         return relayoutRenderer;
     }

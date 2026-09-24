@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text with an extremely large line-height</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-size: 16px;
+    line-height: 12;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 160px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text with line-height 12, so each column becomes extremely wide relative to its glyphs</h1>
+<p class="vtext">a short phrase with enormous space between columns</p>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>default align-items stretch determines a vertical-lr item's height with no explicit height set</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.flexrow {
+    display: flex;
+    border: 1px dashed #666;
+    padding: 10px;
+    gap: 10px;
+    height: 260px;
+}
+
+.side {
+    background: #eee;
+    padding: 8px;
+    flex: 0 0 auto;
+    font-size: 13px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+}
+</style>
+</head>
+<body>
+<h1>default align-items stretch determines a vertical-lr item's height, since no explicit height is set on the item itself</h1>
+<div class="flexrow">
+<div class="side">left</div>
+<p class="vtext">vertical text content with no explicit height, stretched by the flex container's default cross axis alignment</p>
+<div class="side">right</div>
+</div>
+</body>
+</html>

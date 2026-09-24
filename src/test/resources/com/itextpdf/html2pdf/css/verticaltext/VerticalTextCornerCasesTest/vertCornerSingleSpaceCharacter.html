@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>a single plain space character as the only content</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-size: 30px;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 100px;
+    white-space: pre;
+}
+</style>
+</head>
+<body>
+<h1>a single plain space character as the only content, kept with white-space pre so it is not collapsed away</h1>
+<p class="vtext"> </p>
+</body>
+</html>

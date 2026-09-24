@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>a single isolated character with an enormous letter-spacing value</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    letter-spacing: 500px;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 100px;
+}
+</style>
+</head>
+<body>
+<h1>a single isolated character with letter-spacing 500px, which has no neighbor to space away from</h1>
+<p class="vtext">A</p>
+</body>
+</html>

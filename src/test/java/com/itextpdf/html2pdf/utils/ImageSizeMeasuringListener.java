@@ -51,6 +51,7 @@ public class ImageSizeMeasuringListener implements IEventListener {
         this.page = page;
     }
 
+    @Override
     public void eventOccurred(IEventData data, EventType type) {
         switch (type) {
             case RENDER_IMAGE:
@@ -62,6 +63,7 @@ public class ImageSizeMeasuringListener implements IEventListener {
         }
     }
 
+    @Override
     public Set<EventType> getSupportedEvents() {
         return null;
     }

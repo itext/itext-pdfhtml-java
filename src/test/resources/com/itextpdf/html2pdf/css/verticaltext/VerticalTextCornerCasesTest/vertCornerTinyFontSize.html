@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text at a 1px font size</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-size: 1px;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 100px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text at a 1px font size, effectively unreadable</h1>
+<p class="vtext">a full sentence of text rendered at an almost invisible font size</p>
+</body>
+</html>

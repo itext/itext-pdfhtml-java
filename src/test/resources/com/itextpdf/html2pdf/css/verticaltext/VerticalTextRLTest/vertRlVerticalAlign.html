@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl + vertical-align</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.vtext {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 200px;
+}
+
+.big {
+    font-size: 28px;
+}
+
+.va-top {
+    vertical-align: top;
+}
+
+.va-middle {
+    vertical-align: middle;
+}
+
+.va-bottom {
+    vertical-align: bottom;
+}
+
+.va-text-top {
+    vertical-align: text-top;
+}
+
+.va-text-bottom {
+    vertical-align: text-bottom;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl + vertical-align</h1>
+<div class="row">
+<p class="vtext">abc<span class="big va-top">X</span>def</p>
+<p class="vtext">abc<span class="big va-middle">X</span>def</p>
+<p class="vtext">abc<span class="big va-bottom">X</span>def</p>
+<p class="vtext">abc<span class="big va-text-top">X</span>def</p>
+<p class="vtext">abc<span class="big va-text-bottom">X</span>def</p>
+</div>
+</body>
+</html>

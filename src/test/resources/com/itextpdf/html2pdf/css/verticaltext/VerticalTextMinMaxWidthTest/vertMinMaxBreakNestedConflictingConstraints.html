@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>nested inline-blocks with mutually incompatible max-width and min-width</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.outer {
+    display: inline-block;
+    max-width: 60px;
+    border: 2px dashed #c0392b;
+    padding: 4px;
+}
+
+.inner {
+    display: inline-block;
+    min-width: 150px;
+    border: 2px dashed #2980b9;
+    padding: 4px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>outer inline-block max-width 60px containing an inner inline-block min-width 150px, deliberately incompatible</h1>
+<div class="outer">
+<div class="inner">
+<p class="vtext">vertical text content caught between two nested constraints that cannot both be satisfied</p>
+</div>
+</div>
+</body>
+</html>

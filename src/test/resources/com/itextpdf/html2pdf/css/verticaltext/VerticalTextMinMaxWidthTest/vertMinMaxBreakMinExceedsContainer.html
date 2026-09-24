@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>min-width larger than the available container width</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.container {
+    width: 150px;
+    border: 1px dashed #666;
+    padding: 6px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+    min-width: 400px;
+}
+</style>
+</head>
+<body>
+<h1>min-width 400px on a vertical-lr box sitting inside a 150px wide container</h1>
+<div class="container">
+<p class="vtext">vertical text content forced to overflow the declared container because its own minimum width cannot fit</p>
+</div>
+</body>
+</html>

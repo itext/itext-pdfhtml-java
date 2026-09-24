@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>mixed direction segment inside a line forced to split into new columns</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.vtext {
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 220px;
+}
+
+.seg-rl {
+    display: inline-block;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    vertical-align: middle;
+}
+
+.switch {
+    display: inline-block;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px dashed #c0392b;
+    padding: 4px;
+    vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<h1>mixed direction segment inside a line forced to split into new columns</h1>
+<p class="vtext"><span class="seg-rl">a long stretch of rl text before the switch that alone is already taller than one column</span> <span class="switch">a long lr switch segment that is also taller than one column on its own</span> <span class="seg-rl">and a long stretch of rl text after the switch continuing further still</span></p>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + CSS column-count</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.multicol {
+    column-count: 2;
+    column-gap: 30px;
+    max-width: 700px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0 0 12px 0;
+    height: 200px;
+    break-inside: avoid;
+}
+
+.filler {
+    font-size: 14px;
+    line-height: 1.5;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + CSS column-count</h1>
+<div class="multicol">
+<p class="filler">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
+<p class="vtext">Vertical text living inside a CSS column, kept together with break-inside avoid.</p>
+<p class="filler">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + white-space nowrap</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 180px;
+    overflow: visible;
+}
+
+.wrap-normal {
+    white-space: normal;
+}
+
+.wrap-none {
+    white-space: nowrap;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + white-space nowrap</h1>
+<div class="row">
+<p class="vtext wrap-normal">Normal wrapping lets this text break into new columns lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
+<p class="vtext wrap-none">No soft wrap keeps this text on a single column lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
+</div>
+</body>
+</html>

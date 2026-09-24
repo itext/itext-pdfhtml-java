@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-rl and vertical-lr text objects mixed with a horizontal-tb segment in same paragraph</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.vtext {
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 240px;
+}
+
+.seg-rl {
+    display: inline-block;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border: 1px dashed #c0392b;
+    padding: 3px;
+    vertical-align: middle;
+}
+
+.seg-horizontal {
+    display: inline-block;
+    writing-mode: horizontal-tb;
+    border: 1px dashed #27ae60;
+    padding: 3px;
+    vertical-align: middle;
+}
+
+.seg-lr {
+    display: inline-block;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px dashed #2980b9;
+    padding: 3px;
+    vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<h1>vertical-rl and vertical-lr text objects mixed with a horizontal-tb segment in same paragraph</h1>
+<p class="vtext"><span class="seg-rl">rl segment</span> <span class="seg-horizontal">horizontal segment</span> <span class="seg-lr">lr segment</span></p>
+</body>
+</html>

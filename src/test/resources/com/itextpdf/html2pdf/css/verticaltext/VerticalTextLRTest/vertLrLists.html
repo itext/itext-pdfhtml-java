@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + ul + ol</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+ul.vtext, ol.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    list-style-position: inside;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0;
+    height: 220px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + ul + ol</h1>
+<div class="row">
+<ul class="vtext"><li>first item</li><li>second item</li><li>third item</li></ul>
+<ol class="vtext"><li>first item</li><li>second item</li><li>third item</li></ol>
+</div>
+</body>
+</html>

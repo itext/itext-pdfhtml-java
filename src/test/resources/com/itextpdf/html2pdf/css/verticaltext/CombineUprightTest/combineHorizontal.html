@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Text combine upright: horizontal no-op</title>
+    <link rel="stylesheet" href="browser.css">
+</head>
+<body>
+<h1>Text combine upright: horizontal no-op</h1>
+<p>Each horizontal pair must have the same glyph widths and wrapping, regardless of all/none.</p>
+<h2>none / all</h2>
+<p class="sample no-combine">前12345678後 12 34-56 aBc</p>
+<p class="sample combine">前12345678後 12 34-56 aBc</p>
+<div class="panel">
+    <h2>none / narrow</h2>
+    <p class="sample no-combine" style="width:120px;word-break:break-all">12345678 12 34-56 aBc</p>
+</div>
+<div class="panel">
+    <h2>all / narrow</h2>
+    <p class="sample combine" style="width:120px;word-break:break-all">12345678 12 34-56 aBc</p>
+</div>
+<div class="combine">
+    <div class="panel">
+        <h2>Inherited all / vertical-rl child</h2>
+        <p class="sample vertical rl upright"><span>1234</span></p>
+    </div>
+    <div class="panel">
+        <h2>Inherited all / vertical-lr child</h2>
+        <p class="sample vertical lr upright"><span>1234</span></p>
+    </div>
+</div>
+</body>
+</html>

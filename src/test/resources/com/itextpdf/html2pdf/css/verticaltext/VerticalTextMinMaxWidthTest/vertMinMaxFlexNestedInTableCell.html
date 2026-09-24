@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>a flex container nested inside a table cell, vertical-lr flex items inside</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+}
+
+.inner-flex {
+    display: flex;
+    gap: 8px;
+    border: 1px dashed #666;
+    padding: 6px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 160px;
+    flex-basis: auto;
+}
+</style>
+</head>
+<body>
+<h1>a flex container nested inside a table cell, so the cell's auto width must read the flex container's own computed width</h1>
+<table>
+<tr>
+<th>short</th>
+<th>cell containing a nested flex row</th>
+</tr>
+<tr>
+<td>a</td>
+<td>
+<div class="inner-flex">
+<p class="vtext">first flex item</p>
+<p class="vtext">second flex item with more content</p>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>

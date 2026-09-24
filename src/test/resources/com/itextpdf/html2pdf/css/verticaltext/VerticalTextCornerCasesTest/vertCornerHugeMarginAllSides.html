@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text with an enormous margin on all four sides</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 400px;
+    height: 100px;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text with a 400px margin on all four sides</h1>
+<p class="vtext">vertical text content pushed far from every edge by an enormous uniform margin</p>
+</body>
+</html>

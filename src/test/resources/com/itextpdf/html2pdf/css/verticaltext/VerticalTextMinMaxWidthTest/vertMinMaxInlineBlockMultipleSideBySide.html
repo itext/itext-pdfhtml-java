@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr text children of several inline-block wrappers flowing side by side like words in a line</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.host {
+    max-width: 320px;
+    border: 1px dashed #666;
+    padding: 6px;
+}
+
+.wrap {
+    display: inline-block;
+    border: 1px solid #999;
+    padding: 6px;
+    height: 110px;
+    margin: 2px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    margin: 0;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr text children of several inline-block wrappers flowing side by side like words in a line, wrapping when the row is too narrow</h1>
+<div class="host">
+<div class="wrap"><p class="vtext">first block</p></div><div class="wrap"><p class="vtext">second block</p></div><div class="wrap"><p class="vtext">third block</p></div><div class="wrap"><p class="vtext">fourth block</p></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + float</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.wrap {
+    overflow: auto;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 10px;
+    margin: 0 12px 12px 0;
+    height: 220px;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+    margin: 0 0 12px 12px;
+}
+
+.filler {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.clear {
+    clear: both;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + float</h1>
+<div class="wrap">
+<p class="vtext float-left">Floated left vertical text column sample content here for testing.</p>
+<p class="vtext float-right">Floated right vertical text column sample content here for testing.</p>
+<p class="filler">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+<div class="clear"></div>
+</div>
+</body>
+</html>

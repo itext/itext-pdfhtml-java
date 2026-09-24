@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>a single character stacking a huge font size, huge letter-spacing, and a tiny box all at once</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-size: 90pt;
+    letter-spacing: 300px;
+    line-height: 5;
+    border: 1px solid #999;
+    padding: 1px;
+    margin: 0;
+    height: 15px;
+    width: 15px;
+    overflow: visible;
+}
+</style>
+</head>
+<body>
+<h1>a single character stacking a 90pt font size, 300px letter-spacing, line-height 5, and a 15px by 15px box all at once</h1>
+<p class="vtext">A</p>
+</body>
+</html>

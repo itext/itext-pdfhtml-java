@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>grid item, auto track sizing, default min-width auto grid blowout risk</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: times;
+    padding: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 100px auto 100px;
+    border: 1px dashed #666;
+    padding: 10px;
+    gap: 10px;
+    width: 400px;
+}
+
+.side {
+    background: #eee;
+    padding: 8px;
+    font-size: 13px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    padding: 8px;
+    margin: 0;
+    height: 200px;
+}
+</style>
+</head>
+<body>
+<h1>grid item, auto track sizing, default min-width auto resolves to min-content, risk of grid blowout</h1>
+<div class="grid">
+<div class="side">left</div>
+<p class="vtext">a stretch of vertical text content whose min-content width the grid track sizing algorithm must compute correctly</p>
+<div class="side">right</div>
+</div>
+</body>
+</html>

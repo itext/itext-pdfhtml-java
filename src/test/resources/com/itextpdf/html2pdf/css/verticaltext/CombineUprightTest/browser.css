@@ -1,0 +1,65 @@
+@font-face {
+    font-family: "Test Noto";
+    src: url("../../../fonts/NotoSansCJKjp-Regular.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@page {
+    size: A4;
+    margin: 12mm;
+}
+
+body {
+    margin: 0;
+    width: 186mm;
+    font-family: "Test Noto";
+    font-size: 12px;
+    line-height: 1.5;
+    color: #000;
+}
+
+h1 {
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0 0 8px;
+}
+
+h2 {
+    font-size: 13px;
+    font-weight: normal;
+    margin: 10px 0 4px;
+}
+
+p {
+    margin: 0 0 8px;
+}
+
+.panel {
+    display: inline-block;
+    vertical-align: top;
+    width: 320px;
+    margin-right: 12px;
+}
+
+.sample {
+    font-size: 20px;
+    line-height: 1.5;
+    border: 1px solid #888;
+    padding: 8px;
+    margin: 0 0 8px;
+}
+
+.vertical {
+    width: 280px;
+    height: 280px;
+}
+
+.rl { writing-mode: vertical-rl; }
+.lr { writing-mode: vertical-lr; }
+.upright { text-orientation: upright; }
+.mixed { text-orientation: mixed; }
+.sideways { text-orientation: sideways; }
+.combine { text-combine-upright: all; }
+.no-combine { text-combine-upright: none; }
+.mark { color: #963000; background-color: #fff0cc; }
