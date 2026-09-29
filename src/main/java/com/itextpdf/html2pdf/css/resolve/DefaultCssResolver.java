@@ -187,6 +187,8 @@ public class DefaultCssResolver implements ICssResolver {
             }
 
             if (parentStyles != null) {
+                applyInlineBlockInCaseOfParentHavingDifferentWritingMode(elementStyles, parentStyles, element);
+
                 for (Map.Entry<String, String> entry : parentStyles.entrySet()) {
                     elementStyles = StyleUtil
                             .mergeParentStyleDeclaration(elementStyles, entry.getKey(), entry.getValue(), parentStyles.get(
@@ -261,6 +263,29 @@ public class DefaultCssResolver implements ICssResolver {
         resolveContentProperty(elementStyles, element, context);
 
         return elementStyles;
+    }
+
+    private void applyInlineBlockInCaseOfParentHavingDifferentWritingMode(Map<String, String> elementStyles,
+                                                                          Map<String, String> parentStyles,
+                                                                          INode element) {
+        // If a box has a different writing-mode value than its parent box
+        // If the box would otherwise become an in-flow box with a computed display of inline,
+        // its display computes instead to inline-block.
+        if (element instanceof IElementNode) {
+            String elementDisplay = elementStyles.get(CssConstants.DISPLAY);
+            // We apply the logic for any "display: inline" element or for any span without display property.
+            if ((TagConstants.SPAN.equals(((IElementNode) element).name()) && elementDisplay == null)
+                    || CssConstants.INLINE.equals(elementDisplay)) {
+                String elementWritingMode = elementStyles.get(CssConstants.WRITING_MODE);
+                String parentWritingMode = parentStyles.get(CssConstants.WRITING_MODE);
+                if (parentWritingMode == null) {
+                    parentWritingMode = CssConstants.HORIZONTAL_TB;
+                }
+                if (elementWritingMode != null && !elementWritingMode.equals(parentWritingMode)) {
+                    elementStyles.put(CssConstants.DISPLAY, CssConstants.INLINE_BLOCK);
+                }
+            }
+        }
     }
 
     private Map<String, String> resolveElementsStyles(INode element) {

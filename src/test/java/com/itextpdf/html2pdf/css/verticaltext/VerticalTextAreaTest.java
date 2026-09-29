@@ -87,6 +87,8 @@ public class VerticalTextAreaTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void spansInDivTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("spansInDiv", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

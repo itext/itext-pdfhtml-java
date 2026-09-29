@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>children with mixed writing-modes with different displays</title>
+<style>
+    body {
+        font-family: Helvetica;
+    }
+    .vertical {
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+        height: 200px;
+    }
+</style>
+</head>
+<body>
+    <p style="background-color: lightgray; writing-mode: horizontal-tb">
+        inbetween text
+        <span class="vertical" style="background-color: magenta; display: flex">vertical text is horizontal paragraph with display flex</span>
+        inbetween text
+        <span class="vertical" style="background-color: cyan; display: inline">vertical text is horizontal paragraph with display inline</span>
+        inbetween text
+        <span class="vertical" style="background-color: orange; display: inline-block">vertical text is horizontal paragraph with display inline-block</span>
+        inbetween text
+        <span class="vertical" style="background-color: orange; display: block">vertical text is horizontal paragraph with display block</span>
+    </p>
+</body>
+</html>

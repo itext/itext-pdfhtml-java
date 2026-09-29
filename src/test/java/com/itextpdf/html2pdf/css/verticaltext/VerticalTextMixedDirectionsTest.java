@@ -44,49 +44,53 @@ public class VerticalTextMixedDirectionsTest extends ExtendedHtmlConversionIText
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void paragraphMixedTextTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("paragraphMixedTextTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks,
-    //  after that vertical RTL text chunks in vertical LTR paragraphs and vice versa will be fixed.
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void paragraphMixedVerticalTextTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("paragraphMixedVerticalText", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void paragraphMixedVerticalTextRtlTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("paragraphMixedVerticalTextRtl", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void paragraphMixedVerticalTextHorizontalTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("paragraphMixedVerticalTextHorizontal", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
-    @LogMessages(messages = {
-            @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)
-    })
-    // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void paragraphMixedVerticalTextInlineBlockTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("paragraphMixedVerticalTextInlineBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void paragraphMixedTextWithLineBreaksTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("paragraphMixedTextWithLineBreaksTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void paragraphMixedTextNoEnoughHorizontalSpaceTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("paragraphMixedTextNoEnoughHorizontalSpaceTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void paragraphMixedTextWithPageBreakTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("paragraphMixedTextWithPageBreakTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -102,21 +106,29 @@ public class VerticalTextMixedDirectionsTest extends ExtendedHtmlConversionIText
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void verticalWritingAtTextLevelTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("verticalWritingAtTextLevelTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void verticalWritingAtTextLevelTwoLinesTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("verticalWritingAtTextLevelTwoLinesTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void verticalWritingAtTextLevelPageBreakTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("verticalWritingAtTextLevelPageBreakTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void verticalWritingAtTextLevelLongTextTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("verticalWritingAtTextLevelLongTextTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -124,5 +136,12 @@ public class VerticalTextMixedDirectionsTest extends ExtendedHtmlConversionIText
     @Test
     public void verticalParagraphWithHorizontalTextTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("verticalParagraphWithHorizontalTextTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
+    public void mixedWritingModesWithDifferentDisplaysTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("mixedWritingModesWithDifferentDisplaysTest", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 }

@@ -46,7 +46,7 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
-    // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void vertRlBasicTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertRlBasic", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -62,11 +62,15 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void innerTextVerticalRlTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("innerTextVerticalRl", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
     public void severalInnerTextVerticalRlTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("severalInnerTextVerticalRl", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
