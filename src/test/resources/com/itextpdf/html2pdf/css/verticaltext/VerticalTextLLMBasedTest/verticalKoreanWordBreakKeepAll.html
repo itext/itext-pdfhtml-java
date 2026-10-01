@@ -1,0 +1,44 @@
+<!-- Tests: word-break: keep-all preventing a Hangul word from splitting mid-word, in horizontal and in vertical text -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>
+    @font-face {
+        font-family: 'NotoSansCJKkr';
+        src: url('../../../fonts/NotoSansCJKkr-Regular.otf') format('opentype');
+    }
+    .box {
+        font-family: 'NotoSansCJKkr';
+        font-size: 16pt;
+        width: 120px;
+        border: 1px solid black;
+        padding: 8px;
+        margin-bottom: 14px;
+        line-height: 1.6;
+    }
+    .keepall {
+        word-break: keep-all;
+    }
+    .vertical {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        width: auto;
+        height: 175px;
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 14px;
+    }
+</style>
+</head>
+<body>
+<div>
+<div class="box">대한민국의 수도는 서울특별시이며 인구가 매우 많습니다.</div>
+<div class="box keepall">대한민국의 수도는 서울특별시이며 인구가 매우 많습니다.</div>
+</div>
+<div>
+<div class="box vertical">대한민국의 수도는 서울특별시이며 인구가 매우 많습니다.</div>
+<div class="box vertical keepall">대한민국의 수도는 서울특별시이며 인구가 매우 많습니다.</div>
+</div>
+</body>
+</html>

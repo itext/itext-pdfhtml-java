@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+    @font-face {
+        font-family: 'NotoSansCJKjp';
+        src: url('../../../fonts/NotoSansCJKjp-Regular.otf') format('opentype');
+    }
+    .vertical {
+        font-family: 'NotoSansCJKjp';
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        font-size: 14pt;
+        line-height: 2;
+        border: 1px solid black;
+        display: inline-block;
+        padding: 10pt;
+        margin-right: 14pt;
+    }
+    .label { font-size: 9pt; }
+    .all { text-combine-upright: all; }
+    .digits { text-combine-upright: digits; }
+    .digits2 { text-combine-upright: digits 2; }
+</style>
+</head>
+<body>
+<div class="vertical all"><span class="label">all（明示的なspan）：</span>会議は<span class="all">2026</span>年<span class="all">5</span>月<span class="all">12</span>日、参加者は<span class="all">242</span>名でした。</div>
+<div class="vertical digits"><span class="label">digits（span無し）：</span>会議は2026年5月12日、参加者は242名でした。</div>
+<div class="vertical digits2"><span class="label">digits 2（span無し）：</span>会議は2026年5月12日、参加者は242名でした。</div>
+</body>
+</html>

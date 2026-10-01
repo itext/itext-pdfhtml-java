@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+    @font-face {
+        font-family: 'NotoSansCJKjp';
+        src: url('../../../fonts/NotoSansCJKjp-Regular.otf') format('opentype');
+    }
+    .vertical {
+        font-family: 'NotoSansCJKjp';
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        font-size: 13pt;
+        line-height: 1.9;
+        border: 1px solid black;
+        display: inline-block;
+        padding: 10pt;
+    }
+    p { margin: 0; text-indent: 1em; }
+    .note-list { counter-reset: note; }
+    .note-list p { counter-increment: note; }
+    .note-list p::before {
+        content: '（' counter(note) '）';
+        text-combine-upright: all;
+    }
+    .footnotes { font-size: 9pt; margin-top: 1em; counter-reset: note; }
+    .footnotes p { text-indent: 0; counter-increment: note; }
+    .footnotes p::before {
+        content: '注' counter(note) '　';
+        text-combine-upright: all;
+    }
+</style>
+</head>
+<body>
+<div class="vertical">
+<div class="note-list">
+<p>この装置は防水仕様である。</p>
+<p>電源は付属のACアダプタを使用すること。</p>
+<p>詳細は取扱説明書を参照のこと。</p>
+</div>
+<div class="footnotes">
+<p>防水等級はIPX7に相当する。</p>
+<p>定格は100V、50／60Hz対応。</p>
+<p>最新版は公式サイトで公開している。</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+    @font-face {
+        font-family: 'NotoSansCJKjp';
+        src: url('../../../fonts/NotoSansCJKjp-Regular.otf') format('opentype');
+    }
+    body { margin: 20pt; }
+    .card {
+        font-family: 'NotoSansCJKjp';
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        width: 270pt;
+        height: 160pt;
+        padding: 10pt;
+        border: 1px solid #666;
+        font-size: 9pt;
+        line-height: 1.7;
+    }
+    .company { font-size: 11pt; }
+    .position { margin-left: 6pt; }
+    .name { font-size: 20pt; margin-left: 12pt; }
+    .address { margin-left: 8pt; }
+    .tcy { text-combine-upright: all; }
+    .sideways { text-orientation: sideways; }
+</style>
+</head>
+<body>
+<div class="card">
+<div class="company">株式会社サンプル商事</div>
+<div class="position">営業部　部長</div>
+<div class="name"><ruby>山田<rt>やまだ</rt></ruby>　<ruby>太郎<rt>たろう</rt></ruby></div>
+<div class="address">〒<span class="tcy">000</span>－<span class="tcy">0000</span><br>東京都サンプル区見本町<span class="tcy">1</span>－<span class="tcy">2</span>－<span class="tcy">3</span></div>
+<div class="address">電話　<span class="tcy">03</span>－<span class="tcy">1234</span>－<span class="tcy">5678</span><br>メール　<span class="sideways">info@example.com</span></div>
+</div>
+</body>
+</html>

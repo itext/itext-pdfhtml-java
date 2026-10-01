@@ -1,0 +1,28 @@
+<!-- Tests: Mono-ruby vs group-ruby atomicity across a column break -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+    @font-face {
+        font-family: 'NotoSansCJKjp';
+        src: url('../../../fonts/NotoSansCJKjp-Regular.otf') format('opentype');
+    }
+    .col {
+        font-family: 'NotoSansCJKjp';
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        font-size: 16pt;
+        line-height: 1.8;
+        height: 169px;
+        border: 1px solid black;
+        display: inline-block;
+        margin-right: 14px;
+    }
+</style>
+</head>
+<body>
+<div class="col">今晩は隅田川で<ruby>花火<rt>はなび</rt></ruby>大会がありますので、ぜひご覧ください。</div>
+<div class="col">今晩は隅田川で<ruby>花<rt>はな</rt></ruby><ruby>火<rt>び</rt></ruby>大会がありますので、ぜひご覧ください。</div>
+</body>
+</html>

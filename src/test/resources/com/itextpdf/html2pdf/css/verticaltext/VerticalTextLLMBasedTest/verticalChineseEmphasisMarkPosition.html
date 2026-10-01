@@ -1,0 +1,50 @@
+<!-- Tests: text-emphasis-position over/under in horizontal text and right/left in vertical text for Chinese emphasis marks -->
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<style>
+    @font-face {
+        font-family: 'NotoSansCJKsc';
+        src: url('../../../fonts/NotoSansCJKsc-Regular.otf') format('opentype');
+    }
+    .box {
+        font-family: 'NotoSansCJKsc';
+        font-size: 24pt;
+        border: 1px solid black;
+        padding: 14px 10px;
+        display: inline-block;
+        margin-right: 14px;
+        text-emphasis-style: filled dot;
+    }
+    .over {
+        text-emphasis-position: over right;
+    }
+    .under {
+        text-emphasis-position: under right;
+    }
+    .vertical {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        height: 220px;
+        vertical-align: top;
+    }
+    .right {
+        text-emphasis-position: over right;
+    }
+    .left {
+        text-emphasis-position: over left;
+    }
+</style>
+</head>
+<body>
+<div>
+<div class="box over">這是重點內容</div>
+<div class="box under">這是重點內容</div>
+</div>
+<div>
+<div class="box vertical right">這是重點內容</div>
+<div class="box vertical left">這是重點內容</div>
+</div>
+</body>
+</html>

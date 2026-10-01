@@ -1,0 +1,30 @@
+<!-- Tests: A hyphenated alphanumeric code splitting by default vs kept whole with white-space: nowrap -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+    @font-face {
+        font-family: 'NotoSansCJKjp';
+        src: url('../../../fonts/NotoSansCJKjp-Regular.otf') format('opentype');
+    }
+    .col {
+        font-family: 'NotoSansCJKjp';
+        writing-mode: vertical-rl;
+        font-size: 14pt;
+        line-height: 1.6;
+        height: 191px;
+        border: 1px solid black;
+        display: inline-block;
+        margin-right: 14px;
+    }
+    .nowrap {
+        white-space: nowrap;
+    }
+</style>
+</head>
+<body>
+<div class="col">この製品の型番はAB-123です。ご確認ください。</div>
+<div class="col">この製品の型番は<span class="nowrap">AB-123</span>です。ご確認ください。</div>
+</body>
+</html>

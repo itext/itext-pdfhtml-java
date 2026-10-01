@@ -1,0 +1,35 @@
+<!-- Tests: widows/orphans control across a paginated vertical document -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+    @font-face {
+        font-family: 'NotoSansCJKjp';
+        src: url('../../../fonts/NotoSansCJKjp-Regular.otf') format('opentype');
+    }
+    @page {
+        size: 200px 260px;
+        margin: 15px;
+    }
+    body {
+        font-family: 'NotoSansCJKjp';
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        font-size: 11pt;
+        line-height: 1.7;
+        margin: 0;
+    }
+    p {
+        margin: 0;
+        text-indent: 1em;
+        text-align: justify;
+        widows: 3;
+        orphans: 3;
+    }
+</style>
+</head>
+<body>
+<p>これは、ウィドウとオーファンの制御を確認するための、やや長めの日本語の段落です。この段落は、複数のページにまたがるように十分な長さで書かれています。ページの区切り位置で、みすぼらしい一文字だけが取り残されたり、次のページの先頭に一文字だけが送られたりしないように、ブラウザが適切に調整してくれることを期待しています。そのために、この文章はさらに続きます。まだまだ続きます。もう少しで終わります。</p>
+</body>
+</html>

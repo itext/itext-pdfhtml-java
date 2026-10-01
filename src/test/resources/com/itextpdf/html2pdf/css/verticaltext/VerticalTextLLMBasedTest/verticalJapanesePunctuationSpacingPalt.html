@@ -1,0 +1,31 @@
+<!-- Tests: Proportional punctuation spacing via the palt OpenType feature -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+    @font-face {
+        font-family: 'NotoSansCJKjp';
+        src: url('../../../fonts/NotoSansCJKjp-Regular.otf') format('opentype');
+    }
+    .col {
+        font-family: 'NotoSansCJKjp';
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        font-size: 18pt;
+        line-height: 1.8;
+        border: 1px solid black;
+        display: inline-block;
+        padding: 10px;
+        margin-right: 14px;
+    }
+    .palt {
+        font-feature-settings: 'palt' 1;
+    }
+</style>
+</head>
+<body>
+<div class="col">「これは、テストです。」</div>
+<div class="col palt">「これは、テストです。」</div>
+</body>
+</html>
