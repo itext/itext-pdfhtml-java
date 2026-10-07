@@ -194,6 +194,37 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
+    public void vertLrTableCellVerticalAlignTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("vertLrTableCellVerticalAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
+    public void vertLrTableCellHorizontalAlignTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("vertLrTableCellHorizontalAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
+    public void vertLrTableCellAlignWithHeightTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("vertLrTableCellAlignWithHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, count = 2))
+    // We don't support vertical writing mode in cells,
+    // so com.itextpdf.layout.renderer.CellRenderer.correctChildrenHeight is disabled
+    // in case we have several child renderers.
+    public void vertLrTableCellSeveralParagraphsTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("vertLrTableCellSeveralParagraphs", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
     public void vertLrTextAlignTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrTextAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
@@ -216,6 +247,13 @@ public class VerticalTextLRTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void vertLrVerticalAlignTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("vertLrVerticalAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
+    public void vertLrVerticalAlignInTableTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("vertLrVerticalAlignInTable", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
     @Test

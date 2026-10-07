@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vertical-lr + table cell</title>
+    <style>
+        h1 {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #999;
+            padding: 8px;
+        }
+
+        .vtext {
+            writing-mode: vertical-lr;
+            text-orientation: upright;
+        }
+    </style>
+</head>
+<body>
+<h1>vertical-lr + table cell</h1>
+<table>
+    <tr>
+        <th class="vtext" style="vertical-align: top"><p style="background-color: #ffdeef">Top</p></th>
+        <th class="vtext" style="vertical-align: middle"><p style="background-color: #ffdeef">Middle</p></th>
+        <th class="vtext" style="vertical-align: bottom"><p style="background-color: #ffdeef">Bottom</p></th>
+        <th class="vtext">Default vertical</th>
+        <th>Horizontal</th>
+    </tr>
+    <tr>
+        <td>Row horizontal value A</td>
+        <td>Row horizontal value B</td>
+        <td>Row horizontal value C</td>
+        <td>Row horizontal value D</td>
+        <td>Row horizontal value E</td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td class="vtext" style="vertical-align: top">Top</td>
+        <td class="vtext" style="vertical-align: middle">Middle</td>
+        <td class="vtext" style="vertical-align: bottom">Bottom</td>
+        <td class="vtext">Default vertical</td>
+        <td>Horizontal</td>
+    </tr>
+    </tfoot>
+</table>
+</body>
+</html>

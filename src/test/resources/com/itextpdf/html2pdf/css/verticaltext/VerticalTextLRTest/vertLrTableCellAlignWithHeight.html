@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vertical-lr + table cell + height</title>
+    <style>
+        h1 {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #999;
+            padding: 8px;
+        }
+
+        .vtext {
+            writing-mode: vertical-lr;
+            text-orientation: upright;
+        }
+    </style>
+</head>
+<body>
+<h1>vertical-lr + table cell + height</h1>
+<table>
+    <tr>
+        <th class="vtext" style="text-align: left; vertical-align: top;">
+            <p style="background-color: #ffdeef; height: 50px;">Left</p>
+        </th>
+        <th class="vtext" style="text-align: center; vertical-align: middle;">
+            <p style="background-color: #ffdeef; height: 50px;">Center</p>
+        </th>
+        <th class="vtext" style="text-align: right; vertical-align: bottom;">
+            <p style="background-color: #ffdeef; height: 50px;">Right</p>
+        </th>
+        <th class="vtext">Default vertical</th>
+    </tr>
+    <tr>
+        <td>Row horizontal value A</td>
+        <td>Row horizontal value B</td>
+        <td>Row horizontal value C</td>
+        <td>Row horizontal value D</td>
+    </tr>
+    <tr>
+        <th class="vtext" style="text-align: right; vertical-align: top; background-color: #fdfdf4; height: 200px;">
+            <p style="background-color: #ffdeef;">Right</p>
+        </th>
+        <th class="vtext" style="text-align: center; vertical-align: middle;">
+            <p style="background-color: #ffdeef; height: 400px;">Center</p>
+        </th>
+        <th class="vtext" style="text-align: right; vertical-align: bottom;">
+            <p style="background-color: #ffdeef; height: 200px;">Right</p>
+        </th>
+        <th class="vtext">Default vertical</th>
+    </tr>
+</table>
+</body>
+</html>

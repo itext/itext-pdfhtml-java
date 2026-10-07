@@ -249,6 +249,13 @@ public class VerticalTextRLTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    @LogMessages(messages = @LogMessage(
+            messageTemplate = Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT))
+    public void vertRlVerticalAlignInTableTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("vertRlVerticalAlignInTable", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
     public void nestedSpansVerticalAlignmentTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("nestedSpansVerticalAlignment", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

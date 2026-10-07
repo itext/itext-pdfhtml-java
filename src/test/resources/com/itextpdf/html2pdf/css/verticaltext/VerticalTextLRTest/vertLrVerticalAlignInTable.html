@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+<meta charset="UTF-8">
+<title>vertical-lr + vertical-align in a cell</title>
+<style>
+h1 {
+    font-size: 16px;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.vtext {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid #999;
+    background-color: #def3de;
+    margin: 0;
+}
+
+.va-top {
+    vertical-align: top;
+}
+
+.va-middle {
+    vertical-align: middle;
+}
+
+.va-bottom {
+    vertical-align: bottom;
+}
+</style>
+</head>
+<body>
+<h1>vertical-lr + vertical-align in a cell</h1>
+<table>
+    <tr>
+        <td class="va-top" style="border: 3px solid #def3de; width: 150px; height: 200px;">
+            <p class="vtext">top<br>several<br>lines</p>
+        </td>
+        <td class="va-middle" style="border: 3px solid #def3de; width: 150px; height: 200px;">
+            <p class="vtext">middle<br>several<br>lines</p>
+        </td>
+        <td class="va-bottom" style="border: 3px solid #def3de; width: 150px; height: 200px;">
+            <p class="vtext">bottom<br>several<br>lines</p>
+        </td>
+    </tr>
+    <tr>
+        <td class="vtext va-top" style="border: 3px solid #def3de; width: 150px; height: 200px; background-color: #fffcfe;">
+            <p class="vtext">top<br>several<br>lines</p>
+        </td>
+        <td class="vtext va-middle" style="border: 3px solid #def3de; width: 150px; height: 200px; background-color: #fffcfe;">
+            <p class="vtext">middle<br>several<br>lines</p>
+        </td>
+        <td class="vtext va-bottom" style="border: 3px solid #def3de; width: 150px; height: 200px; background-color: #fffcfe;">
+            <p class="vtext">bottom<br>several<br>lines</p>
+        </td>
+    </tr>
+    <tr>
+        <td class="vtext va-top" style="border: 3px solid #fff9dc; max-width: 150px; height: 200px; background-color: #fffcfe;">
+            <p class="vtext">top<br>several<br>lines<br>top<br>several<br>lines<br>top<br>several<br>lines<br>top</p>
+        </td>
+        <td class="vtext va-middle" style="border: 3px solid #def3de; max-width: 150px; height: 200px; background-color: #fffcfe;">
+            <p class="vtext">middle<br>several<br>lines<br>middle<br>several<br>lines<br>middle<br>several<br>lines<br>middle</p>
+        </td>
+        <td class="vtext va-bottom" style="border: 3px solid #fef3ff; max-width: 150px; height: 200px; background-color: #fffcfe;">
+            <p class="vtext">bottom<br>several<br>lines<br>bottom<br>several<br>lines<br>bottom<br>several<br>lines<br>bottom</p>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
