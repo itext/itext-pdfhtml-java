@@ -28,13 +28,20 @@ import com.itextpdf.io.util.UrlUtil;
 import com.itextpdf.kernel.pdf.PdfAConformance;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfOutputIntent;
+import com.itextpdf.kernel.pdf.PdfVersion;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.WriterProperties;
 import com.itextpdf.kernel.utils.CompareTool;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.IElement;
 import com.itextpdf.pdfa.logs.PdfAConformanceLogMessageConstant; // Android-Conversion-Skip-Line (TODO DEVSIX-7372 investigate why a few tests related to PdfA in iTextCore and PdfHtml were cut)
 import com.itextpdf.pdfa.PdfADocument; // Android-Conversion-Skip-Line (TODO DEVSIX-7372 investigate why a few tests related to PdfA in iTextCore and PdfHtml were cut)
 import com.itextpdf.test.ExtendedITextTest;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
+
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -178,5 +185,50 @@ public class LinkTest extends ExtendedITextTest {
 
         Assertions.assertNull(new CompareTool()
                 .compareByContent(outPdf, cmpPdf, destinationFolder, "diff09_"));
+    }
+
+    @Test
+    public void convertWithLinkToReferencePdf1_7ToDocTest() throws IOException, InterruptedException {
+        convertWithLinkToReference(PdfVersion.PDF_1_7, true);
+    }
+
+    @Test
+    public void convertWithLinkToReferencePdf1_7ToEleTest() throws IOException, InterruptedException {
+        convertWithLinkToReference(PdfVersion.PDF_1_7, false);
+    }
+
+    @Test
+    public void convertWithLinkToReferencePdf2_0ToDocTest() throws IOException, InterruptedException {
+        convertWithLinkToReference(PdfVersion.PDF_2_0, true);
+    }
+
+    @Test
+    public void convertWithLinkToReferencePdf2_0ToEleTest() throws IOException, InterruptedException {
+        convertWithLinkToReference(PdfVersion.PDF_2_0, false);
+    }
+
+    private static void convertWithLinkToReference(PdfVersion version, boolean directToPdf)
+            throws IOException, InterruptedException {
+        String html = "<body><a href='#jump'>TOC jump </a></body>";
+        String convertTypeSuffix = directToPdf ? "dir_" : "ele_";
+        String outPath = destinationFolder + "linkToReference_" + convertTypeSuffix + version.toString() + ".pdf";
+        String cmpFileName = sourceFolder + "cmp_linkToReference_" + version.toString() + ".pdf";
+
+        WriterProperties writerProperties = new WriterProperties();
+        writerProperties.setPdfVersion(version);
+        try (PdfDocument pdf = new PdfDocument(CompareTool.createTestPdfWriter(outPath, writerProperties))) {
+            pdf.setTagged();
+            if (directToPdf) {
+                HtmlConverter.convertToPdf(html, pdf, new ConverterProperties());
+            } else {
+                List<IElement> elements = HtmlConverter.convertToElements(html);
+                Document doc = new Document(pdf);
+                for (IElement element : elements) {
+                    doc.add((IBlockElement) element);
+                }
+            }
+        }
+
+        Assertions.assertNull(new CompareTool().compareByContent(outPath, cmpFileName, destinationFolder, "diff"));
     }
 }

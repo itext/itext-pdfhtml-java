@@ -32,11 +32,11 @@ import com.itextpdf.html2pdf.logs.Html2PdfLogMessageConstant;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfArray;
 import com.itextpdf.kernel.pdf.PdfDictionary;
-import com.itextpdf.kernel.pdf.PdfVersion;
 import com.itextpdf.kernel.pdf.action.PdfAction;
 import com.itextpdf.kernel.pdf.annot.PdfAnnotation;
 import com.itextpdf.kernel.pdf.annot.PdfLinkAnnotation;
 import com.itextpdf.kernel.pdf.tagging.PdfNamespace;
+import com.itextpdf.kernel.pdf.tagging.StandardNamespaces;
 import com.itextpdf.kernel.pdf.tagging.StandardRoles;
 import com.itextpdf.kernel.pdf.tagutils.AccessibilityProperties;
 import com.itextpdf.layout.IPropertyContainer;
@@ -111,9 +111,8 @@ public class LinkHelper {
                 AccessibilityProperties accessibilityProperties =
                         ((IAccessibleElement) container).getAccessibilityProperties();
                 String role = linkAnnotation.getRoleBasedOnDestination(context.getPdfDocument());
-                if (StandardRoles.REFERENCE.equals(role) && context.getPdfDocument() != null &&
-                        PdfVersion.PDF_2_0.compareTo(context.getPdfDocument().getPdfVersion()) <= 0) {
-                    accessibilityProperties.setNamespace(PdfNamespace.getDefault(context.getPdfDocument()));
+                if (StandardRoles.REFERENCE.equals(role)) {
+                    accessibilityProperties.setNamespace(new PdfNamespace(StandardNamespaces.PDF_1_7));
                 }
                 accessibilityProperties.setRole(role);
             }
