@@ -24,9 +24,13 @@ package com.itextpdf.html2pdf.css.grid;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.HtmlConverter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -94,6 +98,25 @@ public class GridTemplateColumnTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void templateColumnMinMaxTest() throws IOException, InterruptedException {
         runTest("template-cols-minmax");
+    }
+
+    // TODO DEVSIX-10292 remove assertion when fixed
+    @Test
+    @Disabled("DEVSIX-10292")
+    public void deeplyNestedGridMinMaxFunctionsCauseStackOverflowError() {
+        StringBuilder trackSize = new StringBuilder();
+        for (int i = 0; i < 3000; i++) {
+            trackSize.append("minmax(1px,");
+        }
+        trackSize.append("1fr");
+        for (int i = 0; i < 3000; i++) {
+            trackSize.append(')');
+        }
+
+        String html = "<html><body><div style=\"display:grid;grid-template-columns:" + trackSize
+                + "\"><div>item</div></div></body></html>";
+        Assertions.assertThrows(StackOverflowError.class,
+                () -> HtmlConverter.convertToPdf(html, new ByteArrayOutputStream()));
     }
 
     @Test

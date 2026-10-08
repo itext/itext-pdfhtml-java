@@ -78,6 +78,10 @@ public final class Html2PdfLogMessageConstant {
     /** The Constant INPUT_TYPE_IS_NOT_SUPPORTED. */
     public static final String INPUT_TYPE_IS_NOT_SUPPORTED = "Input type {0} is not supported";
 
+    /** The constant INPUT_BUTTON_WITHOUT_VALUE. */
+    public static final String INPUT_BUTTON_WITHOUT_VALUE =
+            "Button or submit input has no value attribute. An empty button label will be used.";
+
     /** The Constant INVALID_CSS_PROPERTY_DECLARATION. */
     public static final String INVALID_CSS_PROPERTY_DECLARATION = "Invalid css property declaration: {0}";
 

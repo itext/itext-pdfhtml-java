@@ -22,6 +22,7 @@
  */
 package com.itextpdf.html2pdf.attach.impl.tags;
 
+import com.itextpdf.commons.logs.LazyLogger;
 import com.itextpdf.commons.utils.MessageFormatUtil;
 import com.itextpdf.forms.form.FormProperty;
 import com.itextpdf.forms.form.element.Button;
@@ -56,6 +57,7 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
 
     private static final Pattern NUMBER_INPUT_ALLOWED_VALUES =
             Pattern.compile("^(((-?[0-9]+)(\\.[0-9]+)?)|(-?\\.[0-9]+))$");
+    private static final LazyLogger LOGGER = new LazyLogger(InputTagWorker.class);
 
     private static int radioNameIdx = 0;
 
@@ -119,7 +121,12 @@ public class InputTagWorker implements ITagWorker, IDisplayAware {
                 formElement.setProperty(FormProperty.FORM_FIELD_PASSWORD_FLAG, true);
             }
         } else if (AttributeConstants.SUBMIT.equals(inputType) || AttributeConstants.BUTTON.equals(inputType)) {
-            formElement = new Button(name).setSingleLineValue(value);
+            String resolvedValue = value;
+            if (resolvedValue == null) {
+                resolvedValue = "";
+                LOGGER.info(() -> Html2PdfLogMessageConstant.INPUT_BUTTON_WITHOUT_VALUE);
+            }
+            formElement = new Button(name).setSingleLineValue(resolvedValue);
         } else if (AttributeConstants.CHECKBOX.equals(inputType)) {
             CheckBox cb = new CheckBox(name);
             String checked = element.getAttribute(AttributeConstants.CHECKED);

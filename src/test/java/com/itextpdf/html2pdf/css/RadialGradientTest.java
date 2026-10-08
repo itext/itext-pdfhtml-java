@@ -140,6 +140,11 @@ public class RadialGradientTest extends ExtendedHtmlConversionITextTest {
     }
 
     @Test
+    public void radialGradientEllipseClosestCornerAtTopTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("radial-gradient-ellipse-closest-corner-at-top", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
     public void radialGradientCircleOneLengthTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("radial-gradient-circle-one-length", SOURCE_FOLDER, DESTINATION_FOLDER);
     }

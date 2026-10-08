@@ -22,12 +22,18 @@
  */
 package com.itextpdf.html2pdf.css.selectors;
 
+import com.itextpdf.commons.utils.FileUtil;
 import com.itextpdf.html2pdf.ExtendedHtmlConversionITextTest;
+import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -95,6 +101,16 @@ public class IsSelectorTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void isNestedTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("isNested", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    // TODO DEVSIX-10291 remove assertion when fixed
+    @Test
+    @Disabled("DEVSIX-10291")
+    public void deeplyNestedIsSelectorCausesStackOverflowError() throws IOException {
+        try (InputStream html = FileUtil.getInputStreamForFile(SOURCE_FOLDER + "deeplyNestedIsSelector.html")) {
+            Assertions.assertThrows(StackOverflowError.class,
+                    () -> HtmlConverter.convertToPdf(html, new ByteArrayOutputStream()));
+        }
     }
 
     @Test

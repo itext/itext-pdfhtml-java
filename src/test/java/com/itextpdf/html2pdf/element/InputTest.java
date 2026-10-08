@@ -49,6 +49,7 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.logs.LayoutLogMessageConstant;
 import com.itextpdf.styledxmlparser.node.IElementNode;
+import com.itextpdf.test.LogLevelConstants;
 import com.itextpdf.test.annotations.LogMessage;
 import com.itextpdf.test.annotations.LogMessages;
 import com.itextpdf.test.pdfa.VeraPdfValidator;
@@ -139,6 +140,20 @@ public class InputTest extends ExtendedHtmlConversionITextTest {
     @Test
     public void input10Test() throws IOException, InterruptedException {
         runTest("inputTest10");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_BUTTON_WITHOUT_VALUE,
+            logLevel = LogLevelConstants.INFO))
+    public void submitInputWithoutValue() throws IOException, InterruptedException {
+        runTest("submitInputWithoutValue");
+    }
+
+    @Test
+    @LogMessages(messages = @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INPUT_BUTTON_WITHOUT_VALUE,
+            logLevel = LogLevelConstants.INFO))
+    public void buttonInputWithoutValue() throws IOException, InterruptedException {
+        runTest("buttonInputWithoutValue");
     }
 
     @Test
