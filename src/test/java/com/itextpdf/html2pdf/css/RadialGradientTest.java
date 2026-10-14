@@ -54,7 +54,6 @@ public class RadialGradientTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("background-radial-gradient", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    // TODO DEVSIX-4136 alpha is not supported
     @Test
     public void backgroundRadialGradientWithSlashInColorTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("background-radial-gradient-with-slash-in-color", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -208,7 +207,6 @@ public class RadialGradientTest extends ExtendedHtmlConversionITextTest {
         convertToPdfAndCompare("radial-gradient-interpolation", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
 
-    // TODO DEVSIX-4136 update cmp when gradient opacity is supported
     @Test
     @LogMessages(messages = {
             @LogMessage(messageTemplate = Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, count = 4,
