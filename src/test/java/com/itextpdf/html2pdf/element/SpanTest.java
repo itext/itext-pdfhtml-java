@@ -45,7 +45,7 @@ public class SpanTest extends ExtendedITextTest {
 
     @BeforeAll
     public static void beforeClass() {
-        createDestinationFolder(destinationFolder);
+        createOrClearDestinationFolder(destinationFolder);
     }
 
     private void testWithSuffix(String testIndex) throws IOException, InterruptedException {

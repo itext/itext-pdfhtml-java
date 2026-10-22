@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.4;
+            margin: 24px;
+        }
+
+        .example {
+            width: 760px;
+            margin-bottom: 28px;
+            padding: 12px;
+            border: 1px solid #9ca3af;
+            background: #f9fafb;
+        }
+
+        .label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .outer {
+            display: inline-block;
+            background: #dbeafe;
+            border: 1px solid #2563eb;
+            padding: 6px 8px;
+        }
+
+        .inner {
+            display: inline-block;
+            margin-left: 10pt;
+            padding-left: 10pt;
+            background: #fee2e2;
+            border: 1px solid #dc2626;
+        }
+
+        .inner2 {
+            display: inline-block;
+            margin-left: 10pt;
+            padding-left: 10pt;
+            background: #dcfce7;
+            border: 1px solid #16a34a;
+        }
+
+        .plain {
+            display: inline-block;
+            background: #f3e8ff;
+            border: 1px solid #7c3aed;
+        }
+    </style>
+</head>
+<body>
+    <div class="example">
+        <span class="label">Existing child margin should not be doubled when parent gives nothing</span>
+        <span class="outer">
+            outer no left margin
+            <span class="inner">child margin-left 10pt</span>
+            after child
+        </span>
+    </div>
+
+    <div class="example">
+        <span class="label">Nested wrappers should not double the existing child value again</span>
+        <span class="outer">
+            level1
+            <span>
+                <span class="inner2">level2 child margin-left 10pt</span>
+            </span>
+            after
+        </span>
+    </div>
+
+    <div class="example">
+        <span class="label">Only assign + combine when a new side value is actually applied</span>
+        <span class="outer" style="padding-left: 8pt; margin-left: 8pt;">
+            parent has left spacing
+            <span class="plain" style="margin-left: 10pt; padding-left: 10pt;">child with explicit left spacing</span>
+            after child
+        </span>
+    </div>
+</body>
+</html>

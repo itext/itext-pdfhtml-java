@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.4;
+            margin: 24px;
+        }
+
+        .example {
+            width: 760px;
+            margin-bottom: 28px;
+            padding: 12px;
+            border: 1px solid #9ca3af;
+            background: #f9fafb;
+        }
+
+        .label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .outer {
+            display: inline-block;
+            border: 1px solid #1d4ed8;
+            border-radius: 18px;
+            background: #dbeafe;
+            padding: 10px 14px;
+            line-height: 1.3;
+        }
+
+        .middle {
+            display: inline-block;
+            border: 1px solid #dc2626;
+            border-radius: 10px;
+            background: #fee2e2;
+            padding: 4px 8px;
+            font-weight: 600;
+        }
+
+        .inner {
+            display: inline-block;
+            border: 1px solid #16a34a;
+            border-radius: 8px;
+            background: #dcfce7;
+            padding: 2px 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="example">
+        <span class="label">Rounded parent split into multiple fragments should keep only outer corners</span>
+        <span class="outer">
+            start
+            <b class="middle">middle</b>
+            end
+        </span>
+    </div>
+
+    <div class="example">
+        <span class="label">Nested rounded span: internal split should not inherit all corner radii</span>
+        <span class="outer">
+            A
+            <span class="inner">B</span>
+            C
+        </span>
+    </div>
+
+    <div class="example">
+        <span class="label">Individual radius values should remain on outermost fragments only</span>
+        <span class="outer" style="border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+            left
+            <span class="inner" style="border-top-left-radius: 6px; border-top-right-radius: 6px; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;">center</span>
+            right
+        </span>
+    </div>
+</body>
+</html>

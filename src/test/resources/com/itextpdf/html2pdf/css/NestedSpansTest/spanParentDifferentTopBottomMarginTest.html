@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.5;
+            margin: 24px;
+        }
+
+        .example {
+            width: 760px;
+            margin-bottom: 28px;
+            padding: 12px;
+            border: 1px solid #9ca3af;
+            background: #f9fafb;
+        }
+
+        .label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .outer {
+            display: inline-block;
+            border: 1px solid #2563eb;
+            background: #dbeafe;
+            padding: 8px 12px;
+            margin-top: 8pt;
+            margin-bottom: 18pt;
+        }
+
+        .inner {
+            display: inline-block;
+            border: 1px solid #dc2626;
+            background: #fee2e2;
+            padding: 6px 10px;
+            margin-top: 12pt;
+            margin-bottom: 6pt;
+        }
+
+        .inner2 {
+            display: inline-block;
+            border: 1px solid #16a34a;
+            background: #dcfce7;
+            padding: 6px 10px;
+            margin-top: 6pt;
+            margin-bottom: 12pt;
+        }
+    </style>
+</head>
+<body>
+    <div class="example">
+        <span class="label">Parent and child use different top and bottom margins</span>
+        <span class="outer">
+            outer top/bottom
+            <span class="inner">inner top/bottom</span>
+            after inner
+        </span>
+    </div>
+
+    <div class="example">
+        <span class="label">Only the first and last fragments should inherit the outer sides</span>
+        <span class="outer">
+            start
+            <span class="inner2">middle</span>
+            end
+        </span>
+    </div>
+
+    <div class="example">
+        <span class="label">Nested wrappers should keep their own top/bottom values</span>
+        <span class="outer">
+            <span>
+                <span class="inner">wrapped inner</span>
+            </span>
+        </span>
+    </div>
+
+
+    <div class="example">
+        <span class="label">Outer span with huge tob and bottom margins</span>
+        <span class="outer" style="margin-top: 50px; margin-bottom: 50px;">
+            before
+            <span>
+                <span class="inner" style="margin-top: 10px; margin-bottom: 10px;">wrapped inner</span>
+            </span>
+            after
+        </span>
+    </div>
+</body>
+</html>

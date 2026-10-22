@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.4;
+            margin: 24px;
+        }
+
+        .example {
+            width: 760px;
+            margin-bottom: 28px;
+            padding: 12px;
+            border: 1px solid #9ca3af;
+            background: #f9fafb;
+        }
+
+        .label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .outer {
+            display: inline-block;
+            padding-top: 0;
+            padding-bottom: 0;
+            border: 2px solid #2563eb;
+            background: #dbeafe;
+            line-height: 1.2;
+        }
+
+        .inner {
+            display: inline-block;
+            padding-top: 18pt;
+            padding-bottom: 18pt;
+            border: 2px solid #dc2626;
+            background: #fee2e2;
+            font-size: 18px;
+        }
+
+        .inner2 {
+            display: inline-block;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            border: 2px solid #16a34a;
+            background: #dcfce7;
+            font-size: 18px;
+        }
+
+        .plain {
+            display: inline-block;
+            border: 2px solid #7c3aed;
+            background: #f3e8ff;
+            padding-top: 6px;
+            padding-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="example">
+        <span class="label">Reproducer: parent zero padding should not wipe child explicit padding</span>
+        <span class="outer">
+            before
+            <span class="inner">nested span with own padding</span>
+            after
+        </span>
+    </div>
+
+    <div class="example">
+        <span class="label">Exact bug shape: ancestor top/bottom padding applied to all children</span>
+        <span class="outer" style="padding-top: 0; padding-bottom: 0;">
+            A
+            <span class="inner2">B</span>
+            C
+        </span>
+    </div>
+
+    <div class="example">
+        <span class="label">Mixed nested inline fragments</span>
+        <span class="outer" style="padding-top: 0; padding-bottom: 0;">
+            start
+            <span class="plain">X</span>
+            <span class="inner">Y</span>
+            <span class="plain">Z</span>
+            end
+        </span>
+    </div>
+</body>
+</html>

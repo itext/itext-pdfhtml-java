@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.4;
+            margin: 24px;
+        }
+
+        .section {
+            width: 620px;
+            border: 1px solid #333;
+            padding: 12px;
+            margin: 0 0 24px;
+            background: #fafafa;
+        }
+
+        .title {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .outer {
+            display: inline-block;
+            width: 320px;
+            margin: 0 18px 12px 0;
+            padding: 12px 14px;
+            border: 3px solid #2563eb;
+            background: #dbeafe;
+            color: #111827;
+            vertical-align: top;
+        }
+
+        .outer.right {
+            margin: 0 0 12px 18px;
+            border-color: #b45309;
+            background: #ffedd5;
+        }
+
+        .level2 {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 8px 12px;
+            border: 2px solid #dc2626;
+            background: #fee2e2;
+            color: #7f1d1d;
+        }
+
+        .level2.noFloat {
+            margin-left: 18px;
+            margin-right: 10px;
+            padding-left: 16px;
+            padding-right: 16px;
+            border-left: 5px solid #7c3aed;
+            border-right: 5px solid #16a34a;
+        }
+
+        .level3 {
+            display: inline-block;
+            margin: 6px 12px;
+            padding: 4px 10px;
+            border: 1px dashed #166534;
+            background: #dcfce7;
+            color: #14532d;
+            text-decoration: underline line-through;
+        }
+
+        .inlineBlock {
+            display: inline-block;
+            margin: 0 12px 0 0;
+            padding: 6px 10px;
+            border: 1px solid #6d28d9;
+            background: #f3e8ff;
+            color: #4c1d95;
+        }
+
+        .inlineBlock.right {
+            margin: 0 0 0 12px;
+            border-color: #0f766e;
+            background: #ccfbf1;
+            color: #134e4a;
+        }
+
+        .simple {
+            margin-left: 12px;
+            margin-right: 8px;
+            padding-left: 8px;
+            padding-right: 8px;
+            border-left: 2px solid #e11d48;
+            border-right: 2px solid #f59e0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <span class="title">Case 1: parent span with nested children and asymmetric spacing</span>
+        <span class="outer">
+            Outer span
+            <span class="level2">
+                child span
+                <span class="level3">grandchild</span>
+                continues
+            </span>
+            <span class="inlineBlock">inline block child</span>
+            tail text in outer span
+        </span>
+        This paragraph text is visually next to the inline-block container and demonstrates how nested span styles are treated when no float is involved. Margins, padding and borders are still applied separately on each nested level.
+    </div>
+
+    <div class="section">
+        <span class="title">Case 2: right-aligned parent with nested asymmetric borders and padding</span>
+        <span class="outer right">
+            Right-sided outer span
+            <span class="level2 noFloat">
+                second level with asymmetric margins and borders
+            </span>
+            <span class="inlineBlock right">last block</span>
+            closing text
+        </span>
+        A second paragraph demonstrates the same nested span behavior without any floating. The result should stay close to browser rendering for a normal inline formatting context while preserving manual adjustments for margin and border differences.
+    </div>
+
+    <div class="section">
+        <span class="title">Case 3: multiple nesting levels with mixed inline text and span children</span>
+        <span class="outer">
+            <span class="simple">alpha</span>
+            <span class="level2">
+                <span class="simple">beta</span>
+                <span class="level3">gamma</span>
+                <span class="simple">delta</span>
+            </span>
+            <span class="inlineBlock">epsilon</span>
+            <span class="simple">zeta</span>
+        </span>
+        This third example combines multiple nesting levels and several properties that are resolved separately for the parent and child spans. It is useful to compare how margins, paddings, borders, and underline/line-through decoration behave in a plain non-floating layout.
+    </div>
+</body>
+</html>

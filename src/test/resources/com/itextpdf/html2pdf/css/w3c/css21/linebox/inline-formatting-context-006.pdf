@@ -1,9 +1,8 @@
 %PDF-1.7
 %âãÏÓ
 5 0 obj
-<</Filter/FlateDecode/Length 164>>stream
-xœuÍ
-Â0„ïûƒ'½DÓÿ^{òÕn4´MrğñM[e;|3ĞVÑº‘	”¦´@Y¥¢Ì :Z*ö}ë={pfÇ0-¶=^áƒ3=ã~+XÖŞtñ¡±hŒµì øb¥.´S´§6ãN“*ÏD•Äí¢.à˜ôÅ91’R¾¨\~SËg²õ<ıMÿK.‹äŸı	)ìDf
+<</Filter/FlateDecode/Length 159>>stream
+xœ];Â0Dû=Å(4çŸ‰ôH¾@ k0XØ.8>N" )VÚyÒ›‘vŠ6­„L¡4e%ª:UÕÓJ±:ïÙÃh„;†ñèp´İéœûTÁ²ğ¦¤5Ö²ƒâgHÄZ]i¯è@#m1ÅgU‘‹:'ÚESÂ1éŠsb"$¥|S…ü§~–/d%šeú—ş#‘‹<¯
 endstream
 endobj
 4 0 obj
@@ -13,7 +12,7 @@ endobj
 <</Pages 2 0 R/Type/Catalog>>
 endobj
 3 0 obj
-<</CreationDate(D:20200803134256+03'00')/ModDate(D:20200803134256+03'00')/Producer(iText® 7.1.13-SNAPSHOT ©2000-2020 iText Group NV \(AGPL-version\))/Title(CSS Test: Inline formatting context with left padding)/assert(Left padding are respected between inline boxes.)/flags()>>
+<</CreationDate(D:20261027074222+03'00')/ModDate(D:20261027074222+03'00')/Producer(iText® pdfHTML 6.3.5-SNAPSHOT \(AGPL version\) ©2000-2026 Apryse Group NV)/Title(CSS Test: Inline formatting context with left padding)/assert(Left padding are respected between inline boxes.)/flags()>>
 endobj
 6 0 obj
 <</BaseFont/Times-Roman/Encoding/WinAnsiEncoding/Subtype/Type1/Type/Font>>
@@ -24,15 +23,15 @@ endobj
 xref
 0 7
 0000000000 65535 f 
-0000000379 00000 n 
-0000000807 00000 n 
-0000000424 00000 n 
-0000000246 00000 n 
+0000000374 00000 n 
+0000000810 00000 n 
+0000000419 00000 n 
+0000000241 00000 n 
 0000000015 00000 n 
-0000000717 00000 n 
+0000000720 00000 n 
 trailer
-<</ID [<3217176af94f338d04da0f06055c951c><3217176af94f338d04da0f06055c951c>]/Info 3 0 R/Root 1 0 R/Size 7>>
-%iText-7.1.13-SNAPSHOT
+<</ID [<4e5da45f1282ca050e05fe173ed366e10f6e276a290479c0cc37405e374633698e2b25841b41365d0bf223a1b909aa1d85672d4b95583dda9fba281161a1ea29><4e5da45f1282ca050e05fe173ed366e10f6e276a290479c0cc37405e374633698e2b25841b41365d0bf223a1b909aa1d85672d4b95583dda9fba281161a1ea29>]/Info 3 0 R/Root 1 0 R/Size 7>>
+%iText-pdfHTML-6.3.5-SNAPSHOT
 startxref
-858
+861
 %%EOF

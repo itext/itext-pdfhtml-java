@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.4;
+            margin: 24px;
+        }
+
+        .example {
+            width: 780px;
+            margin-bottom: 28px;
+            padding: 12px;
+            border: 1px solid #9ca3af;
+            background: #f9fafb;
+        }
+
+        .label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .outer {
+            display: inline-block;
+            border-bottom: 2px solid #dc2626;
+            background: #fee2e2;
+            padding: 8px 12px;
+        }
+
+        .inner {
+            display: inline-block;
+            border-top: 2px solid #2563eb;
+            background: #dbeafe;
+            padding: 8px 12px;
+        }
+
+        .inner2 {
+            display: inline-block;
+            border-left: 2px solid #16a34a;
+            border-right: 2px solid #7c3aed;
+            background: #ecfdf5;
+            padding: 8px 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="example">
+        <span class="label">Missing side should be applied without losing existing side on child</span>
+        <span class="outer">
+            outer bottom only
+            <span class="inner">child top only</span>
+            after child
+        </span>
+    </div>
+
+    <div class="example">
+        <span class="label">Conditional side application must preserve already-set child side</span>
+        <span class="outer" style="border-top: 2px solid #f59e0b; border-bottom: 2px solid #dc2626;">
+            top+bottom outer
+            <span class="inner" style="border-top: 2px solid #2563eb; border-bottom: 2px solid #10b981;">child has top and bottom</span>
+            after child
+        </span>
+    </div>
+
+    <div class="example">
+        <span class="label">When both sides are supplied together, a missing side should still be applied</span>
+        <span class="outer" style="border-bottom: 2px solid #dc2626; border-left: 2px solid #16a34a;">
+            outer bottom + left
+            <span class="inner2">child left + right</span>
+            after inner
+        </span>
+    </div>
+</body>
+</html>

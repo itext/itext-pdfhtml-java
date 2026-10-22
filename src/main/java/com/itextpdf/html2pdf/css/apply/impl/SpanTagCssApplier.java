@@ -43,9 +43,14 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.FloatPropertyValue;
 import com.itextpdf.layout.properties.Property;
+import com.itextpdf.layout.properties.UnitValue;
+import com.itextpdf.styledxmlparser.css.CommonCssConstants;
 import com.itextpdf.styledxmlparser.node.IStylesContainer;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 /**
  * {@link ICssApplier} implementation for Span elements.
@@ -66,6 +71,8 @@ public class SpanTagCssApplier implements ICssApplier {
                 applyChildElementStyles(child, cssStyles, context, stylesContainer);
             }
         }
+
+        applyMarginsPaddingsBordersStyles(spanTagWorker.getAllElements(), cssStyles, context);
 
         VerticalAlignmentApplierUtil.applyVerticalAlignmentForInlines(cssStyles, context, stylesContainer,
                 spanTagWorker.getAllElements());
@@ -110,13 +117,129 @@ public class SpanTagCssApplier implements ICssApplier {
     protected void applyChildElementStyles(IPropertyContainer element, Map<String, String> css, ProcessorContext context, IStylesContainer stylesContainer) {
         FontStyleApplierUtil.applyFontStyles(css, context, stylesContainer, element);
         BackgroundApplierUtil.applyBackground(css, context, element);
-        BorderStyleApplierUtil.applyBorders(css, context, element);
         OutlineApplierUtil.applyOutlines(css, context, element);
         HyphenationApplierUtil.applyHyphenation(css, context, stylesContainer, element);
-        MarginApplierUtil.applyMargins(css, context, element);
         PositionApplierUtil.applyPosition(css, context, element);
         FloatApplierUtil.applyFloating(css, context, element);
-        PaddingApplierUtil.applyPaddings(css, context, element);
     }
 
+    protected void applyMarginsPaddingsBordersStyles(List<IPropertyContainer> allChildren, Map<String, String> css,
+                                                     ProcessorContext context) {
+        if (allChildren != null && !allChildren.isEmpty()) {
+            IPropertyContainer firstChild = allChildren.get(0);
+            IPropertyContainer lastChild = allChildren.get(allChildren.size() - 1);
+
+            // Apply left margin to the first child, apply right margin to the last child.
+            applyPropertiesCertainPropertyValue(firstChild, css, Property.MARGIN_LEFT, true,
+                    newStyles -> MarginApplierUtil.applyMargins(newStyles, context, firstChild),
+                    CommonCssConstants.MARGIN_LEFT);
+            applyPropertiesCertainPropertyValue(lastChild, css, Property.MARGIN_RIGHT, true,
+                    newStyles -> MarginApplierUtil.applyMargins(newStyles, context, lastChild),
+                    CommonCssConstants.MARGIN_RIGHT);
+
+            // Apply left padding to the first child, apply right padding to the last child.
+            applyPropertiesCertainPropertyValue(firstChild, css, Property.PADDING_LEFT, true,
+                    newStyles -> PaddingApplierUtil.applyPaddings(newStyles, context, firstChild),
+                    CommonCssConstants.PADDING_LEFT);
+            applyPropertiesCertainPropertyValue(lastChild, css, Property.PADDING_RIGHT, true,
+                    newStyles -> PaddingApplierUtil.applyPaddings(newStyles, context, lastChild),
+                    CommonCssConstants.PADDING_RIGHT);
+
+            // Apply top and bottom paddings to all the children.
+            Map<String, String> topAndBottomPaddingStyles = new HashMap<>();
+            topAndBottomPaddingStyles.put(CommonCssConstants.PADDING_TOP, css.get(CommonCssConstants.PADDING_TOP));
+            topAndBottomPaddingStyles.put(CommonCssConstants.PADDING_BOTTOM,
+                    css.get(CommonCssConstants.PADDING_BOTTOM));
+            topAndBottomPaddingStyles.put(CommonCssConstants.FONT_SIZE, css.get(CommonCssConstants.FONT_SIZE));
+            for (IPropertyContainer child : allChildren) {
+                PaddingApplierUtil.applyPaddings(topAndBottomPaddingStyles, context, child);
+            }
+
+            // Apply border-left, as well as left radii to the first child.
+            applyPropertiesCertainPropertyValue(firstChild, css, Property.BORDER_LEFT, false,
+                    newStyles -> BorderStyleApplierUtil.applyBorders(newStyles, context, firstChild),
+                    CommonCssConstants.BORDER_LEFT_STYLE, CommonCssConstants.BORDER_LEFT_COLOR,
+                    CommonCssConstants.BORDER_LEFT_WIDTH);
+            applyPropertiesCertainPropertyValue(firstChild, css, Property.BORDER_TOP_LEFT_RADIUS, false,
+                    newStyles -> BorderStyleApplierUtil.applyBorders(newStyles, context, firstChild),
+                    CommonCssConstants.BORDER_TOP_LEFT_RADIUS);
+            applyPropertiesCertainPropertyValue(firstChild, css, Property.BORDER_BOTTOM_LEFT_RADIUS, false,
+                    newStyles -> BorderStyleApplierUtil.applyBorders(newStyles, context, firstChild),
+                    CommonCssConstants.BORDER_BOTTOM_LEFT_RADIUS);
+
+            // Apply border-right, as well as right radii to the last child.
+            applyPropertiesCertainPropertyValue(lastChild, css, Property.BORDER_RIGHT, false,
+                    newStyles -> BorderStyleApplierUtil.applyBorders(newStyles, context, lastChild),
+                    CommonCssConstants.BORDER_RIGHT_STYLE, CommonCssConstants.BORDER_RIGHT_COLOR,
+                    CommonCssConstants.BORDER_RIGHT_WIDTH);
+            applyPropertiesCertainPropertyValue(lastChild, css, Property.BORDER_TOP_RIGHT_RADIUS, false,
+                    newStyles -> BorderStyleApplierUtil.applyBorders(newStyles, context, lastChild),
+                    CommonCssConstants.BORDER_TOP_RIGHT_RADIUS);
+            applyPropertiesCertainPropertyValue(lastChild, css, Property.BORDER_BOTTOM_RIGHT_RADIUS, false,
+                    newStyles -> BorderStyleApplierUtil.applyBorders(newStyles, context, lastChild),
+                    CommonCssConstants.BORDER_BOTTOM_RIGHT_RADIUS);
+
+            // Apply top and bottom borders to all the children.
+            Map<String, String> topAndBottomBorderStyles = new HashMap<>(css);
+            topAndBottomBorderStyles.remove(CommonCssConstants.BORDER_LEFT_STYLE);
+            topAndBottomBorderStyles.remove(CommonCssConstants.BORDER_LEFT_COLOR);
+            topAndBottomBorderStyles.remove(CommonCssConstants.BORDER_LEFT_WIDTH);
+            topAndBottomBorderStyles.remove(CommonCssConstants.BORDER_RIGHT_STYLE);
+            topAndBottomBorderStyles.remove(CommonCssConstants.BORDER_RIGHT_COLOR);
+            topAndBottomBorderStyles.remove(CommonCssConstants.BORDER_RIGHT_WIDTH);
+            topAndBottomBorderStyles.remove(CommonCssConstants.BORDER_TOP_LEFT_RADIUS);
+            topAndBottomBorderStyles.remove(CommonCssConstants.BORDER_TOP_RIGHT_RADIUS);
+            topAndBottomBorderStyles.remove(CommonCssConstants.BORDER_BOTTOM_LEFT_RADIUS);
+            topAndBottomBorderStyles.remove(CommonCssConstants.BORDER_BOTTOM_RIGHT_RADIUS);
+
+            Map<String, String> topBorderStyles = new HashMap<>(topAndBottomBorderStyles);
+            topBorderStyles.remove(CommonCssConstants.BORDER_BOTTOM_STYLE);
+            topBorderStyles.remove(CommonCssConstants.BORDER_BOTTOM_WIDTH);
+            topBorderStyles.remove(CommonCssConstants.BORDER_BOTTOM_COLOR);
+
+            Map<String, String> bottomBorderStyles = new HashMap<>(topAndBottomBorderStyles);
+            topBorderStyles.remove(CommonCssConstants.BORDER_TOP_STYLE);
+            topBorderStyles.remove(CommonCssConstants.BORDER_TOP_WIDTH);
+            topBorderStyles.remove(CommonCssConstants.BORDER_TOP_COLOR);
+
+            for (IPropertyContainer child : allChildren) {
+                if (!child.hasProperty(Property.BORDER_TOP)) {
+                    BorderStyleApplierUtil.applyBorders(topBorderStyles, context, child);
+                }
+                if (!child.hasProperty(Property.BORDER_BOTTOM)) {
+                    BorderStyleApplierUtil.applyBorders(bottomBorderStyles, context, child);
+                }
+            }
+        }
+    }
+
+    private static void applyPropertiesCertainPropertyValue(IPropertyContainer child, Map<String, String> styles,
+                                                     int property, boolean combineValues,
+                                                     Consumer<Map<String, String>> operation, String... propertyNames) {
+        Map<String, String> stylesWithRequiredValue = new HashMap<>(propertyNames.length);
+        for (String propertyName : propertyNames) {
+            stylesWithRequiredValue.put(propertyName, styles.get(propertyName));
+        }
+        // Commonly useful properties.
+        stylesWithRequiredValue.put(CommonCssConstants.FONT_SIZE, styles.get(CommonCssConstants.FONT_SIZE));
+        stylesWithRequiredValue.put(CommonCssConstants.COLOR, styles.get(CommonCssConstants.COLOR));
+
+        if (combineValues) {
+            UnitValue previousPropertyValue = child.<UnitValue>getProperty(property);
+            child.deleteOwnProperty(property);
+            operation.accept(stylesWithRequiredValue);
+            UnitValue currentPropertyValue = child.<UnitValue>getProperty(property);
+            if (previousPropertyValue != null) {
+                if (currentPropertyValue == null || previousPropertyValue.isPercentValue()
+                        || currentPropertyValue.isPercentValue()) {
+                    child.setProperty(property, previousPropertyValue);
+                } else {
+                    child.setProperty(property, UnitValue.createPointValue(
+                            previousPropertyValue.getValue() + currentPropertyValue.getValue()));
+                }
+            }
+        } else {
+            operation.accept(stylesWithRequiredValue);
+        }
+    }
 }

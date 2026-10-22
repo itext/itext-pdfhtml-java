@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.4;
+            margin: 24px;
+        }
+
+        .section {
+            width: 620px;
+            border: 1px solid #333;
+            padding: 12px;
+            margin: 0 0 24px;
+            background: #fafafa;
+        }
+
+        .title {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .outer {
+            float: left;
+            width: 320px;
+            margin: 0 18px 12px 0;
+            padding: 12px 14px;
+            border: 3px solid #1d4ed8;
+            background: #e0f2fe;
+            color: #111827;
+        }
+
+        .outer.right {
+            float: right;
+            margin: 0 0 12px 18px;
+            border-color: #b45309;
+            background: #fff7ed;
+        }
+
+        .level2 {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 8px 12px;
+            border: 2px solid #dc2626;
+            background: #fee2e2;
+            color: #7f1d1d;
+        }
+
+        .level2.noFloat {
+            float: none;
+            margin-left: 18px;
+            margin-right: 10px;
+            padding-left: 16px;
+            padding-right: 16px;
+            border-left: 5px solid #7c3aed;
+            border-right: 5px solid #16a34a;
+        }
+
+        .level3 {
+            display: inline-block;
+            margin: 6px 12px;
+            padding: 4px 10px;
+            border: 1px dashed #166534;
+            background: #dcfce7;
+            color: #14532d;
+            text-decoration: underline line-through;
+        }
+
+        .floatChild {
+            float: left;
+            margin: 0 12px 0 0;
+            padding: 6px 10px;
+            border: 1px solid #6d28d9;
+            background: #f3e8ff;
+            color: #4c1d95;
+        }
+
+        .floatChild.right {
+            float: right;
+            margin: 0 0 0 12px;
+            border-color: #0f766e;
+            background: #ccfbf1;
+            color: #134e4a;
+        }
+
+        .simple {
+            margin-left: 12px;
+            margin-right: 8px;
+            padding-left: 8px;
+            padding-right: 8px;
+            border-left: 2px solid #e11d48;
+            border-right: 2px solid #f59e0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <span class="title">Case 1: parent float + nested children with margins / borders / paddings</span>
+        <span class="outer">
+            Outer span
+            <span class="level2">
+                child span
+                <span class="level3">grandchild</span>
+                continues
+            </span>
+            <span class="floatChild">float child</span>
+            tail text in outer span
+        </span>
+        This paragraph text is intentionally long so it wraps around the floating block. It should remain on the left side of the container while the nested spans inside the floated box keep their own border, padding and margin values.
+    </div>
+
+    <div class="section">
+        <span class="title">Case 2: right-floating parent with a nested block-like child and a last-child float</span>
+        <span class="outer right">
+            Right-sided outer span
+            <span class="level2 noFloat">
+                second level with asymmetric margins and borders
+            </span>
+            <span class="floatChild right">last float</span>
+            closing text
+        </span>
+        A second paragraph demonstrates the same behavior on the right side. The visual result should stay close to browser rendering even though nested span properties are resolved with compatibility workarounds instead of full CSS nesting support.
+    </div>
+
+    <div class="section">
+        <span class="title">Case 3: mixed inline text segments and nested spans at multiple levels</span>
+        <span class="outer">
+            <span class="simple">alpha</span>
+            <span class="level2">
+                <span class="simple">beta</span>
+                <span class="level3">gamma</span>
+                <span class="simple">delta</span>
+            </span>
+            <span class="floatChild">epsilon</span>
+            <span class="simple">zeta</span>
+        </span>
+        This third example combines multiple nesting levels and several properties that behave differently depending on whether they are applied to the parent span or to each child. Text decoration is expected to be split by independent text chunks rather than rendered as a single line across the whole span.
+    </div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 24px;
+            color: #111827;
+        }
+
+        .example {
+            margin-bottom: 28px;
+            padding: 10px 12px;
+            border: 1px solid #9ca3af;
+            background: #f9fafb;
+            width: 760px;
+        }
+
+        .label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #1f2937;
+        }
+
+        .outer {
+            display: inline;
+            padding: 4px 8px;
+            border: 1px solid #2563eb;
+            background: #dbeafe;
+        }
+
+        .mid {
+            display: inline;
+            margin-left: 12px;
+            margin-right: 12px;
+            padding: 2px 8px;
+            border: 1px dashed #dc2626;
+            background: #fee2e2;
+        }
+
+        .inner {
+            display: inline;
+            margin-left: 8px;
+            padding: 1px 6px;
+            border: 1px solid #16a34a;
+            background: #dcfce7;
+        }
+
+        .underline { text-decoration: underline; }
+        .line-through { text-decoration: line-through; }
+        .underline-red { text-decoration: underline red; }
+        .double { text-decoration: underline line-through; }
+        .wavy { text-decoration: underline wavy #7c3aed; }
+
+        .blue { color: #1d4ed8; }
+        .green { color: #15803d; }
+        .red { color: #b91c1c; }
+        .big { font-size: 1.3em; }
+    </style>
+</head>
+<body>
+    <div class="example">
+        <span class="label">Case 1: text-decoration on different levels</span>
+        <span class="outer underline">
+            outer underline
+            <span class="mid line-through">
+                middle line-through
+                <span class="inner underline-red">inner underline red</span>
+            </span>
+            after middle
+        </span>
+    </div>
+
+    <div class="example">
+        <span class="label">Case 2: margin / padding / border on parent and child</span>
+        <span class="outer">
+            parent box
+            <span class="mid">
+                child box
+                <span class="inner">inner box</span>
+            </span>
+            after child
+        </span>
+    </div>
+
+    <div class="example">
+        <span class="label">Case 3: mixed properties, different nesting levels</span>
+        <span class="outer double blue">
+            outer double
+            <span class="mid wavy red big">
+                middle wavy big red
+                <span class="inner underline green">inner green underline</span>
+            </span>
+            outer tail
+        </span>
+    </div>
+
+    <div class="example">
+        <span class="label">Case 4: float-like behavior with nested inline content</span>
+        <span class="outer underline">
+            A
+            <span class="mid line-through">
+                B
+                <span class="inner underline-red">C</span>
+                D
+            </span>
+            E
+        </span>
+        <span class="outer" style="margin-left: 30px;">plain sibling span</span>
+    </div>
+</body>
+</html>
