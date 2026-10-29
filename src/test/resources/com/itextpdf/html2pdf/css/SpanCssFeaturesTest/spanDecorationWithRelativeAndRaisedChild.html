@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDecorationWithRelativeAndRaisedChild</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent underline, child position: relative top: -8px</div>
+<div class="row" style="padding: 14px 4px"><span style="text-decoration: underline">parent <span style="position: relative; top: -8px">child raised</span> parent</span></div>
+<div class="label">Parent underline, child position: relative top: 8px</div>
+<div class="row" style="padding: 14px 4px"><span style="text-decoration: underline">parent <span style="position: relative; top: 8px">child lowered</span> parent</span></div>
+<div class="label">Child with its own underline and relative offset</div>
+<div class="row" style="padding: 14px 4px">plain <span style="text-decoration: underline; position: relative; top: -8px">child underlined and raised</span> plain</div>
+<div class="label">Relative parent with underline, children not offset</div>
+<div class="row" style="padding: 14px 4px"><span style="position: relative; top: 6px; text-decoration: underline">parent moved <span>child</span></span> following text</div>
+<div class="label">Child with relative left offset crossing the parent's underline end</div>
+<div class="row" style="padding: 14px 4px"><span style="text-decoration: underline">parent <span style="position: relative; left: 40px">child shifted right</span></span> following</div>
+</body>
+</html>

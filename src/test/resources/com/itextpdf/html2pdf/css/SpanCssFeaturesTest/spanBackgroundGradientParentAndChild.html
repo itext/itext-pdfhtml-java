@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanBackgroundGradientParentAndChild</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+.narrow {
+    width: 170px;
+    border: 1px solid #999999;
+    margin-bottom: 6px;
+    line-height: 1.8;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent and child each with their own horizontal gradient</div>
+<div class="row"><span style="background: linear-gradient(to right, #ff9999, #9999ff); padding: 3px 6px">parent gradient <span style="background: linear-gradient(to right, #99ff99, #ffff99); padding: 3px 6px">child gradient</span> parent</span></div>
+<div class="label">Child with a transparent background over the parent gradient</div>
+<div class="row"><span style="background: linear-gradient(to right, #ff9999, #9999ff); padding: 3px 6px">parent gradient <span style="background: transparent">transparent child</span> parent</span></div>
+<div class="label">Vertical gradient with explicit stops on a padded and bordered span</div>
+<div class="row"><span style="background: linear-gradient(to bottom, #ffffff 0%, #ff9999 50%, #9999ff 100%); padding: 8px 10px; border: 2px solid #666666">vertical stops</span></div>
+<div class="label">background-size 20px with repeat-x and no-repeat</div>
+<div class="row"><span style="background: linear-gradient(to right, #ff9999, #ffffff); background-size: 20px 100%; background-repeat: repeat-x; padding: 3px 6px">repeat-x tiles</span> <span style="background: linear-gradient(to right, #9999ff, #ffffff); background-size: 20px 100%; background-repeat: no-repeat; padding: 3px 6px">no-repeat single tile</span></div>
+<div class="label">Wrapped span (slice): one gradient across the fragments</div>
+<div class="narrow"><span style="background: linear-gradient(to right, #ff9999, #9999ff)">a gradient span that wraps over several lines in a narrow box</span></div>
+<div class="label">Wrapped span (clone): gradient restarts in each fragment</div>
+<div class="narrow"><span style="background: linear-gradient(to right, #ff9999, #9999ff); -webkit-box-decoration-break: clone; box-decoration-break: clone">a gradient span that wraps over several lines in a narrow box</span></div>
+<div class="label">Parent solid color with a child gradient and padding larger than the parent's</div>
+<div class="row" style="padding: 12px 4px"><span style="background: #ffe0e0; padding: 1px 4px">parent <span style="background: linear-gradient(to right, #99ff99, #9999ff); padding: 8px 6px">child gradient taller</span></span></div>
+</body>
+</html>

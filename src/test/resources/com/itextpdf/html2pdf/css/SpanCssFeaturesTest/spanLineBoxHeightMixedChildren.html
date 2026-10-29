@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanLineBoxHeightMixedChildren</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+.lb {
+    border: 1px solid #999999;
+    margin-bottom: 6px;
+}
+</style>
+</head>
+<body>
+<div class="label">Plain line for reference</div>
+<div class="lb">plain text line</div>
+<div class="label">Inline-block 40px high in a span (baseline at the bottom margin edge of an empty box)</div>
+<div class="lb"><span>text <span style="display: inline-block; height: 40px; width: 40px; background: #ffe0e0"></span> text</span></div>
+<div class="label">Inline-block with text: baseline is that of its last line</div>
+<div class="lb"><span>text <span style="display: inline-block; background: #ffe0e0">one<br>two<br>three</span> text</span></div>
+<div class="label">Three levels with different font-size and line-height (grandchild decides the line)</div>
+<div class="lb"><span style="font-size: 10px; line-height: 10px">small <span style="font-size: 20px; line-height: 20px">medium <span style="font-size: 30px; line-height: 50px; background: #ffe0e0">large</span></span></span></div>
+<div class="label">A shorter child inside a tall parent line-height: the parent's strut keeps the line tall</div>
+<div class="lb" style="line-height: 50px"><span style="background: #ffe0e0">parent <span style="line-height: 10px; font-size: 10px; background: #e0e0ff">child</span></span></div>
+<div class="label">Child raised by vertical-align: 20px extends the line upward</div>
+<div class="lb"><span>text <span style="vertical-align: 20px; background: #ffe0e0">raised</span> text</span></div>
+<div class="label">Child lowered by vertical-align: -20px extends the line downward</div>
+<div class="lb"><span>text <span style="vertical-align: -20px; background: #ffe0e0">lowered</span> text</span></div>
+<div class="label">Inline-block with vertical-align: middle in a span with larger font</div>
+<div class="lb"><span style="font-size: 24px">text <span style="display: inline-block; vertical-align: middle; height: 20px; width: 40px; background: #ffe0e0"></span> text</span></div>
+</body>
+</html>

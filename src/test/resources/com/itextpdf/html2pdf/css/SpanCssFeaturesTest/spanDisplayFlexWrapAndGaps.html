@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDisplayFlexWrapAndGaps</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+.flexspan {
+    display: flex;
+    border: 2px solid #cc0000;
+    background: #fff4f4;
+    margin-bottom: 4px;
+    white-space: nowrap;
+}
+</style>
+</head>
+<body>
+<div class="label">nowrap (default): items shrink</div>
+<div class="row" style="width: 200px"><span class="flexspan"><span style="background: #e0e0ff">first item</span><span style="background: #e0ffe0">second item</span><span style="background: #ffffcc">third item text</span><span style="background: #ffe0e0">fourth</span></span></div>
+<div class="label">flex-wrap: wrap</div>
+<div class="row" style="width: 200px"><span class="flexspan" style="flex-wrap: wrap"><span style="background: #e0e0ff">first item</span><span style="background: #e0ffe0">second item</span><span style="background: #ffffcc">third item text</span><span style="background: #ffe0e0">fourth</span></span></div>
+<div class="label">wrap with row-gap 10px and column-gap 20px</div>
+<div class="row" style="width: 200px"><span class="flexspan" style="flex-wrap: wrap; row-gap: 10px; column-gap: 20px"><span style="background: #e0e0ff">first item</span><span style="background: #e0ffe0">second item</span><span style="background: #ffffcc">third item text</span><span style="background: #ffe0e0">fourth</span></span></div>
+<div class="label">wrap-reverse</div>
+<div class="row" style="width: 200px"><span class="flexspan" style="flex-wrap: wrap-reverse"><span style="background: #e0e0ff">first item</span><span style="background: #e0ffe0">second item</span><span style="background: #ffffcc">third item text</span><span style="background: #ffe0e0">fourth</span></span></div>
+<div class="label">wrap with height 80px and align-content: space-between</div>
+<div class="row" style="width: 200px"><span class="flexspan" style="flex-wrap: wrap; height: 80px; align-content: space-between"><span style="background: #e0e0ff">first item</span><span style="background: #e0ffe0">second item</span><span style="background: #ffffcc">third item text</span><span style="background: #ffe0e0">fourth</span></span></div>
+</body>
+</html>

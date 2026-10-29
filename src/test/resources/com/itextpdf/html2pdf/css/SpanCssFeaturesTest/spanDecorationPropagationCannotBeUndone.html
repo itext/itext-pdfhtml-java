@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDecorationPropagationCannotBeUndone</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent underline, child text-decoration: none (parent line still crosses the child)</div>
+<div class="row"><span style="text-decoration: underline">Parent <span style="text-decoration: none">child none</span> parent again</span></div>
+<div class="label">Parent underline, child adds line-through</div>
+<div class="row"><span style="text-decoration: underline">Parent <span style="text-decoration: line-through">child strike</span> parent</span></div>
+<div class="label">Plain parent, child underlined (line only under the child)</div>
+<div class="row">Plain <span style="text-decoration: underline">child underlined</span> plain</div>
+<div class="label">Three levels: underline, overline, line-through</div>
+<div class="row"><span style="text-decoration: underline">L1 <span style="text-decoration: overline">L2 <span style="text-decoration: line-through">L3 deepest</span> L2</span> L1</span></div>
+<div class="label">Child repeats the same line as the parent</div>
+<div class="row"><span style="text-decoration: underline">Parent <span style="text-decoration: underline">child same line</span> parent</span></div>
+</body>
+</html>

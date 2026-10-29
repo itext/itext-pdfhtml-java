@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDecorationLargerChildFontSize</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent 14px underline, child 32px</div>
+<div class="row"><span style="text-decoration: underline">small <span style="font-size: 32px">LARGE</span> small</span></div>
+<div class="label">Parent 32px underline, child 10px</div>
+<div class="row"><span style="font-size: 32px; text-decoration: underline">LARGE <span style="font-size: 10px">tiny</span> LARGE</span></div>
+<div class="label">Parent line-through, child larger</div>
+<div class="row"><span style="text-decoration: line-through">small <span style="font-size: 32px">LARGE</span> small</span></div>
+<div class="label">Parent overline, child larger</div>
+<div class="row"><span style="text-decoration: overline">small <span style="font-size: 32px">LARGE</span> small</span></div>
+</body>
+</html>

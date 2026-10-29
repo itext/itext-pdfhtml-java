@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDisplayFlexInBorderedInlineParent</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+.flexspan {
+    display: flex;
+    border: 2px solid #cc0000;
+    background: #fff4f4;
+    gap: 8px;
+}
+</style>
+</head>
+<body>
+<div class="label">Inline parent with border and padding, flex child in the middle</div>
+<div class="row"><span style="border: 3px solid #0000cc; padding: 4px 8px; background: #e0e0ff">before <span class="flexspan"><span style="background: #ffffcc">A</span><span style="background: #e0ffe0">B</span></span> after</span></div>
+<div class="label">Parent with a wrapping first fragment and a flex child at the end</div>
+<div class="row" style="width: 240px"><span style="border: 3px solid #0000cc; padding: 4px 8px; background: #e0e0ff">long text before the flex child that wraps <span class="flexspan"><span style="background: #ffffcc">A</span><span style="background: #e0ffe0">B</span></span></span></div>
+<div class="label">Flex child at the start of the parent</div>
+<div class="row"><span style="border: 3px solid #0000cc; padding: 4px 8px; background: #e0e0ff"><span class="flexspan"><span style="background: #ffffcc">A</span><span style="background: #e0ffe0">B</span></span>text after</span></div>
+<div class="label">Inline parent with decoration, flex child with items</div>
+<div class="row"><span style="text-decoration: underline">before <span class="flexspan"><span style="background: #ffffcc">A</span><span style="background: #e0ffe0">B</span></span> after</span></div>
+</body>
+</html>

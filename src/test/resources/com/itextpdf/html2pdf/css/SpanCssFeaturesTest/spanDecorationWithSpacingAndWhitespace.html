@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDecorationWithSpacingAndWhitespace</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Underline with letter-spacing 6px on the parent</div>
+<div class="row"><span style="text-decoration: underline; letter-spacing: 6px">spaced <span>child</span></span></div>
+<div class="label">Underline with word-spacing 20px</div>
+<div class="row"><span style="text-decoration: underline; word-spacing: 20px">one two <span>three four</span> five</span></div>
+<div class="label">Underline over a leading and trailing space inside nested spans</div>
+<div class="row">a<span style="text-decoration: underline"> <span> b </span> </span>c</div>
+<div class="label">Underline over preserved spaces (white-space: pre)</div>
+<div class="row"><span style="text-decoration: underline; white-space: pre">a   b   <span>c   d</span>   e</span></div>
+<div class="label">Underline over a non-breaking space run and a tab-like gap</div>
+<div class="row"><span style="text-decoration: underline">a&nbsp;&nbsp;&nbsp;&nbsp;b <span>c&nbsp;&nbsp;&nbsp;&nbsp;d</span></span></div>
+<div class="label">Underline when the child has negative letter-spacing</div>
+<div class="row"><span style="text-decoration: underline">parent <span style="letter-spacing: -2px">child tight</span> parent</span></div>
+</body>
+</html>

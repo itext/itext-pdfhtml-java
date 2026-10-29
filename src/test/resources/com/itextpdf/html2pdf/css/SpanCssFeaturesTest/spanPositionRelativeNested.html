@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanPositionRelativeNested</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent top: 8px moves the children with it; the following text does not move</div>
+<div class="row" style="padding: 14px 4px"><span style="position: relative; top: 8px; background: #ffe0e0">parent <span style="background: #e0e0ff">child</span></span> following text</div>
+<div class="label">Child cancels the parent's offset (top: -8px inside a top: 8px parent)</div>
+<div class="row" style="padding: 14px 4px"><span style="position: relative; top: 8px; background: #ffe0e0">parent <span style="position: relative; top: -8px; background: #e0e0ff">child back</span> parent</span> following text</div>
+<div class="label">Offsets accumulate: left 10px + left 10px</div>
+<div class="row" style="padding: 14px 4px"><span style="position: relative; left: 10px; background: #ffe0e0">parent <span style="position: relative; left: 10px; background: #e0e0ff">child</span></span> following text</div>
+<div class="label">Child bottom offset combined with parent top offset</div>
+<div class="row" style="padding: 14px 4px"><span style="position: relative; top: 10px; background: #ffe0e0">parent <span style="position: relative; bottom: 20px; background: #e0e0ff">child up</span></span> following text</div>
+</body>
+</html>

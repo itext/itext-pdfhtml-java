@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanOneSidedPaddingAndBorderMix</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+.narrow {
+    width: 170px;
+    border: 1px solid #999999;
+    margin-bottom: 6px;
+    line-height: 1.8;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent padding-left and border-left, child padding-right and border-right</div>
+<div class="row"><span style="padding-left: 20px; border-left: 4px solid #cc0000; background: #ffe0e0">parent <span style="padding-right: 20px; border-right: 4px solid #0000cc; background: #e0e0ff">child</span> parent</span></div>
+<div class="label">Parent border-bottom 4px, child border-top 4px</div>
+<div class="row" style="padding: 8px 4px"><span style="border-bottom: 4px solid #cc0000; background: #ffe0e0">parent <span style="border-top: 4px solid #0000cc; background: #e0e0ff">child</span> parent</span></div>
+<div class="label">Parent padding-bottom 12px, child padding-top 12px</div>
+<div class="row" style="padding: 14px 4px"><span style="padding-bottom: 12px; background: rgba(255, 0, 0, 0.25)">parent <span style="padding-top: 12px; background: rgba(0, 0, 255, 0.25)">child</span> parent</span></div>
+<div class="label">Border-left only on a wrapping parent (appears on the first fragment only)</div>
+<div class="narrow"><span style="border-left: 6px solid #cc0000; padding-left: 6px; background: #ffe0e0">parent with a left edge that wraps over several lines <span style="border-right: 6px solid #0000cc; padding-right: 6px; background: #e0e0ff">child with a right edge</span> end</span></div>
+<div class="label">Different widths per side on parent and child</div>
+<div class="row"><span style="border-style: solid; border-color: #cc0000; border-width: 1px 6px 3px 2px; padding: 1px 5px 4px 3px">parent <span style="border-style: solid; border-color: #0000cc; border-width: 4px 1px 2px 6px; padding: 3px 2px 1px 8px">child</span> parent</span></div>
+</body>
+</html>

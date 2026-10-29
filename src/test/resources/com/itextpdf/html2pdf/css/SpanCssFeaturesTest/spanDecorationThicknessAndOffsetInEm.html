@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDecorationThicknessAndOffsetInEm</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent thickness 0.2em and offset 0.3em at 14px; child inherits the decoration, font-size 28px</div>
+<div class="row"><span style="text-decoration: underline; text-decoration-thickness: 0.2em; text-underline-offset: 0.3em">parent 14px <span style="font-size: 28px">child 28px</span> parent</span></div>
+<div class="label">Child re-declares 0.2em and 0.3em at 28px</div>
+<div class="row"><span style="text-decoration: underline; text-decoration-thickness: 0.2em; text-underline-offset: 0.3em">parent 14px <span style="font-size: 28px; text-decoration-thickness: 0.2em; text-underline-offset: 0.3em">child 28px own em</span> parent</span></div>
+<div class="label">thickness auto versus from-font versus 1px</div>
+<div class="row"><span style="text-decoration: underline; text-decoration-thickness: auto">auto</span> <span style="text-decoration: underline; text-decoration-thickness: from-font">from-font</span> <span style="text-decoration: underline; text-decoration-thickness: 1px">1px</span> <span style="text-decoration: underline; text-decoration-thickness: 5px">5px</span></div>
+<div class="label">Offset auto, 0, 4px, negative -3px</div>
+<div class="row"><span style="text-decoration: underline; text-underline-offset: auto">auto</span> <span style="text-decoration: underline; text-underline-offset: 0">0</span> <span style="text-decoration: underline; text-underline-offset: 4px">4px</span> <span style="text-decoration: underline; text-underline-offset: -3px">-3px</span></div>
+<div class="label">Overline and line-through with a thickness on the parent and a thicker child</div>
+<div class="row" style="padding: 8px 4px"><span style="text-decoration: overline line-through; text-decoration-thickness: 1px">parent <span style="text-decoration: overline line-through; text-decoration-thickness: 4px">child thick</span> parent</span></div>
+</body>
+</html>

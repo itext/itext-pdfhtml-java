@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanMarginCollapseBarriers</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+.wrap {
+    background: #f4f4f4;
+    margin-bottom: 8px;
+}
+.blk {
+    display: block;
+}
+</style>
+</head>
+<body>
+<div class="label">No barrier: parent and first child margins collapse (40px)</div>
+<div class="wrap"><span class="blk" style="margin-top: 20px; background: #ffe0e0"><span class="blk" style="margin-top: 40px; background: #e0e0ff">child</span></span></div>
+<div class="label">Parent overflow: hidden (20px + 40px)</div>
+<div class="wrap"><span class="blk" style="margin-top: 20px; overflow: hidden; background: #ffe0e0"><span class="blk" style="margin-top: 40px; background: #e0e0ff">child</span></span></div>
+<div class="label">Parent display: flow-root</div>
+<div class="wrap"><span class="blk" style="margin-top: 20px; display: flow-root; background: #ffe0e0"><span class="blk" style="margin-top: 40px; background: #e0e0ff">child</span></span></div>
+<div class="label">Parent display: inline-block</div>
+<div class="wrap"><span style="margin-top: 20px; display: inline-block; background: #ffe0e0"><span class="blk" style="margin-top: 40px; background: #e0e0ff">child</span></span></div>
+<div class="label">Parent with explicit height 40px, child bottom margin 30px (does not collapse through the parent)</div>
+<div class="wrap"><span class="blk" style="height: 40px; margin-bottom: 10px; background: #ffe0e0"><span class="blk" style="margin-bottom: 30px; background: #e0e0ff">child</span></span><span class="blk" style="background: #e0ffe0">next sibling</span></div>
+<div class="label">Parent with min-height 40px, child bottom margin 30px</div>
+<div class="wrap"><span class="blk" style="min-height: 40px; margin-bottom: 10px; background: #ffe0e0"><span class="blk" style="margin-bottom: 30px; background: #e0e0ff">child</span></span><span class="blk" style="background: #e0ffe0">next sibling</span></div>
+<div class="label">Float between block spans: the float's margin never collapses</div>
+<div class="wrap" style="overflow: hidden"><span class="blk" style="margin-bottom: 20px; background: #ffe0e0">first</span><span style="float: left; margin: 20px 0; background: #ffffcc">float</span><span class="blk" style="margin-top: 20px; clear: both; background: #e0e0ff">cleared second</span></div>
+</body>
+</html>

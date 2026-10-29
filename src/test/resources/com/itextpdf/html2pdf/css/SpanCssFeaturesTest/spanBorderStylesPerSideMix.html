@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanBorderStylesPerSideMix</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent solid / dashed / dotted / double on four sides, child plain</div>
+<div class="row" style="padding: 8px"><span style="border-style: solid dashed dotted double; border-width: 4px; border-color: #cc0000; padding: 2px 6px">parent <span>child inside</span> parent</span></div>
+<div class="label">Child with groove, ridge, inset, outset</div>
+<div class="row" style="padding: 8px"><span style="border: 6px groove #888888; padding: 2px 6px">groove</span> <span style="border: 6px ridge #888888; padding: 2px 6px">ridge</span> <span style="border: 6px inset #888888; padding: 2px 6px">inset</span> <span style="border: 6px outset #888888; padding: 2px 6px">outset</span></div>
+<div class="label">Parent bordered, child border-style: none (keeps its border-width declaration)</div>
+<div class="row" style="padding: 8px"><span style="border: 4px solid #cc0000; padding: 2px 6px">parent <span style="border: 4px none #0000cc; padding: 2px 6px">child none</span> parent</span></div>
+<div class="label">Child border-style: hidden</div>
+<div class="row" style="padding: 8px"><span style="border: 4px solid #cc0000; padding: 2px 6px">parent <span style="border: 4px hidden #0000cc; padding: 2px 6px">child hidden</span> parent</span></div>
+<div class="label">Different colors per side on parent and child</div>
+<div class="row" style="padding: 8px"><span style="border: 5px solid; border-color: #cc0000 #00aa00 #0000cc #aaaa00; padding: 2px 6px">parent <span style="border: 5px solid; border-color: #aaaa00 #0000cc #00aa00 #cc0000; padding: 2px 6px">child</span></span></div>
+<div class="label">Thick border with thin padding and a 1px child border</div>
+<div class="row" style="padding: 8px"><span style="border: 10px solid #cc0000; padding: 0 2px">thick <span style="border: 1px solid #0000cc">thin</span> thick</span></div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanFontSizeRelativeCompounding</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Nested em: each level multiplies by 1.5</div>
+<div class="row"><span>L0 <span style="font-size: 1.5em">L1 <span style="font-size: 1.5em">L2 <span style="font-size: 1.5em">L3</span></span></span></span></div>
+<div class="label">Nested percentages: each level 80%</div>
+<div class="row" style="font-size: 28px"><span>L0 <span style="font-size: 80%">L1 <span style="font-size: 80%">L2 <span style="font-size: 80%">L3</span></span></span></span></div>
+<div class="label">Nested smaller and larger keywords</div>
+<div class="row"><span>base <span style="font-size: larger">larger <span style="font-size: larger">larger <span style="font-size: smaller">smaller</span></span></span> <span style="font-size: smaller">smaller <span style="font-size: smaller">smaller</span></span></span></div>
+<div class="label">rem ignores nesting</div>
+<div class="row"><span style="font-size: 2rem">2rem <span style="font-size: 1rem">1rem <span style="font-size: 2rem">2rem</span></span></span></div>
+<div class="label">Relative weights: bolder / lighter on top of a bold parent</div>
+<div class="row"><span style="font-weight: bold">bold parent <span style="font-weight: lighter">lighter child <span style="font-weight: bolder">bolder grandchild</span></span> parent</span></div>
+<div class="label">Parent italic, child normal, grandchild italic again</div>
+<div class="row"><span style="font-style: italic">italic <span style="font-style: normal">normal <span style="font-style: italic">italic</span></span></span></div>
+</body>
+</html>

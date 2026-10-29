@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDisplayInlineBlockChildMargins</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Inline span with vertical margins 20px (ignored for layout)</div>
+<div class="row" style="background: #f4f4f4">before<br><span style="margin: 20px 0; background: #ffe0e0">inline span margins</span><br>after</div>
+<div class="label">Inline-block child with vertical margins 20px (line grows)</div>
+<div class="row" style="background: #f4f4f4">before<br><span><span style="display: inline-block; margin: 20px 0; background: #ffe0e0">inline-block margins</span></span><br>after</div>
+<div class="label">Two adjacent inline-blocks: margin-right plus margin-left add up</div>
+<div class="row"><span><span style="display: inline-block; margin-right: 20px; background: #ffe0e0">a</span><span style="display: inline-block; margin-left: 20px; background: #e0e0ff">b</span></span></div>
+<div class="label">Inline-block holding block children with margins: they do not collapse out of the inline-block</div>
+<div class="row" style="background: #f4f4f4"><span><span style="display: inline-block; background: #ffe0e0"><span style="display: block; margin-top: 20px; margin-bottom: 20px; background: #e0e0ff">block child inside inline-block</span></span></span></div>
+<div class="label">Inline-block baseline: aligned to its last line box</div>
+<div class="row"><span>text <span style="display: inline-block; background: #ffe0e0">two<br>lines</span> text <span style="display: inline-block; background: #e0e0ff; overflow: hidden; height: 20px">overflow hidden box</span> text</span></div>
+</body>
+</html>

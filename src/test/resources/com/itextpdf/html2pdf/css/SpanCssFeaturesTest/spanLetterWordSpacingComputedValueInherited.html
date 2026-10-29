@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanLetterWordSpacingComputedValueInherited</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent letter-spacing 0.3em at 14px (about 4.2px) inherited by a child with font-size 28px</div>
+<div class="row"><span style="letter-spacing: 0.3em">parent text <span style="font-size: 28px">child</span> parent</span></div>
+<div class="label">Child re-declares 0.3em, resolving against its own 28px</div>
+<div class="row"><span style="letter-spacing: 0.3em">parent text <span style="font-size: 28px; letter-spacing: 0.3em">child</span> parent</span></div>
+<div class="label">Child resets letter-spacing to normal</div>
+<div class="row"><span style="letter-spacing: 5px">spaced parent <span style="letter-spacing: normal">normal child</span> spaced parent</span></div>
+<div class="label">Parent word-spacing 1em inherited by a larger child</div>
+<div class="row"><span style="word-spacing: 1em">one two three <span style="font-size: 28px">four five six</span> seven eight</span></div>
+<div class="label">Parent word-spacing 20px, child negative word-spacing</div>
+<div class="row"><span style="word-spacing: 20px">one two <span style="word-spacing: -3px">three four five</span> six seven</span></div>
+<div class="label">Letter-spacing at the span boundary (spacing applied after the last character of the child)</div>
+<div class="row">A<span style="letter-spacing: 10px">BC</span>DE</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDecorationStyleAndThicknessPerLevel</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent double underline, child wavy overline</div>
+<div class="row"><span style="text-decoration: underline double">Parent double <span style="text-decoration: overline wavy #cc0000">child wavy overline</span> parent</span></div>
+<div class="label">Parent dotted, child dashed (different lines)</div>
+<div class="row"><span style="text-decoration: underline dotted">Parent dotted <span style="text-decoration: line-through dashed">child dashed strike</span> parent</span></div>
+<div class="label">Parent thickness 1px, child thickness 4px (both underline)</div>
+<div class="row"><span style="text-decoration: underline; text-decoration-thickness: 1px">Parent thin <span style="text-decoration: underline; text-decoration-thickness: 4px; text-decoration-color: #0000cc">child thick</span> parent thin</span></div>
+<div class="label">Thickness as percentage of font size on parent, child with larger font</div>
+<div class="row"><span style="text-decoration: underline; text-decoration-thickness: 10%">Parent 10% <span style="font-size: 28px">child bigger</span> parent</span></div>
+</body>
+</html>

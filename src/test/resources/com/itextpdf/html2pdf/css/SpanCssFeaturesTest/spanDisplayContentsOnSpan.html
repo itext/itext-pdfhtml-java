@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDisplayContentsOnSpan</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent contents with border, padding and background (all ignored)</div>
+<div class="row">before <span style="display: contents; border: 3px solid #cc0000; padding: 6px; background: #ffe0e0">parent <span style="background: #e0e0ff">child</span></span> after</div>
+<div class="label">Inherited properties still reach the children (color, font-weight)</div>
+<div class="row">before <span style="display: contents; color: #cc0000; font-weight: bold">parent <span>child inherits</span></span> after</div>
+<div class="label">Child in a contents parent keeps its own box</div>
+<div class="row">before <span style="display: contents; border: 3px solid #cc0000"><span style="border: 3px solid #0000cc; padding: 2px 6px; background: #e0e0ff">child box</span></span> after</div>
+<div class="label">Decoration on a contents span</div>
+<div class="row">before <span style="display: contents; text-decoration: underline">underlined <span>child</span></span> after</div>
+<div class="label">Contents span inside a flex span: its children become the flex items</div>
+<div class="row"><span style="display: flex; gap: 10px; border: 2px solid #cc0000"><span style="display: contents"><span style="background: #e0e0ff">item A</span><span style="background: #e0ffe0">item B</span></span><span style="background: #ffffcc">item C</span></span></div>
+<div class="label">Nested contents spans with text only</div>
+<div class="row">a<span style="display: contents"><span style="display: contents">b<span style="display: contents">c</span></span></span>d</div>
+</body>
+</html>

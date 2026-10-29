@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDecorationAcrossChildPaddingAndBorder</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Child with horizontal padding 20px</div>
+<div class="row"><span style="text-decoration: underline">Parent <span style="padding: 0 20px; background: #ffe0e0">child padded</span> parent</span></div>
+<div class="label">Child with border 5px</div>
+<div class="row"><span style="text-decoration: underline">Parent <span style="border: 5px solid #cc0000">child bordered</span> parent</span></div>
+<div class="label">Child with horizontal margin 20px</div>
+<div class="row"><span style="text-decoration: underline">Parent <span style="margin: 0 20px; background: #e0e0ff">child margin</span> parent</span></div>
+<div class="label">Parent with padding and underline, plain child</div>
+<div class="row"><span style="text-decoration: underline; padding: 0 15px; background: #e0ffe0">Parent padded <span>child</span> parent</span></div>
+</body>
+</html>

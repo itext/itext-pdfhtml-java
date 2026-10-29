@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDecorationOnBlockChildOfInlineParent</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Underlined inline parent with a block child span</div>
+<div class="row"><span style="text-decoration: underline">before <span style="display: block; background: #e0e0ff">block child</span> after</span></div>
+<div class="label">Block child adds line-through</div>
+<div class="row"><span style="text-decoration: underline">before <span style="display: block; text-decoration: line-through; background: #e0e0ff">block child strike</span> after</span></div>
+<div class="label">Block child with text-decoration: none</div>
+<div class="row"><span style="text-decoration: underline">before <span style="display: block; text-decoration: none; background: #e0e0ff">block child none</span> after</span></div>
+<div class="label">Block child with a nested inline grandchild</div>
+<div class="row"><span style="text-decoration: overline; color: #cc0000">before <span style="display: block; background: #e0e0ff; color: #0000cc">block with <span style="color: #008800">grandchild</span></span> after</span></div>
+<div class="label">Block child with padding and border: is the line drawn over the padding?</div>
+<div class="row"><span style="text-decoration: underline">before <span style="display: block; padding: 8px; border: 2px solid #0000cc; background: #e0e0ff">block child padded</span> after</span></div>
+</body>
+</html>

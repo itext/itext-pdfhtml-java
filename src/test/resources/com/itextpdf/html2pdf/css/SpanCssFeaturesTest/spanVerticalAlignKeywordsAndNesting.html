@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanVerticalAlignKeywordsAndNesting</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+.va {
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #999999;
+    padding: 16px 0;
+}
+</style>
+</head>
+<body>
+<div class="label">Keywords on children: baseline, super, sub, middle, text-top, text-bottom</div>
+<div class="va">x<span style="vertical-align: baseline; background: #ffe0e0">baseline</span><span style="vertical-align: super; background: #e0ffe0">super</span><span style="vertical-align: sub; background: #e0e0ff">sub</span><span style="vertical-align: middle; background: #ffffcc">middle</span><span style="vertical-align: text-top; background: #ffe0e0">text-top</span><span style="vertical-align: text-bottom; background: #e0ffe0">text-bottom</span>x</div>
+<div class="label">Nested super inside super (shifts accumulate)</div>
+<div class="va">x<span style="vertical-align: super; background: #ffe0e0">a<span style="vertical-align: super; background: #e0ffe0">b<span style="vertical-align: super; background: #e0e0ff">c</span></span></span>x</div>
+<div class="label">Child returns to baseline with a negative length inside a raised parent</div>
+<div class="va">x<span style="vertical-align: 10px; background: #ffe0e0">raised <span style="vertical-align: -10px; background: #e0ffe0">back to baseline</span> raised</span>x</div>
+<div class="label">Percentage values resolve against each span's own line-height</div>
+<div class="va">x<span style="vertical-align: 50%; background: #ffe0e0">50% <span style="line-height: 40px; vertical-align: 50%; background: #e0ffe0">50% own lh 40px</span></span>x</div>
+<div class="label">top and bottom align to the line box, not to the parent span</div>
+<div class="va" style="line-height: 40px">x<span style="vertical-align: 10px; background: #ffe0e0">raised <span style="vertical-align: top; line-height: 14px; background: #e0ffe0">top</span> <span style="vertical-align: bottom; line-height: 14px; background: #e0e0ff">bottom</span></span>x</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanCssWideKeywordsOnNonInheritedProperties</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Child border/padding/background: inherit (parent values duplicated on the child)</div>
+<div class="row"><span style="border: 2px solid #cc0000; padding: 3px 8px; background: #ffe0e0">parent <span style="border: inherit; padding: inherit; background: inherit">child inherit</span> parent</span></div>
+<div class="label">Child border/padding/background: initial (reset to none/0/transparent)</div>
+<div class="row"><span style="border: 2px solid #cc0000; padding: 3px 8px; background: #ffe0e0">parent <span style="border: initial; padding: initial; background: initial">child initial</span> parent</span></div>
+<div class="label">Child unset: non-inherited properties reset, inherited property color follows the parent</div>
+<div class="row"><span style="color: #0000cc; border: 2px solid #cc0000; padding: 3px 8px">parent <span style="color: unset; border: unset; padding: unset">child unset</span> parent</span></div>
+<div class="label">Child color: initial (black) inside a colored parent</div>
+<div class="row"><span style="color: #0000cc">parent <span style="color: initial">child initial</span> parent</span></div>
+<div class="label">Child text-decoration: inherit when parent is underlined, grandchild plain</div>
+<div class="row"><span style="text-decoration: underline">parent <span style="text-decoration: inherit">child inherit <span>grandchild</span></span></span></div>
+<div class="label">Child all: initial inside a styled parent</div>
+<div class="row"><span style="color: #cc0000; font-size: 20px; font-weight: bold; background: #ffe0e0">parent <span style="all: initial">child all initial</span> parent</span></div>
+</body>
+</html>

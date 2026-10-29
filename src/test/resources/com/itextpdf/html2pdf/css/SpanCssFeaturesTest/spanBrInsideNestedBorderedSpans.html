@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanBrInsideNestedBorderedSpans</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">br inside the child only</div>
+<div class="row"><span style="border: 2px solid #cc0000; padding: 3px 8px; background: #ffe0e0">parent <span style="border: 2px solid #0000cc; padding: 3px 8px; background: #e0e0ff">child before<br>child after</span> parent end</span></div>
+<div class="label">br inside the parent between children</div>
+<div class="row"><span style="border: 2px solid #cc0000; padding: 3px 8px; background: #ffe0e0"><span style="border: 2px solid #0000cc; padding: 3px 8px; background: #e0e0ff">child one</span><br><span style="border: 2px solid #0000cc; padding: 3px 8px; background: #e0e0ff">child two</span></span></div>
+<div class="label">br as the last node of nested spans</div>
+<div class="row"><span style="border: 2px solid #cc0000; padding: 3px 8px; background: #ffe0e0"><span style="border: 2px solid #0000cc; padding: 3px 8px; background: #e0e0ff">child<br></span></span>next line</div>
+<div class="label">br as the first node of nested spans</div>
+<div class="row">previous<span style="border: 2px solid #cc0000; padding: 3px 8px; background: #ffe0e0"><span style="border: 2px solid #0000cc; padding: 3px 8px; background: #e0e0ff"><br>child</span></span></div>
+</body>
+</html>

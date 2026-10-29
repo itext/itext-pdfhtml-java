@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanOpacityMultipliesAndIsNotInherited</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent opacity 0.5; child opacity 1 cannot restore it</div>
+<div class="row"><span style="opacity: 0.5; background: #ffcccc">parent half <span style="opacity: 1; background: #ccccff">child full</span> parent half</span></div>
+<div class="label">Parent opacity 0.5, child opacity 0.5 (combined 0.25)</div>
+<div class="row"><span style="opacity: 0.5; background: #ffcccc">parent <span style="opacity: 0.5; background: #ccccff">child half</span> parent</span></div>
+<div class="label">Only the child has opacity</div>
+<div class="row"><span style="background: #ffcccc">parent <span style="opacity: 0.3; background: #ccccff">child 0.3</span> parent</span></div>
+<div class="label">Parent opacity with border and text-decoration</div>
+<div class="row"><span style="opacity: 0.4; border: 2px solid #cc0000; text-decoration: underline; padding: 2px">parent <span style="text-decoration: line-through">child</span> parent</span></div>
+</body>
+</html>

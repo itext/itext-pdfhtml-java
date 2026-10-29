@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDisplayInlineFlexBaselineAlignment</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+.iflex {
+    display: inline-flex;
+    border: 2px solid #cc0000;
+    background: #fff4f4;
+}
+</style>
+</head>
+<body>
+<div class="label">Two inline-flex spans (baseline of the first item defines the baseline)</div>
+<div class="row">text <span class="iflex"><span style="font-size: 24px; background: #e0e0ff">big</span></span> text <span class="iflex"><span style="font-size: 12px; background: #e0ffe0">small</span></span> text</div>
+<div class="label">align-items: baseline with different font sizes</div>
+<div class="row"><span class="iflex" style="align-items: baseline"><span style="font-size: 12px; background: #e0e0ff">small</span><span style="font-size: 30px; background: #e0ffe0">large</span></span></div>
+<div class="label">align-items: flex-end</div>
+<div class="row"><span class="iflex" style="align-items: flex-end; height: 50px"><span style="font-size: 12px; background: #e0e0ff">small</span><span style="font-size: 30px; background: #e0ffe0">large</span></span></div>
+<div class="label">Multi-line items: baseline from the first line</div>
+<div class="row">text <span class="iflex"><span style="background: #e0e0ff">first<br>second<br>third</span></span> text</div>
+<div class="label">Inline-flex inside a bordered, padded parent span</div>
+<div class="row"><span style="border: 2px solid #0000cc; padding: 4px; background: #e0e0ff">parent <span class="iflex"><span style="background: #e0ffe0">A</span><span style="background: #ffffcc">B</span></span> parent</span></div>
+<div class="label">vertical-align on the inline-flex span</div>
+<div class="row" style="padding: 12px 4px">text <span class="iflex" style="vertical-align: top"><span>top</span></span> <span class="iflex" style="vertical-align: middle"><span>mid</span></span> <span class="iflex" style="vertical-align: 10px"><span>10px</span></span> text</div>
+</body>
+</html>

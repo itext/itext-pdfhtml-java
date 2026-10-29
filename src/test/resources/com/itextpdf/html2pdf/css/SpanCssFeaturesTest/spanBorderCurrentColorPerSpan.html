@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanBorderCurrentColorPerSpan</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent red text, child blue text, no border-color specified</div>
+<div class="row"><span style="color: #cc0000; border: 3px solid; padding: 2px 6px">red parent <span style="color: #0000cc; border: 3px solid; padding: 2px 6px">blue child</span></span></div>
+<div class="label">Child inherits border-color from the parent (computed color is fixed at the parent's)</div>
+<div class="row"><span style="color: #cc0000; border: 3px solid; padding: 2px 6px">red parent <span style="color: #0000cc; border: 3px solid; border-color: inherit; padding: 2px 6px">blue child inherit</span></span></div>
+<div class="label">Mixed sides: top explicit green, others currentcolor</div>
+<div class="row"><span style="color: #cc0000; border: 3px solid; border-top-color: #008800; padding: 2px 6px">red <span style="color: #0000cc; border: 3px solid; border-top-color: #008800; padding: 2px 6px">blue</span></span></div>
+<div class="label">Child sets color: transparent</div>
+<div class="row"><span style="color: #cc0000; border: 3px solid; padding: 2px 6px">red parent <span style="color: transparent; border: 3px solid; padding: 2px 6px">transparent child</span></span></div>
+</body>
+</html>

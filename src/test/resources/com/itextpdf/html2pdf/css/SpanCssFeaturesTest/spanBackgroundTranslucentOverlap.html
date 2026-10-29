@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanBackgroundTranslucentOverlap</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent rgba background with a larger-padding child (child box extends past the parent box vertically)</div>
+<div class="row" style="padding: 14px 4px"><span style="background: rgba(255, 0, 0, 0.3); padding: 2px 6px">parent <span style="background: rgba(0, 0, 255, 0.3); padding: 10px 6px">child</span> parent</span></div>
+<div class="label">background-clip: content-box on a padded and bordered span</div>
+<div class="row"><span style="background: #ffcccc; padding: 6px 10px; border: 4px dashed #cc0000; background-clip: content-box">content-box clip</span> <span style="background: #ccccff; padding: 6px 10px; border: 4px dashed #0000cc; background-clip: padding-box">padding-box clip</span> <span style="background: #ccffcc; padding: 6px 10px; border: 4px dashed #008800; background-clip: border-box">border-box clip</span></div>
+<div class="label">Translucent border over a translucent background</div>
+<div class="row"><span style="background: rgba(255, 0, 0, 0.4); border: 6px solid rgba(0, 0, 255, 0.4); padding: 4px">translucent</span></div>
+<div class="label">Child fully overlapping the parent with negative margins</div>
+<div class="row"><span style="background: rgba(255, 0, 0, 0.3); padding: 2px 6px">parent text here <span style="background: rgba(0, 0, 255, 0.3); margin-left: -50px; padding: 2px 6px">overlapping child</span></span></div>
+</body>
+</html>

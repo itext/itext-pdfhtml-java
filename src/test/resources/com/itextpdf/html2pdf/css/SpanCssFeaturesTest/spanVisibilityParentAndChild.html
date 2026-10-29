@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanVisibilityParentAndChild</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent hidden, child visible (child shows, parent box does not)</div>
+<div class="row">before <span style="visibility: hidden; background: #ffe0e0; border: 2px solid #cc0000; padding: 2px 6px">hidden parent <span style="visibility: visible; background: #e0e0ff">visible child</span> hidden</span> after</div>
+<div class="label">Parent visible, child hidden (space kept)</div>
+<div class="row">before <span style="background: #ffe0e0; padding: 2px 6px">parent <span style="visibility: hidden; background: #e0e0ff">hidden child</span> parent</span> after</div>
+<div class="label">Child display: none (space removed)</div>
+<div class="row">before <span style="background: #ffe0e0; padding: 2px 6px">parent <span style="display: none">gone child</span> parent</span> after</div>
+<div class="label">visibility: collapse on an inline span behaves like hidden</div>
+<div class="row">before <span style="visibility: collapse; background: #ffe0e0">collapsed</span> after</div>
+<div class="label">Hidden parent with decoration: line is hidden, visible child line is shown</div>
+<div class="row"><span style="visibility: hidden; text-decoration: underline">hidden parent <span style="visibility: visible">visible child</span> hidden parent</span></div>
+<div class="label">Hidden grandparent, visible parent, hidden child</div>
+<div class="row"><span style="visibility: hidden">g <span style="visibility: visible; background: #e0e0ff">parent visible <span style="visibility: hidden">child hidden</span> parent</span> g</span></div>
+</body>
+</html>

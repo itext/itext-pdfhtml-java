@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDisplayBlockNestedMarginCollapse</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+.wrap {
+    background: #f4f4f4;
+    margin-bottom: 8px;
+}
+.blk {
+    display: block;
+}
+</style>
+</head>
+<body>
+<div class="label">Sibling block spans, margins 20px and 30px (collapsed gap 30px)</div>
+<div class="wrap"><span class="blk" style="margin-bottom: 20px; background: #ffe0e0">first block span</span><span class="blk" style="margin-top: 30px; background: #e0e0ff">second block span</span></div>
+<div class="label">Parent block span and its first child: top margins collapse</div>
+<div class="wrap"><span class="blk" style="margin-top: 20px; background: #ffe0e0"><span class="blk" style="margin-top: 40px; background: #e0e0ff">child block span</span></span></div>
+<div class="label">Parent with 1px padding: margins do not collapse</div>
+<div class="wrap"><span class="blk" style="margin-top: 20px; padding: 1px; background: #ffe0e0"><span class="blk" style="margin-top: 40px; background: #e0e0ff">child block span</span></span></div>
+<div class="label">Parent with border: margins do not collapse</div>
+<div class="wrap"><span class="blk" style="margin-top: 20px; border: 1px solid #cc0000; background: #ffe0e0"><span class="blk" style="margin-top: 40px; background: #e0e0ff">child block span</span></span></div>
+<div class="label">Empty block span between two others (its margins collapse through it)</div>
+<div class="wrap"><span class="blk" style="margin-bottom: 10px; background: #ffe0e0">before</span><span class="blk" style="margin-top: 25px; margin-bottom: 15px"></span><span class="blk" style="margin-top: 10px; background: #e0e0ff">after</span></div>
+<div class="label">Negative and positive margins: 30px and -10px</div>
+<div class="wrap"><span class="blk" style="margin-bottom: 30px; background: #ffe0e0">first</span><span class="blk" style="margin-top: -10px; background: #e0e0ff">second</span></div>
+<div class="label">Parent last child bottom margin collapsing out of the parent</div>
+<div class="wrap"><span class="blk" style="margin-bottom: 10px; background: #ffe0e0"><span class="blk" style="margin-bottom: 30px; background: #e0e0ff">child</span></span><span class="blk" style="background: #e0ffe0">next sibling</span></div>
+</body>
+</html>

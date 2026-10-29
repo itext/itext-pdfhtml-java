@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanCascadeSpecificityParentAndChild</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+span.t1 {
+    color: #cc0000;
+}
+span.t1 span {
+    color: #0000cc;
+}
+.t2 {
+    border: 2px solid #cc0000 !important;
+}
+#t3 {
+    padding: 0 14px;
+}
+.t3 {
+    padding: 0 2px;
+}
+.t4 > span {
+    background: #e0e0ff;
+}
+.t5 span {
+    background: #e0ffe0;
+}
+.t6 {
+    text-transform: uppercase !important;
+}
+.t7 span.c7 {
+    color: #008800;
+}
+span.c7 {
+    color: #cc0000;
+}
+</style>
+</head>
+<body>
+<div class="label">Class rule on the parent, descendant rule on the child (child blue, parent red)</div>
+<div class="row"><span class="t1">parent <span>child</span> parent</span></div>
+<div class="label">!important border beats a child's inline border only on the same element</div>
+<div class="row"><span class="t2" style="border: 2px solid #0000cc; padding: 0 4px">parent stays red <span style="border: 2px solid #008800; padding: 0 4px">child inline green</span></span></div>
+<div class="label">id selector beats class selector for padding</div>
+<div class="row"><span id="t3" class="t3" style="background: #ffe0e0">id padding</span> <span class="t3" style="background: #e0e0ff">class padding</span></div>
+<div class="label">Child combinator (only direct children) versus descendant combinator (all levels)</div>
+<div class="row"><span class="t4">parent <span>direct child <span>grandchild not matched</span></span></span></div>
+<div class="row"><span class="t5">parent <span>direct child <span>grandchild matched</span></span></span></div>
+<div class="label">!important text-transform on the parent does not stop a child's own rule</div>
+<div class="row"><span class="t6">parent <span style="text-transform: lowercase">CHILD LOWER</span> <span class="t6" style="text-transform: none">same element none loses</span></span></div>
+<div class="label">Higher specificity on the parent's rule does not affect the child's own rule</div>
+<div class="row"><span class="t7 c7">element with both rules <span class="c7">child with class only</span></span></div>
+</body>
+</html>

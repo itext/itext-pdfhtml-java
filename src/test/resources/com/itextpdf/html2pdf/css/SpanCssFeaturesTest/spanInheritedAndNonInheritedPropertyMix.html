@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanInheritedAndNonInheritedPropertyMix</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+.blockish {
+    display: inline-block;
+    vertical-align: top;
+    width: 200px;
+    border: 1px solid #999999;
+}
+</style>
+</head>
+<body>
+<div class="label">text-indent is inherited by an inline-block child (it indents its first line)</div>
+<div class="row"><span style="text-indent: 30px">parent <span class="blockish">inline-block child with a long line that wraps around</span></span></div>
+<div class="label">quotes inherited into a q inside a span; nested q alternates</div>
+<div class="row"><span style="quotes: '&laquo;' '&raquo;' '&lsaquo;' '&rsaquo;'">parent <q>outer <q>inner</q> outer</q> parent</span></div>
+<div class="label">direction: rtl with unicode-bidi: embed is inherited by the child span</div>
+<div class="row"><span style="direction: rtl; unicode-bidi: embed">one two <span>three four</span> five</span></div>
+<div class="label">outline on a parent is not inherited by the child</div>
+<div class="row" style="padding: 8px"><span style="outline: 2px solid #cc0000">parent <span>child no outline</span> parent</span></div>
+<div class="label">float on a parent span is not inherited by its child</div>
+<div class="row" style="overflow: hidden"><span style="float: right; background: #ffe0e0">floated parent <span style="background: #e0e0ff">child not floated</span></span>text next to the float</div>
+<div class="label">overflow: hidden on a parent inline span is ignored and not inherited</div>
+<div class="row"><span style="overflow: hidden; background: #ffe0e0">parent <span style="background: #e0e0ff">child</span></span> after</div>
+<div class="label">color and visibility inherited, background not</div>
+<div class="row"><span style="color: #cc0000; background: #ffe0e0">parent <span>child inherits red but not the background</span></span></div>
+</body>
+</html>

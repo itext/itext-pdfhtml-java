@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanWrappedParentWithMarginsAndPaddingFragments</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+.narrow {
+    width: 190px;
+    border: 1px solid #999999;
+    margin-bottom: 8px;
+    line-height: 1.8;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent margin 0 20px, padding 0 8px, border 2px; wraps over three lines</div>
+<div class="narrow"><span style="margin: 0 20px; padding: 0 8px; border: 2px solid #cc0000; background: #ffe0e0">this parent span wraps over several lines inside a narrow box</span></div>
+<div class="label">Child with its own horizontal margins inside the wrapped parent</div>
+<div class="narrow"><span style="margin: 0 12px; padding: 0 6px; border: 2px solid #cc0000; background: #ffe0e0">parent text <span style="margin: 0 12px; padding: 0 6px; border: 2px solid #0000cc; background: #e0e0ff">child with margins that wraps too</span> end</span></div>
+<div class="label">Child ends exactly at the wrap: margin-right on the last word of the child</div>
+<div class="narrow"><span style="padding: 0 6px; background: #ffe0e0">parent text before <span style="margin-right: 30px; background: #e0e0ff">child tail</span> after the child tail text</span></div>
+<div class="label">Inline-block child with margin inside a wrapped parent</div>
+<div class="narrow"><span style="padding: 0 6px; border: 2px solid #cc0000; background: #ffe0e0">parent text <span style="display: inline-block; margin: 0 10px; background: #e0e0ff">inline-block</span> more parent text that wraps</span></div>
+<div class="label">Only margin-left on the parent, only margin-right on the child</div>
+<div class="narrow"><span style="margin-left: 30px; background: #ffe0e0">parent with left margin that wraps <span style="margin-right: 30px; background: #e0e0ff">child with right margin</span> end</span></div>
+</body>
+</html>

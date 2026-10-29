@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanBorderRadiusSizesParentAndChild</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Radius 50px on short boxes (clamped to half of the box height)</div>
+<div class="row" style="padding: 8px"><span style="border: 2px solid #cc0000; border-radius: 50px; padding: 2px 10px; background: #ffe0e0">pill parent <span style="border: 2px solid #0000cc; border-radius: 50px; padding: 2px 10px; background: #e0e0ff">pill child</span></span></div>
+<div class="label">Elliptical radii (10px / 20px)</div>
+<div class="row" style="padding: 8px"><span style="border: 2px solid #cc0000; border-radius: 10px / 20px; padding: 6px 10px; background: #ffe0e0">elliptical</span></div>
+<div class="label">Different radius per corner on the parent and the child</div>
+<div class="row" style="padding: 8px"><span style="border: 2px solid #cc0000; border-radius: 20px 0 20px 0; padding: 6px 10px; background: #ffe0e0">parent <span style="border: 2px solid #0000cc; border-radius: 0 20px 0 20px; padding: 6px 10px; background: #e0e0ff">child</span></span></div>
+<div class="label">Rounded parent, square child with background that sticks out of the corners</div>
+<div class="row" style="padding: 8px"><span style="border: 2px solid #cc0000; border-radius: 14px; padding: 6px 4px; background: #ffe0e0"><span style="background: #e0e0ff; padding: 6px 10px">square child</span></span></div>
+<div class="label">Radius with a border-width larger than the radius</div>
+<div class="row" style="padding: 8px"><span style="border: 8px solid #cc0000; border-radius: 4px; padding: 4px 8px; background: #ffe0e0">thick border small radius</span></div>
+<div class="label">Radius with unequal border widths</div>
+<div class="row" style="padding: 8px"><span style="border-style: solid; border-color: #cc0000; border-width: 2px 10px 2px 2px; border-radius: 12px; padding: 4px 8px; background: #ffe0e0">unequal widths</span></div>
+</body>
+</html>

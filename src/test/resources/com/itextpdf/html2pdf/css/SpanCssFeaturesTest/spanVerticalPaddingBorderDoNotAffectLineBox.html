@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanVerticalPaddingBorderDoNotAffectLineBox</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Three lines with tall padding and border on a span in the middle line</div>
+<div class="row">first line of text<br><span style="padding: 12px 6px; border: 2px solid #cc0000; background: rgba(255, 224, 224, 0.7)">second line with tall padding</span><br>third line of text</div>
+<div class="label">Nested spans, parent small padding, child large padding</div>
+<div class="row">before<br><span style="padding: 2px; background: rgba(224, 224, 255, 0.7)">parent <span style="padding: 14px 4px; border: 2px solid #0000cc; background: rgba(224, 255, 224, 0.7)">child tall</span> parent</span><br>after</div>
+<div class="label">Line positions unchanged: the same text without any padding for comparison</div>
+<div class="row">first line of text<br>second line without padding<br>third line of text</div>
+</body>
+</html>

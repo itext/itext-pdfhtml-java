@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanTextTransformInheritedAndOverridden</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent uppercase, children none / lowercase / capitalize</div>
+<div class="row"><span style="text-transform: uppercase">parent text <span style="text-transform: none">child none</span> <span style="text-transform: lowercase">CHILD LOWER</span> <span style="text-transform: capitalize">child capitalize words</span> end</span></div>
+<div class="label">Parent lowercase, child uppercase, grandchild inherits uppercase</div>
+<div class="row"><span style="text-transform: lowercase">PARENT TEXT <span style="text-transform: uppercase">child text <span>grandchild inherits</span></span> PARENT</span></div>
+<div class="label">Parent capitalize, nested child lowercase</div>
+<div class="row"><span style="text-transform: capitalize">the quick <span style="text-transform: lowercase">BROWN FOX</span> jumps over the lazy dog</span></div>
+<div class="label">Only the child transformed</div>
+<div class="row">plain text <span style="text-transform: uppercase">transformed child</span> plain text</div>
+</body>
+</html>

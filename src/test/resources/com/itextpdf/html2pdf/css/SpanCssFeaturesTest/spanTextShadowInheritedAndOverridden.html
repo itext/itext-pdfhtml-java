@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanTextShadowInheritedAndOverridden</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent text-shadow, child inherits</div>
+<div class="row" style="font-size: 20px"><span style="text-shadow: 2px 2px 2px #cc0000">Shadow parent <span>child inherits</span> parent</span></div>
+<div class="label">Child removes the shadow</div>
+<div class="row" style="font-size: 20px"><span style="text-shadow: 2px 2px 2px #cc0000">Shadow parent <span style="text-shadow: none">child none</span> parent</span></div>
+<div class="label">Child replaces the shadow</div>
+<div class="row" style="font-size: 20px"><span style="text-shadow: 2px 2px 2px #cc0000">Shadow parent <span style="text-shadow: -2px -2px 0 #0000cc">child blue</span> parent</span></div>
+<div class="label">Shadow without a color uses the element's own color</div>
+<div class="row" style="font-size: 20px"><span style="color: #008800; text-shadow: 2px 2px 0">Green parent <span style="color: #cc0000">red child</span> parent</span></div>
+</body>
+</html>

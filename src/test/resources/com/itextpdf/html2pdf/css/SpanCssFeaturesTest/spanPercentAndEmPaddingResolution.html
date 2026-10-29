@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanPercentAndEmPaddingResolution</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+.cb {
+    width: 300px;
+    border: 1px solid #999999;
+    margin-bottom: 6px;
+}
+</style>
+</head>
+<body>
+<div class="label">Padding 10% inside a 300px containing block (30px), on parent and on child</div>
+<div class="cb"><span style="padding: 0 10%; background: #ffe0e0">parent <span style="padding: 0 10%; background: #e0e0ff">child</span></span></div>
+<div class="label">Same spans inside a nested 150px block: percentages follow the nearest block container</div>
+<div class="cb"><div style="width: 150px; border: 1px solid #999999"><span style="padding: 0 10%; background: #ffe0e0">parent <span style="padding: 0 10%; background: #e0e0ff">child</span></span></div></div>
+<div class="label">Padding 1em on parent (14px) and on a child with font-size 28px (28px)</div>
+<div class="cb"><span style="padding: 0 1em; background: #ffe0e0">parent <span style="padding: 0 1em; font-size: 28px; background: #e0e0ff">child</span></span></div>
+<div class="label">Margin 10% and 1em</div>
+<div class="cb"><span style="margin: 0 10%; background: #ffe0e0">pm</span><span style="margin: 0 1em; background: #e0e0ff; font-size: 24px">em</span>end</div>
+</body>
+</html>

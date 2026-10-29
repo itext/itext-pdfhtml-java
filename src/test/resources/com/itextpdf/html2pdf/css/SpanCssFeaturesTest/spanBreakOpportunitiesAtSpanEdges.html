@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanBreakOpportunitiesAtSpanEdges</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+.narrow {
+    width: 130px;
+    border: 1px solid #999999;
+    margin-bottom: 8px;
+    line-height: 1.8;
+}
+</style>
+</head>
+<body>
+<div class="label">Long word split over spans with padding and border (no break opportunity between the pieces)</div>
+<div class="narrow">start Super<span style="padding: 0 6px; border: 2px solid #cc0000; background: #ffe0e0">cali</span>fragilistic end</div>
+<div class="label">Space at the end of the parent, child starts right after</div>
+<div class="narrow"><span style="background: #ffe0e0">first part </span><span style="background: #e0e0ff">second part of text</span></div>
+<div class="label">Space at the start of the child span</div>
+<div class="narrow"><span style="background: #ffe0e0">first part</span><span style="background: #e0e0ff"> second part of text</span></div>
+<div class="label">Hyphen at a span edge</div>
+<div class="narrow">a well-<span style="background: #e0e0ff">known</span> mother-<span style="background: #ffe0e0">in-law</span> case</div>
+<div class="label">wbr at a span edge</div>
+<div class="narrow">Supercali<span style="background: #e0e0ff"><wbr>fragilistic</span><wbr>expiali end</div>
+<div class="label">Non-breaking space at the span edge (no break there)</div>
+<div class="narrow">first&nbsp;<span style="background: #e0e0ff">second&nbsp;third</span>&nbsp;fourth fifth</div>
+<div class="label">Child with white-space: nowrap inside a wrapping parent</div>
+<div class="narrow"><span style="background: #ffe0e0">some parent words <span style="white-space: nowrap; background: #e0e0ff">no wrap in here</span> more words</span></div>
+</body>
+</html>

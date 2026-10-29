@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>spanDecorationUnderlineOffsetAndPosition</title>
+<style>
+body {
+    font-family: Times;
+    font-size: 14px;
+    margin: 12px;
+}
+.label {
+    font-size: 10px;
+    color: #555555;
+    margin: 10px 0 2px 0;
+}
+.row {
+    border: 1px dotted #999999;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="label">Parent offset 6px, child offset 0</div>
+<div class="row"><span style="text-decoration: underline; text-underline-offset: 6px">gypsy jumpy <span style="text-underline-offset: 0">gypsy jumpy child</span> gypsy</span></div>
+<div class="label">Parent underline, child offset 8px only</div>
+<div class="row"><span style="text-decoration: underline">gypsy jumpy <span style="text-underline-offset: 8px">gypsy jumpy child</span> gypsy</span></div>
+<div class="label">text-underline-position: under on parent</div>
+<div class="row"><span style="text-decoration: underline; text-underline-position: under">gypsy jumpy <span style="font-size: 24px">gypsy</span> jumpy</span></div>
+<div class="label">text-decoration-skip-ink: none on child</div>
+<div class="row"><span style="text-decoration: underline">gypsy jumpy <span style="text-decoration-skip-ink: none">gypsy jumpy child</span> gypsy</span></div>
+</body>
+</html>
