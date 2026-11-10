@@ -86,6 +86,21 @@ public class HtmlConverterTest extends ExtendedITextTest {
     }
 
     @Test
+    public void absolutePositionedElementAfterSplitFloatTest() throws IOException, InterruptedException {
+        String sourceHtml = SOURCE_FOLDER + "absolutePositionedElementAfterSplitFloat.html";
+        String cmpPdf = SOURCE_FOLDER + "cmp_absolutePositionedElementAfterSplitFloat.pdf";
+        String destinationPdf = DESTINATION_FOLDER + "absolutePositionedElementAfterSplitFloat.pdf";
+        ConverterProperties converterProperties = new ConverterProperties();
+
+        try (FileInputStream fileInputStream = new FileInputStream(sourceHtml); PdfWriter writer = new PdfWriter(destinationPdf)) {
+           HtmlConverter.convertToPdf(fileInputStream, writer, converterProperties);
+        }
+
+        Assertions.assertNull(new CompareTool().compareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER,
+            "diff_simple_"));
+    }
+
+    @Test
     public void cannotConvertHtmlToDocumentInReadingModeTest() throws IOException {
         Exception exception = Assertions.assertThrows(Html2PdfException.class, () -> {
             PdfDocument pdfDocument = createTempDoc();
