@@ -338,4 +338,14 @@ public class PseudoElementsTest extends ExtendedHtmlConversionITextTest {
     public void pseudoElementsWithMarginTest() throws IOException, InterruptedException {
         convertToPdfAndCompare("pseudoElementsWithMargin", SOURCE_FOLDER, DESTINATION_FOLDER);
     }
+
+    @Test
+    public void beforeWithStaticTextPaddingMarginTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("beforeWithStaticTextPaddingMargin", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
+
+    @Test
+    public void afterWithStaticTextPaddingMarginTest() throws IOException, InterruptedException {
+        convertToPdfAndCompare("afterWithStaticTextPaddingMargin", SOURCE_FOLDER, DESTINATION_FOLDER);
+    }
 }

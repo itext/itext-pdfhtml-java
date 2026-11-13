@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+
+@page {
+@top-right {
+ content: "Page " counter(page) " of " counter(pages);
+ padding:20px;
+} }
+
+    body {
+     counter-reset: h1;
+
+    }
+    h1 {
+     counter-reset: h2;
+    }
+
+h1::before{
+counter-increment:h1;
+content:counter(h1,lower-alpha)":";
+padding-right: 20px;}
+
+h2::before{
+counter-increment:h2;
+content:counter(h1,lower-alpha)"."counter(h2,decimal)":";
+margin-right: 10px;}
+
+  </style>
+</head>
+<body>
+<h1>title 1</h1>
+<h2>subtitle a</h2>
+<h2>subtitle b</h2>
+<h1>title 2</h1>
+<h2>subtitle a</h2>
+<h2>subtitle b</h2>
+<h1>title 3</h1>
+<h2>subtitle a</h2>
+<h2>subtitle b</h2>
+
+</body>
+</html>
